@@ -1,0 +1,8 @@
+create method/1e-10/
+create class/1e-30/
+create project/1e-20/
+create package/1e-20/
+create integer/1e-10/
+go to line/1e-30/
+four/1e-5/
+six/1e-5/

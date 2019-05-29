@@ -1,0 +1,28 @@
+#JSGF V1.0;
+
+/**
+ * JSGF Grammar 
+ */
+
+grammar grammar;
+
+public <utterance> = <command>;
+
+<command> = <creation> | <modification> | <deletion> | <navigation>
+
+<creation> = <creationVerb> [<accessModifier>] [static] [final] [abstract] <structure>;
+<accessModifier> = public | private | protected;
+<structure> = project | package | class | interface | method | <primitiveType> | <advancedType> | if statement | while loop | for loop | parameter;
+
+<modification> = <modificationVerb> [<structure>] [<nameWord>]
+
+<modificationVerb> = initialize | implement | extend | make | move | add;
+
+<deletion> = <deleteVerb> [<structure>] [<nameWord>]
+
+<nameWord> = name | named | called
+
+<primitiveType> = integer | boolean | double | float | string | void;
+
+
+

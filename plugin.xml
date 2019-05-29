@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="toolbar:org.eclipse.ui.main.toolbar">
+         <toolbar
+               id="at.ooe.fh.mc.codespeech.toolbar">
+            <command
+                  commandId="at.ooe.fh.mc.codespeech.toggleSpeechRecognition"
+                  icon="rsc/icon/voice-icon3.png"
+                  label="SR"
+                  style="push">
+            </command>
+         </toolbar>
+      </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="menu:org.eclipse.ui.main.menu">
+         <menu
+               label="EnterCommand">
+            <command
+                  commandId="at.ooe.fh.mc.codespeech.plugin.EnterCommand"
+                  style="push">
+            </command>
+         </menu>
+      </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            defaultHandler="at.ooe.fh.mc.codespeech.plugin.commands.ToggleSpeechRecognitionHandler"
+            id="at.ooe.fh.mc.codespeech.toggleSpeechRecognition"
+            name="ToggleSpeechRecognition">
+      </command>
+      <command
+            defaultHandler="at.ooe.fh.mc.codespeech.plugin.commands.EnterCommandHandler"
+            id="at.ooe.fh.mc.codespeech.plugin.EnterCommand"
+            name="EnterCommand">
+      </command>
+   </extension>
+	<extension point="org.eclipse.ui.bindings">
+		<key sequence="Alt+E"
+			commandId="at.ooe.fh.mc.codespeech.plugin.EnterCommand"
+			schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"/>
+	</extension>
+</plugin>
