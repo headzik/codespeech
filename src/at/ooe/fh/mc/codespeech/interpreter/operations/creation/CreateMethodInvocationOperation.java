@@ -48,7 +48,6 @@ public class CreateMethodInvocationOperation implements Operation {
 					
 				    UIManager.updateCompilationUnit(te);
 
-				    //some change
 				    
 //					ISourceRange range = UIManager.getICompilationUnit().getSourceRange();
 //					int start  = range.getOffset();
