@@ -11,6 +11,7 @@ public class VariableModel extends Model implements WithPhrase {
 	public boolean isFinal;
 	public boolean isStatic;
 	public boolean isPrimitive;
+	public boolean isArray;
 	public Code type;
 	public AccessModifier accessModifier;
 	public String simpleType = "";

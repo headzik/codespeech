@@ -13,6 +13,7 @@ import org.eclipse.jdt.core.dom.FieldDeclaration;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.Modifier;
 import org.eclipse.jdt.core.dom.ReturnStatement;
+import org.eclipse.jdt.core.dom.Type;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 import org.eclipse.jdt.core.dom.VariableDeclarationStatement;
@@ -57,13 +58,23 @@ public class CreateVariableOperation implements Operation {
 								}
 								
 								FieldDeclaration fieldDeclaration = ast.newFieldDeclaration(declarationFragment);
-								fieldDeclaration.setType(ast.newPrimitiveType(variableModel.getType()));
-
+								
+								//TODO: array type
+								Type type;
+								if(variableModel.isArray) {
+									type = ast.newArrayType(ast.newPrimitiveType(variableModel.getType()));
+								} else {
+									type = ast.newPrimitiveType(variableModel.getType());
+								}
+								
+								fieldDeclaration.setType(type);
+								
 								if(variableModel.isPrimitive) {
 									fieldDeclaration.setType(ast.newPrimitiveType(variableModel.getType()));
 								} else if (!variableModel.simpleType.isEmpty()) {
 									fieldDeclaration.setType(ast.newSimpleType(ast.newSimpleName(variableModel.simpleType)));
 						        }
+								
 								
 								List<Modifier> modifiers = fieldDeclaration.modifiers();
 

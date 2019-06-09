@@ -217,4 +217,21 @@ public class StringUtils {
 	public static String toDotSeparated(String stringToModify) {
 		return stringToModify.trim().toLowerCase().replace(" ", ".");
 	}
+
+	public static int getNumber(String text) {
+		int number = -1;
+		if(StringUtils.isNumeric(text)) {
+			try {
+				number = Integer.parseInt(text);
+			} catch (NumberFormatException e) {
+				e.printStackTrace();				
+			}
+		} else {
+			int numeric = WordToNumber.convert(text);
+			if(numeric >= 0) {
+				number = numeric;
+			}
+		}
+		return number;
+	}
 }

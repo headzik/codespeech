@@ -22,21 +22,14 @@ public class NavigationListener extends BaseKeywordListener {
 	public void enterNumber(NumberContext ctx) {
 		super.enterNumber(ctx);
 
+		//TODO: to operation
 		Display.getDefault().asyncExec(new Runnable() {
 			@Override
 			public void run() {
 				String text = ctx.getText().trim();
-				if(StringUtils.isNumeric(text)) {
-					try {
-						UIManager.moveToLine(Integer.parseInt(text) - 1);
-					} catch (NumberFormatException e) {
-						e.printStackTrace();				
-					}
-				} else {
-					int numeric = WordToNumber.convert(text);
-					if(numeric >=0) {
-						UIManager.moveToLine(numeric - 1);
-					}
+				int lineNumber = StringUtils.getNumber((text)) - 1;
+				if(lineNumber > 0) {
+					UIManager.moveToLine(lineNumber);
 				}
 			}
 		});

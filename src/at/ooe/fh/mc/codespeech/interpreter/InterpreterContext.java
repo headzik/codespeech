@@ -18,6 +18,7 @@ public class InterpreterContext {
 	public boolean isFinal;
 	public boolean isStatic;
 	public boolean isPrimitiveType;
+	public boolean isArray;
 	public AccessModifier accessModifier;
 	public String simpleType;
 	public PrimitiveType.Code primitiveType;

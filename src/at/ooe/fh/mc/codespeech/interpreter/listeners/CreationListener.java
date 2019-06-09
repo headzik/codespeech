@@ -4,6 +4,7 @@ import org.eclipse.jdt.core.dom.PrimitiveType;
 
 import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.AbstractKeywordContext;
 import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.AccessModifierContext;
+import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.ArrayKeywordContext;
 import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.BooleanKeywordContext;
 import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.ByteKeywordContext;
 import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.CharKeywordContext;
@@ -128,6 +129,7 @@ public class CreationListener extends BaseKeywordListener {
 		model.isFinal = context.isFinal;
 		model.isStatic = context.isStatic;
 		model.accessModifier = context.accessModifier;
+		model.isArray = context.isArray;
 		changeProperty(model);
 		changeOperation(new CreateVariableOperation());
 	}
@@ -206,7 +208,7 @@ public class CreationListener extends BaseKeywordListener {
 	public void exitCreation(CreationContext ctx) {
 		super.exitCreation(ctx);
 		
-		context.finish();
+		//context.finish();
 	}
 	
 	@Override
@@ -260,5 +262,12 @@ public class CreationListener extends BaseKeywordListener {
 		ConditionalModel model = new ConditionalModel();
 		changeProperty(model);
 		changeOperation(new CreateWhileLoopOperation());
+	}
+	
+	@Override
+	public void enterArrayKeyword(ArrayKeywordContext ctx) {
+		super.enterArrayKeyword(ctx);
+		
+		context.isArray = true;
 	}
 }

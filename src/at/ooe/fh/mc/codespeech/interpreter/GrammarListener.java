@@ -248,6 +248,16 @@ public interface GrammarListener extends ParseTreeListener {
 	 */
 	void exitParametersKeyword(GrammarParser.ParametersKeywordContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link GrammarParser#variableType}.
+	 * @param ctx the parse tree
+	 */
+	void enterVariableType(GrammarParser.VariableTypeContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GrammarParser#variableType}.
+	 * @param ctx the parse tree
+	 */
+	void exitVariableType(GrammarParser.VariableTypeContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link GrammarParser#changeReturnType}.
 	 * @param ctx the parse tree
 	 */

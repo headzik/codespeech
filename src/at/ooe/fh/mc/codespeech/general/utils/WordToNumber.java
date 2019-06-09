@@ -20,6 +20,7 @@ public class WordToNumber {
 					);
 
 
+	//TODO: change -1 to exception
 	public static int convert(String numericWordToConvert) {
 		finalResult = 0;
 		result = 0;
