@@ -31,76 +31,79 @@ import at.ooe.fh.mc.codespeech.plugin.utils.UIManager;
 public class CreateMethodOperation implements Operation {
 
 	@Override
-	public void perform(Model model) {
-		if(model instanceof MethodModel) {
-			MethodModel methodModel = (MethodModel) model;
-			new UIJob("CreateMethod") {
+	public void perform(Object property) {
+		if(property instanceof MethodModel) {
+			MethodModel methodModel = (MethodModel) property;
 
-				@Override
-				public IStatus runInUIThread(IProgressMonitor monitor) {
+			try {
+				ASTNode node = Context.currentNode;
+				if (node != null) {
 
-					try {
-						ASTNode node = Context.currentNode;
-						if (node != null) {
+					while(!(node instanceof TypeDeclaration)) {					
+						node = node.getParent();
+					}
 
-							while(!(node instanceof TypeDeclaration)) {					
-								node = node.getParent();
-							}
+					TypeDeclaration typeDeclaration = (TypeDeclaration) node;
 
-							AST ast = node.getAST();		
-							ASTRewrite rewriter = ASTRewrite.create(ast);
+					AST ast = node.getAST();		
+					ASTRewrite rewriter = ASTRewrite.create(ast);
 
-							MethodDeclaration methodDeclaration = ast.newMethodDeclaration();		
-							List<Modifier> modifiers = methodDeclaration.modifiers();
+					MethodDeclaration methodDeclaration = ast.newMethodDeclaration();		
+					List<Modifier> modifiers = methodDeclaration.modifiers();
 
-							if(methodModel.accessModifier != null) {
-								modifiers.add(ast.newModifier(AccessModifier.toASTNodeKeyword(methodModel.accessModifier)));
-							}							
-							if(methodModel.isAbstract) {
-								modifiers.add(ast.newModifier(Modifier.ModifierKeyword.ABSTRACT_KEYWORD));
-							}							
-							if(methodModel.isStatic) {
-								modifiers.add(ast.newModifier(Modifier.ModifierKeyword.STATIC_KEYWORD));
-							}		
-							if(methodModel.isFinal) {
-								modifiers.add(ast.newModifier(Modifier.ModifierKeyword.FINAL_KEYWORD));
-							}	
+					if(methodModel.accessModifier != null) {
+						modifiers.add(ast.newModifier(AccessModifier.toASTNodeKeyword(methodModel.accessModifier)));
+					}							
+					if(methodModel.isAbstract) {
+						modifiers.add(ast.newModifier(Modifier.ModifierKeyword.ABSTRACT_KEYWORD));
+					}							
+					if(methodModel.isStatic) {
+						modifiers.add(ast.newModifier(Modifier.ModifierKeyword.STATIC_KEYWORD));
+					}		
+					if(methodModel.isFinal) {
+						modifiers.add(ast.newModifier(Modifier.ModifierKeyword.FINAL_KEYWORD));
+					}	
 
-							Block block = ast.newBlock();
-							block.statements().add(ast.newEmptyStatement());
-							methodDeclaration.setBody(block);	
-							
-							methodDeclaration.setName(ast.newSimpleName(methodModel.name));
-							if(methodModel.isPrimitive) {
-								methodDeclaration.setReturnType2(ast.newPrimitiveType(methodModel.primitiveType));
-							} else if (!methodModel.simpleType.isEmpty()) {
-								methodDeclaration.setReturnType2(ast.newSimpleType(ast.newSimpleName(methodModel.simpleType)));
-								ReturnStatement returnStatement = ast.newReturnStatement();
-								returnStatement.setExpression(ast.newNumberLiteral());
-								block.statements().add(returnStatement);
-					        }							
+					if(canHaveBody(typeDeclaration, methodModel)) {
+						Block block = ast.newBlock();
+						block.statements().add(ast.newEmptyStatement());
+						methodDeclaration.setBody(block);	
+					}
 
-							ListRewrite listRewrite = rewriter.getListRewrite(node, TypeDeclaration.BODY_DECLARATIONS_PROPERTY);
-							//ASTNode nextNode = UIManager.getChildAfterCurrentLine(node, BodyDeclaration.class);
-						//	if(nextNode != null && !node.equals(nextNode)) {
-								//listRewrite.insertAfter(methodDeclaration, nextNode, null);	
-							//} else {
-								listRewrite.insertLast(methodDeclaration, null);
-							//}
 
-							UIManager.updateCompilationUnit(rewriter.rewriteAST());
-							UIManager.moveToNode(methodDeclaration);
+					methodDeclaration.setName(ast.newSimpleName(methodModel.name));
+//					if(methodModel.isPrimitive) {
+//						methodDeclaration.setReturnType2(ast.newPrimitiveType(methodModel.primitiveType));
+//					} else if (!methodModel.simpleType.isEmpty()) {
+//						methodDeclaration.setReturnType2(ast.newSimpleType(ast.newSimpleName(methodModel.simpleType)));
+//						ReturnStatement returnStatement = ast.newReturnStatement();
+//						returnStatement.setExpression(ast.newNumberLiteral());
+//						block.statements().add(returnStatement);
+//					}							
 
-							return Status.OK_STATUS;
-						}
-					} catch(JavaModelException | IllegalArgumentException | BadLocationException exception) {
-						exception.printStackTrace();
-					} 
+					ListRewrite listRewrite = rewriter.getListRewrite(node, TypeDeclaration.BODY_DECLARATIONS_PROPERTY);
+					ASTNode nextNode = UIManager.getChildAfterCurrentLine(node, BodyDeclaration.class);
+					if(nextNode != null && !node.equals(nextNode)) {
+						listRewrite.insertBefore(methodDeclaration, nextNode, null);	
+					} else {
+						listRewrite.insertLast(methodDeclaration, null);
+					}
 
-					return Status.CANCEL_STATUS;
+					UIManager.updateCompilationUnit(rewriter.rewriteAST());
+					UIManager.moveToNode(methodDeclaration);
+
 				}
-			}.schedule();
+			} catch(JavaModelException | IllegalArgumentException | BadLocationException exception) {
+				exception.printStackTrace();
+			} 
+
 		}
 	}
+
+	private boolean canHaveBody(TypeDeclaration typeDeclaration, MethodModel methodModel) {
+		return !typeDeclaration.isInterface() ||
+				(typeDeclaration.isInterface() && methodModel.isStatic);
+	}
+
 }
 

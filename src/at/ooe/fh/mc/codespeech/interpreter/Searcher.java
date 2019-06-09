@@ -10,10 +10,9 @@ import org.eclipse.jdt.core.search.SearchRequestor;
 public class Searcher {
 
 	public static void search(SearchPattern pattern,
-						  	  SearchRequestor requestor) {
+						  	  SearchRequestor requestor,
+						  	  IJavaSearchScope scope) {
 		
-		IJavaSearchScope scope = SearchEngine.createWorkspaceScope(); 
-
 		SearchEngine searchEngine = new SearchEngine();
 		try {
 			searchEngine.search(pattern, new SearchParticipant[] {

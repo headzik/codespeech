@@ -18,7 +18,7 @@ public class PackageModel extends Model implements WithPhrase {
 
 	@Override
 	public void setPhrase(String phrase) {
-		this.name = StringUtils.toDotSeparated(name);
+		this.name = StringUtils.toDotSeparated(phrase);
 	}
 		
 	public IPackageFragmentRoot getRoot() {

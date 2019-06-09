@@ -11,7 +11,6 @@ import org.eclipse.jdt.core.dom.Statement;
 import org.eclipse.jdt.core.dom.rewrite.ASTRewrite;
 import org.eclipse.jdt.core.dom.rewrite.ListRewrite;
 
-import at.ooe.fh.mc.codespeech.plugin.utils.ActiveEditorManager;
 import at.ooe.fh.mc.codespeech.plugin.utils.UIManager;
 
 /**

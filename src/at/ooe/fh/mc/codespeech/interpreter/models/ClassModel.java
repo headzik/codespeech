@@ -10,7 +10,7 @@ public class ClassModel extends Model implements WithPhrase {
 	public boolean isAbstract;
 	public boolean isFinal;
 	public boolean isInterface;
-	public boolean isPublic;
+	public boolean isPublic = true;
 	
 	@Override
 	public String getPhrase() {
@@ -19,7 +19,7 @@ public class ClassModel extends Model implements WithPhrase {
 
 	@Override
 	public void setPhrase(String phrase) {
-		this.name = WordUtils.capitalize(name).replace(" ", "").trim();
+		this.name = WordUtils.capitalize(phrase).replace(" ", "").trim();
 	}
 
 	@Override

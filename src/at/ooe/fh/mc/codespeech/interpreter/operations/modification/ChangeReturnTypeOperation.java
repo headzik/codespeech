@@ -23,9 +23,9 @@ import at.ooe.fh.mc.codespeech.plugin.utils.UIManager;
 public class ChangeReturnTypeOperation implements Operation {
 
 	@Override
-	public void perform(Model model) {
-		if(model instanceof MethodModel) {
-			MethodModel methodModel = (MethodModel) model;			
+	public void perform(Object property) {
+		if(property instanceof MethodModel) {
+			MethodModel methodModel = (MethodModel) property;			
 
 			ASTNode node = Context.currentNode;
 			if (node != null) {

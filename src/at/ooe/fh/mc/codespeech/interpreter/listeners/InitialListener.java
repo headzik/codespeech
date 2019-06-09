@@ -1,10 +1,13 @@
 package at.ooe.fh.mc.codespeech.interpreter.listeners;
 
+import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.AdditionContext;
 import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.ChangeReturnTypeKeywordContext;
 import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.CreationVerbContext;
 import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.DeletionContext;
+import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.ImplementationContext;
 import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.InitializeKeywordContext;
 import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.MethodInvocationContext;
+import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.NavigationContext;
 import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.NavigationVerbContext;
 import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.SelectionVerbContext;
 import at.ooe.fh.mc.codespeech.plugin.Context;
@@ -39,8 +42,8 @@ public class InitialListener extends BaseKeywordListener {
 	}
 	
 	@Override
-	public void enterNavigationVerb(NavigationVerbContext ctx) {
-		super.enterNavigationVerb(ctx);
+	public void enterNavigation(NavigationContext ctx) {
+		super.enterNavigation(ctx);
 						
 		context.continueWith(new NavigationListener(context));
 	}
@@ -62,25 +65,28 @@ public class InitialListener extends BaseKeywordListener {
 	@Override
 	public void enterDeletion(DeletionContext ctx) {
 		super.enterDeletion(ctx);
-		
-		//move somewhere?
-		
-		AST ast = Context.currentNode.getAST();		
-		ASTRewrite rewriter = ASTRewrite.create(ast);
-		rewriter.remove(Context.currentNode, null);
-		int lineNumber = UIManager.getLineOfNode(Context.currentNode);
-		try {
-			UIManager.updateCompilationUnit(rewriter.rewriteAST());
-			UIManager.moveToLine(lineNumber);
-		} catch (JavaModelException | IllegalArgumentException | BadLocationException e) {
-			e.printStackTrace();
-		}
+
+		context.continueWith(new DeletionListener(context));
 	}
 	
 	@Override
 	public void enterMethodInvocation(MethodInvocationContext ctx) {
 		super.enterMethodInvocation(ctx);
-		
+				
 		context.continueWith(new MethodInvocationListener(context));
+	}
+	
+	@Override
+	public void enterImplementation(ImplementationContext ctx) {
+		super.enterImplementation(ctx);
+
+		context.continueWith(new ImplementationListener(context));
+	}
+	
+	@Override
+	public void enterAddition(AdditionContext ctx) {
+		super.enterAddition(ctx);
+
+		context.continueWith(new AdditionListener(context));
 	}
 }

@@ -23,10 +23,10 @@ import at.ooe.fh.mc.codespeech.plugin.utils.UIManager;
 public class InitializeVariableOperation implements Operation {
 
 	@Override
-	public void perform(Model model) {
+	public void perform(Object property) {
 
-		if(model instanceof VariableModel) {
-			VariableModel variableModel = (VariableModel) model;
+		if(property instanceof VariableModel) {
+			VariableModel variableModel = (VariableModel) property;
 
 			ASTNode node = Context.currentNode;
 			if (node != null) {
@@ -72,4 +72,5 @@ public class InitializeVariableOperation implements Operation {
 			}	
 		}
 	}
+	
 }

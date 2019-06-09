@@ -13,7 +13,6 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.ISelectionService;
-import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PlatformUI;
 
@@ -28,8 +27,8 @@ public class SelectionService {
 	/**
 	 * Selection service of the current workbench
 	 */
-	private static ISelectionService selectionService =     
-			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getSelectionService(); 
+//	private static ISelectionService selectionService =     
+//			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getSelectionService(); 
 
 	/**
 	 * Selects and reveals given element in the Package explorer 
@@ -37,9 +36,8 @@ public class SelectionService {
 	 * @param element element to select
 	 */
 	public static void selectAndReveal(IJavaElement element) {
-		IWorkbenchPart activePart = PlatformUI.getWorkbench().getActiveWorkbenchWindow()
-				.getActivePage().getActivePart();
-		
+		IWorkbenchPart activePart = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().findView(JavaUI.ID_PACKAGES);
+
 		if(activePart instanceof IPackagesViewPart) {
 			((IPackagesViewPart) activePart).selectAndReveal(element);
 		}
@@ -49,8 +47,7 @@ public class SelectionService {
 	 * Expands the current node in Package Explorer
 	 */
 	public static void expandSelectedTreeItems() {
-		IWorkbenchPart activePart = PlatformUI.getWorkbench().getActiveWorkbenchWindow()
-				.getActivePage().getActivePart();
+		IWorkbenchPart activePart = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().findView(JavaUI.ID_PACKAGES);
 
 		if(activePart instanceof IPackagesViewPart) {
 			TreeViewer treeViewer = ((IPackagesViewPart) activePart).getTreeViewer();
@@ -59,8 +56,24 @@ public class SelectionService {
 			for(int i = 0; i < selections.length; i++) {
 				treeViewer.expandToLevel(selections[i].getData(), 1);
 			}
+		} 
+		
+	}
+	
+	public static IJavaElement getSelectedElement() {	
+		
+		ISelection selection = getSelectionService().getSelection(JavaUI.ID_PACKAGES);
+	
+		if(selection instanceof IStructuredSelection) {    
+			Object element = ((IStructuredSelection)selection).getFirstElement();
+			return (IJavaElement) element;
 		}
 		
+		return null;
+	}
+	
+	private static ISelectionService getSelectionService() {
+		return PlatformUI.getWorkbench().getActiveWorkbenchWindow().getSelectionService();
 	}
 	
 	/**
@@ -72,7 +85,7 @@ public class SelectionService {
 	public static IPackageFragmentRoot getSelectedPackageFragmentRoot() throws JavaModelException {
 		IPackageFragmentRoot packageFragmentRoot = null;
 		
-		ISelection selection = selectionService.getSelection(JavaUI.ID_PACKAGES);
+		ISelection selection = getSelectionService().getSelection(JavaUI.ID_PACKAGES);
 		//for project explorer
 //		if(selection == null) {
 //			selection = selectionService.getSelection("org.eclipse.ui.navigator.ProjectExplorer");
@@ -117,7 +130,7 @@ public class SelectionService {
 	public static IJavaProject getSelectedProject() throws JavaModelException {
 		IJavaProject project = null;
 
-		ISelection selection = selectionService.getSelection(JavaUI.ID_PACKAGES);
+		ISelection selection = getSelectionService().getSelection(JavaUI.ID_PACKAGES);
 		
 		if(selection instanceof IStructuredSelection) {    
 			Object element = ((IStructuredSelection)selection).getFirstElement();   
@@ -138,7 +151,7 @@ public class SelectionService {
 	public static IPackageFragment getSelectedPackage() throws JavaModelException {
 		IPackageFragment packageFragment = null;   
 
-		ISelection selection = selectionService.getSelection(JavaUI.ID_PACKAGES); 
+		ISelection selection = getSelectionService().getSelection(JavaUI.ID_PACKAGES); 
 
 		if(selection instanceof IStructuredSelection) {    
 			Object element = ((IStructuredSelection)selection).getFirstElement();    

@@ -32,9 +32,9 @@ import at.ooe.fh.mc.codespeech.plugin.utils.UIManager;
 public class CreateVariableOperation implements Operation {
 
 	@Override
-	public void perform(Model model) {
-		if(model instanceof VariableModel) {
-			VariableModel variableModel = (VariableModel) model;
+	public void perform(Object property) {
+		if(property instanceof VariableModel) {
+			VariableModel variableModel = (VariableModel) property;
 			new UIJob("CreateVariable") {
 
 				@Override
@@ -115,5 +115,6 @@ public class CreateVariableOperation implements Operation {
 
 		}
 	}
+	
 
 }

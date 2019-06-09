@@ -29,7 +29,7 @@ public class MethodModel extends Model implements WithPhrase {
 
 	@Override
 	public void setPhrase(String phrase) {
-		this.name = StringUtils.toCamelCase(name);
+		this.name = StringUtils.toCamelCase(phrase);
 	}
 	
 	

@@ -20,9 +20,9 @@ import at.ooe.fh.mc.codespeech.plugin.utils.UIManager;
 public class CreateWhileLoopOperation implements Operation {
 
 	@Override
-	public void perform(Model model) {
-		if(model instanceof ConditionalModel) {
-			ConditionalModel ifModel = (ConditionalModel) model;
+	public void perform(Object property) {
+		if(property instanceof ConditionalModel) {
+			ConditionalModel ifModel = (ConditionalModel) property;
 			ASTNode node = Context.currentNode;
 			if (node != null) {
 

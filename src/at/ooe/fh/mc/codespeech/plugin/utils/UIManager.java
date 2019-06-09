@@ -91,26 +91,18 @@ public class UIManager {
 	 * @param lineNumber number of a line where caret should be placed
 	 */
 	public static void moveToLine(int lineNumber) {
+			try {
+				IDocument document = getIDocument();
 
-		new UIJob("MoveToLine") {
+				int offset = document.getLineOffset(lineNumber);
 
-			@Override
-			public IStatus runInUIThread(IProgressMonitor monitor) {
-				try {
-					IDocument document = getIDocument();
+				activeEditor.selectAndReveal(offset, 0);
 
-					int offset = document.getLineOffset(lineNumber);
+				Context.currentNode = getNode();
 
-					activeEditor.selectAndReveal(offset, 0);
-
-					Context.currentNode = getNode();
-
-				} catch (BadLocationException | JavaModelException exception  ) {
-					exception.printStackTrace();
-				}
-				return Status.OK_STATUS;
+			} catch (BadLocationException | JavaModelException exception  ) {
+				exception.printStackTrace();
 			}
-		}.schedule();
 	}
 
 	/**
@@ -127,7 +119,7 @@ public class UIManager {
 			@Override
 			public boolean preVisit2(ASTNode node) {
 
-				boolean match = matcher.safeSubtreeMatch(node, nodeToFind);
+ 				boolean match = matcher.safeSubtreeMatch(node, nodeToFind);
 				if(match) {
 					moveToLine(compilationUnit.getLineNumber(node.getStartPosition()) - 1);
 				}
@@ -135,10 +127,10 @@ public class UIManager {
 			}
 		});
 	}
-	
+
 	public static int getLineOfNode(ASTNode node) {
 		ASTMatcher matcher = new ASTMatcher();
-		
+
 		CompilationUnit compilationUnit = ASTManager.getCompilationUnitAST(getICompilationUnit());
 		compilationUnit.accept(new ASTVisitor() {
 
@@ -189,13 +181,12 @@ public class UIManager {
 				try {
 					file = (IFile) compilationUnit.getCorrespondingResource();
 
-					SelectionService.selectAndReveal(compilationUnit);	
+					revealInPackageExplorer(compilationUnit);	
 					IDE.openEditor(page, file);
 
 					Context.currentNode = getNode();
 					Context.currentNode = getChildAfterCurrentLine(Context.currentNode, TypeDeclaration.class);
 				} catch (JavaModelException | PartInitException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 
@@ -263,55 +254,48 @@ public class UIManager {
 			}	
 		});
 
+		if(parentNode.isEmpty()) {
+			parentNode.add(astRoot);
+		}
+		
 		return nodeInLine.isEmpty() ? parentNode.get(0) : nodeInLine.get(0);
 	}
 
 	public static void revealInPackageExplorer(Object element) {
-		Display.getDefault().asyncExec(new Runnable() {
-			@Override
-			public void run() {
-				IWorkbenchPart activePart = PlatformUI.getWorkbench()
-						.getActiveWorkbenchWindow().getActivePage().getActivePart();		
+		IWorkbenchPart activePart = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().findView(JavaUI.ID_PACKAGES);		
 
-				if(activePart instanceof IPackagesViewPart) {
-					TreeViewer treeViewer = ((IPackagesViewPart) activePart).getTreeViewer();
-					selectAndReveal(treeViewer, element);
-				}
-			}
-		});
+		if(activePart instanceof IPackagesViewPart) {
+			TreeViewer treeViewer = ((IPackagesViewPart) activePart).getTreeViewer();
+			selectAndReveal(treeViewer, element);
+		}
 	}
 
 	public static void revealInPackageExplorer(String name) {
-		Display.getDefault().asyncExec(new Runnable() {
-			@Override
-			public void run() {
-				IWorkbenchPart activePart = PlatformUI.getWorkbench()
-						.getActiveWorkbenchWindow().getActivePage().getActivePart();	
+		IWorkbenchPart activePart = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().findView(JavaUI.ID_PACKAGES);
 
-				if(activePart instanceof IPackagesViewPart) {
-					TreeViewer treeViewer = ((IPackagesViewPart) activePart).getTreeViewer();
+		if(activePart instanceof IPackagesViewPart) {
+			TreeViewer treeViewer = ((IPackagesViewPart) activePart).getTreeViewer();
 
-					// TODO: think of something better
-					TreeItem [] items = treeViewer.getTree().getItems();
-					for(int i = 0; i < items.length; i++) {
-						if(items[i].getText().equals(name)) {
-							selectAndReveal(treeViewer, items[i].getData());
-							TreeItem [] children = items[i].getItems();
-							for(int j = 0; j < children.length; j++) {
-								if(children[j].getText().equals("src")) {
-									selectAndReveal(treeViewer, children[j].getData());
-								}
-							}
-							break;
+			// TODO: think of something better
+			TreeItem [] items = treeViewer.getTree().getItems();
+			for(int i = 0; i < items.length; i++) {
+				if(items[i].getText().equals(name)) {
+					selectAndReveal(treeViewer, items[i].getData());
+					TreeItem [] children = items[i].getItems();
+					for(int j = 0; j < children.length; j++) {
+						if(children[j].getText().equals("src")) {
+							treeViewer.expandToLevel(children[j].getData(), 1);
 						}
 					}
+					break;
 				}
 			}
-		});
+		}
 	}
 
 	private static void selectAndReveal(TreeViewer treeViewer, Object element) {
 		treeViewer.expandToLevel(element, 1);
 		treeViewer.setSelection(new StructuredSelection(element));
 	}
+
 }

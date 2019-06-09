@@ -31,10 +31,10 @@ public class ChangeReturnTypeKeywordListener extends BaseKeywordListener {
 		model.isPrimitive = context.isPrimitiveType;
 		model.primitiveType = context.primitiveType;
 		model.simpleType = context.simpleType;
-		changeModel(model);
+		changeProperty(model);
 		changeOperation(new ChangeReturnTypeOperation());
 		
-		context.finish();
+		//context.finish();
 	}
 	
 	@Override

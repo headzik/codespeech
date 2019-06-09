@@ -20,7 +20,7 @@ public class InitializationListener extends BaseKeywordListener {
 		VariableModel model = new VariableModel();
 		model.initializator = ctx.getText().trim();
 		
-		changeModel(model);
+		changeProperty(model);
 
 	}
 
@@ -31,7 +31,7 @@ public class InitializationListener extends BaseKeywordListener {
 		
 		changeOperation(new InitializeVariableOperation());
 		
-		context.finish();
+		//context.finish();
 	}
 
 }

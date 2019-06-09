@@ -36,22 +36,8 @@ public class InterpreterContext {
 
 	public void setCurrentListener(BaseKeywordListener newListener) {
 		currentListener = newListener;
-
-//		if(command.isReady()) {
-//			interpreter.finish();
-//		} else {
-//			interpreter.interpret(remainingUtterance);
-//		}
 	}
-
-//	public String getRemainingUtterance() {
-//		//return remainingUtterance;
-//	}
-//
-//	public void setRemainingUtterance(String remainingUtterance) {
-//		//this.remainingUtterance = remainingUtterance;
-//	}
-	
+		
 	public Command getCommand() {
 		return command;
 	}

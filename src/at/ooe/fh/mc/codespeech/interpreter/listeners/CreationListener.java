@@ -74,7 +74,7 @@ public class CreationListener extends BaseKeywordListener {
 	public void enterProjectKeyword(ProjectKeywordContext ctx) {
 		super.enterProjectKeyword(ctx);
 
-		changeModel(new ProjectModel());
+		changeProperty(new ProjectModel());
 		changeOperation(new CreateProjectOperation());
 	}
 	
@@ -82,7 +82,7 @@ public class CreationListener extends BaseKeywordListener {
 	public void enterPackageKeyword(PackageKeywordContext ctx) {
 		super.enterPackageKeyword(ctx);
 
-		changeModel(new PackageModel());
+		changeProperty(new PackageModel());
 		changeOperation(new CreatePackageOperation());
 	}
 	
@@ -97,7 +97,7 @@ public class CreationListener extends BaseKeywordListener {
 		model.isFinal = context.isFinal;
 		model.isAbstract = context.isAbstract;
 				
-		changeModel(model);
+		changeProperty(model);
 		changeOperation(new CreateClassOperation());
 	}
 
@@ -112,7 +112,7 @@ public class CreationListener extends BaseKeywordListener {
 		model.isStatic = context.isStatic;
 		model.isAbstract = context.isAbstract;
 		
-		changeModel(model);		
+		changeProperty(model);		
 		changeOperation(new CreateMethodOperation());
 	}
 	
@@ -128,7 +128,7 @@ public class CreationListener extends BaseKeywordListener {
 		model.isFinal = context.isFinal;
 		model.isStatic = context.isStatic;
 		model.accessModifier = context.accessModifier;
-		changeModel(model);
+		changeProperty(model);
 		changeOperation(new CreateVariableOperation());
 	}
 	
@@ -221,7 +221,7 @@ public class CreationListener extends BaseKeywordListener {
 		model.isAbstract = context.isAbstract;
 		model.isInterface = true;
 				
-		changeModel(model);
+		changeProperty(model);
 		changeOperation(new CreateClassOperation());
 	}
 	
@@ -231,7 +231,7 @@ public class CreationListener extends BaseKeywordListener {
 		super.enterIfStatementKeyword(ctx);
 		
 		ConditionalModel model = new ConditionalModel();
-		changeModel(model);
+		changeProperty(model);
 		changeOperation(new CreateIfStatementOperation());
 	}
 	
@@ -240,7 +240,7 @@ public class CreationListener extends BaseKeywordListener {
 		super.enterElseStatementKeyword(ctx);		
 		
 		ConditionalModel model = new ConditionalModel();
-		changeModel(model);
+		changeProperty(model);
 		changeOperation(new CreateElseStatementOperation());
 	}
 	
@@ -249,7 +249,7 @@ public class CreationListener extends BaseKeywordListener {
 		super.enterWhileLoopKeyword(ctx);
 		
 		ConditionalModel model = new ConditionalModel();
-		changeModel(model);
+		changeProperty(model);
 		changeOperation(new CreateWhileLoopOperation());
 	}
 	
@@ -258,7 +258,7 @@ public class CreationListener extends BaseKeywordListener {
 		super.enterForLoopKeyword(ctx);
 
 		ConditionalModel model = new ConditionalModel();
-		changeModel(model);
+		changeProperty(model);
 		changeOperation(new CreateWhileLoopOperation());
 	}
 }

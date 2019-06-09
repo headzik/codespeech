@@ -1,15 +1,11 @@
 package at.ooe.fh.mc.codespeech.interpreter.operations.creation;
 
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Status;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.progress.UIJob;
 
 import at.ooe.fh.mc.codespeech.interpreter.models.ClassModel;
 import at.ooe.fh.mc.codespeech.interpreter.models.Model;
@@ -20,59 +16,51 @@ import at.ooe.fh.mc.codespeech.plugin.utils.UIManager;
 public class CreateClassOperation implements Operation {
 
 	@Override
-	public void perform(Model model) {
-		if(model instanceof ClassModel) {
-			ClassModel classModel = (ClassModel) model;
-			new UIJob("CreateClass") {
+	public void perform(Object property) {
+		if(property instanceof ClassModel) {
+			ClassModel classModel = (ClassModel) property;
 
-				@Override
-				public IStatus runInUIThread(IProgressMonitor monitor) {
-					ICompilationUnit iCompilationUnit = null;
+			ICompilationUnit iCompilationUnit = null;
 
-					try {
-						IPackageFragment packageFragment = SelectionService.getSelectedPackage(); 	
-						if(packageFragment != null) {
+			try {
+				IPackageFragment packageFragment = SelectionService.getSelectedPackage(); 	
+				if(packageFragment != null) {
 
-							StringBuffer buffer = new StringBuffer();
-							if(!packageFragment.getElementName().isEmpty()) {
-								buffer.append("package " + packageFragment.getElementName() + ";\n");
-							}
-							buffer.append("\n");
-							if(classModel.isPublic) {
-								buffer.append("public ");
-							}
-							if(classModel.isAbstract) {
-								buffer.append("abstract ");
-							} else if(classModel.isFinal) {
-								buffer.append("final ");
-							}
-							
-							if(classModel.isInterface) {
-								buffer.append("interface ");
-							} else {
-								buffer.append("class ");
-							}
-							
-							buffer.append(classModel.name + " { \n");
-							buffer.append("\n");
-							buffer.append("}");
-							iCompilationUnit = packageFragment.createCompilationUnit(classModel.name + ".java", buffer.toString(), false, null);
-							
-							UIManager.openNewEditor(iCompilationUnit);
-
-					} else {
-						MessageDialog.openError(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), 
-								"Error", "Cannot create class, select destination project/package first!");
+					StringBuffer buffer = new StringBuffer();
+					if(!packageFragment.getElementName().isEmpty()) {
+						buffer.append("package " + packageFragment.getElementName() + ";\n");
 					}
-				} catch(JavaModelException | PartInitException exception) {
-					exception.printStackTrace();
-				} 
-				return Status.OK_STATUS;
-			}
-		}.schedule();
+					buffer.append("\n");
+					if(classModel.isPublic) {
+						buffer.append("public ");
+					}
+					if(classModel.isAbstract) {
+						buffer.append("abstract ");
+					} else if(classModel.isFinal) {
+						buffer.append("final ");
+					}
 
+					if(classModel.isInterface) {
+						buffer.append("interface ");
+					} else {
+						buffer.append("class ");
+					}
+
+					buffer.append(classModel.name + " { \n");
+					buffer.append("\n");
+					buffer.append("}");
+					iCompilationUnit = packageFragment.createCompilationUnit(classModel.name + ".java", buffer.toString(), false, null);
+								
+					UIManager.openNewEditor(iCompilationUnit);
+
+				} else {
+					MessageDialog.openError(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), 
+							"Error", "Cannot create class, select destination project/package first!");
+				}
+			} catch(JavaModelException | PartInitException exception) {
+				exception.printStackTrace();
+			} 
+		}
 	}
-}
-
 
 }

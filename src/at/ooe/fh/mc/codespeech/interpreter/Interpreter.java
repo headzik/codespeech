@@ -76,9 +76,9 @@ public class Interpreter {
 	}
 
 	public void finish() {
-		if(context.command.isReady()) {
-			handler.post(new InterpretationFinishedEvent(listeners, context.getCommand()));
-		}
+		//if(context.command.isReady()) {
+		handler.post(new InterpretationFinishedEvent(listeners, context.getCommand()));
+		//}
 		context = new InterpreterContext(this);
 	}
 }

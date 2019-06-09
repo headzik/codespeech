@@ -23,6 +23,7 @@ public abstract class BaseKeywordListener extends GrammarBaseListener {
 	public void enterCancel(CancelContext ctx) {
 		super.enterCancel(ctx);
 				
+		context.finish();
 		context.setCurrentListener(new InitialListener(context));
 	}
 	
@@ -34,28 +35,31 @@ public abstract class BaseKeywordListener extends GrammarBaseListener {
 	}
 
 	
-	protected void changeModel(Model model) {
+	protected void changeProperty(Object object) {
 		Command command = context.getCommand();
-		command.setModel(model);		
+		command.setProperty(object);		
 	}
 	
 	protected void changePhrase(String text) {
-		Command command = context.getCommand();                   
-		WithPhrase model = (WithPhrase) command.getModel();   
-		if(model != null) {		
-			String phrase = text;            
-	        
-			if(phrase.isEmpty()) {                                      
-				return;                                               
-			}   
-			
-			model.setPhrase(phrase);	
-			command.setModel((Model) model);
+		Command command = context.getCommand();      
+		Object property = command.getProperty();
+		if(property instanceof WithPhrase) {
+			WithPhrase model = (WithPhrase) command.getProperty();   
+			if(model != null) {		
+				String phrase = text;            
+		        
+				if(phrase.isEmpty()) {                                      
+					return;                                               
+				}   
+				
+				model.setPhrase(phrase);	
+				command.setProperty((Model) model);
+			}
 		}
 	}
 	
-	protected Model getModel() {
-		return context.getCommand().getModel();
+	protected Object getProperty() {
+		return context.getCommand().getProperty();
 	}
 	
 	protected void changeOperation(Operation operation) {
@@ -63,7 +67,12 @@ public abstract class BaseKeywordListener extends GrammarBaseListener {
 		command.setOperation(operation);
 	}
 	
-	
+	@Override
+	public void exitCommand(CommandContext ctx) {
+		super.exitCommand(ctx);
+		
+		context.finish();
+	}
 //	private void storeRemainingUtterance(ParserRuleContext ctx) {
 //		Token stop = ctx.getStop();
 //		if(stop == null) return;

@@ -13,7 +13,7 @@ public class ProjectModel extends Model implements WithPhrase {
 
 	@Override
 	public void setPhrase(String phrase) {
-		this.name = StringUtils.toPascalCase(name);
+		this.name = StringUtils.toPascalCase(phrase);
 	}
 
 	@Override

@@ -26,33 +26,26 @@ import at.ooe.fh.mc.codespeech.interpreter.models.Model;
 import at.ooe.fh.mc.codespeech.interpreter.models.ProjectModel;
 import at.ooe.fh.mc.codespeech.interpreter.operations.Operation;
 import at.ooe.fh.mc.codespeech.plugin.utils.SelectionService;
+import at.ooe.fh.mc.codespeech.plugin.utils.UIManager;
 
 public class CreateProjectOperation implements Operation {
 
 	@Override
-	public void perform(Model model) {	
-		if(model instanceof ProjectModel) {
-			ProjectModel projectModel = (ProjectModel) model;
-			
-			new UIJob("CreateProject") {
-				
-				@Override
-				public IStatus runInUIThread(IProgressMonitor monitor) {
-					try {
-					IProject project = createProject(projectModel.name);		
-					setProjectNatureToJava(project);		
-					IJavaProject javaProject = JavaCore.create(project); 		
-					setOutputLocation(javaProject, project.getFolder("bin"));		
-					defineClassPathEntries(javaProject);				
-					createAndAddSourceFolder(project, javaProject);
-					SelectionService.selectAndReveal(javaProject);
-					SelectionService.expandSelectedTreeItems();
-					} catch(CoreException exception) {
-						exception.printStackTrace();
-					}
-					return Status.OK_STATUS;
-				}
-			}.schedule();
+	public void perform(Object property) {	
+		if(property instanceof ProjectModel) {
+			ProjectModel projectModel = (ProjectModel) property;
+
+			try {
+				IProject project = createProject(projectModel.name);		
+				setProjectNatureToJava(project);		
+				IJavaProject javaProject = JavaCore.create(project); 		
+				setOutputLocation(javaProject, project.getFolder("bin"));		
+				defineClassPathEntries(javaProject);				
+				createAndAddSourceFolder(project, javaProject);
+				UIManager.revealInPackageExplorer(javaProject);
+			} catch(CoreException exception) {
+				exception.printStackTrace();
+			}
 		}		
 	}
 
@@ -69,7 +62,7 @@ public class CreateProjectOperation implements Operation {
 		description.setNatureIds(new String[] { JavaCore.NATURE_ID });		
 		project.setDescription(description, null);
 	}
-	
+
 	private void setOutputLocation(IJavaProject javaProject, IFolder binFolder)
 			throws CoreException, JavaModelException {
 		binFolder.create(false, true, null);
@@ -92,7 +85,7 @@ public class CreateProjectOperation implements Operation {
 		//create src folder
 		IFolder sourceFolder = project.getFolder("src");
 		sourceFolder.create(false, true, null);
-		
+
 		//add source folder to class entries of the project
 		IPackageFragmentRoot root = javaProject.getPackageFragmentRoot(sourceFolder);
 		IClasspathEntry[] oldEntries = javaProject.getRawClasspath();
@@ -101,5 +94,6 @@ public class CreateProjectOperation implements Operation {
 		newEntries[oldEntries.length] = JavaCore.newSourceEntry(root.getPath());
 		javaProject.setRawClasspath(newEntries, null);
 	}
-	
+
+
 }

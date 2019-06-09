@@ -5,8 +5,10 @@ import at.ooe.fh.mc.codespeech.interpreter.InterpreterContext;
 import at.ooe.fh.mc.codespeech.interpreter.models.MethodInvocationModel;
 import at.ooe.fh.mc.codespeech.interpreter.models.Model;
 import at.ooe.fh.mc.codespeech.interpreter.operations.creation.CreateMethodInvocationOperation;
+import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.ClassKeywordContext;
 import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.MethodInvocationContext;
-import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.MethodNameContext;
+import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.MethodNamesContext;
+import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.ObjectKeywordContext;
 import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.VariableNameContext;
 
 public class MethodInvocationListener extends BaseKeywordListener {
@@ -14,28 +16,55 @@ public class MethodInvocationListener extends BaseKeywordListener {
 	MethodInvocationListener(InterpreterContext context) {
 		super(context);
 	}
+
+	@Override
+	public void enterMethodInvocation(MethodInvocationContext ctx) {
+		super.enterMethodInvocation(ctx);
+
+		if(context.getCommand().getProperty() == null) {
+			changeProperty(new MethodInvocationModel());
+		}
+	}
 	
 	@Override
-	public void enterMethodName(MethodNameContext ctx) {
-		super.enterMethodName(ctx);
+	public void enterMethodNames(MethodNamesContext ctx) {
+		super.enterMethodNames(ctx);
 
-		Model model = context.getCommand().getModel();
-		if(model == null || !(model instanceof MethodInvocationModel)) {
-			model = new MethodInvocationModel();
-			changeModel(model);
+		Object property = context.getCommand().getProperty();
+		if(property instanceof MethodInvocationModel) {
+		
+			MethodInvocationModel invocationModel = (MethodInvocationModel) property;
+			
+			String stringToParse = ctx.getText().replace(".", " . ") + " .";
+			String[] parts = stringToParse.split(" ");
+			String methodName = "";
+			for (int i = 0; i < parts.length; i++) {  
+				String currentWord = parts[i].trim();
+				if(currentWord.equals(".") || currentWord.equals("dot")) {
+					invocationModel.methodsToInvoke.add(StringUtils.toCamelCase(methodName));
+					methodName = "";
+				} else {
+					methodName += " " + currentWord;
+				}					
+			}
 		}
-		String methodName = StringUtils.toCamelCase(ctx.getText().trim());
-		((MethodInvocationModel)model).methodsToInvoke.add(methodName);
+
 	}
 	
 	@Override
 	public void enterVariableName(VariableNameContext ctx) {
 		super.enterVariableName(ctx);
 
-		Model model = context.getCommand().getModel();
-		if(model != null || model instanceof MethodInvocationModel) {
-			String variableName = StringUtils.toCamelCase(ctx.getText().trim());
-			((MethodInvocationModel)model).variableName = variableName;
+		Object property = context.getCommand().getProperty();
+		if(property instanceof MethodInvocationModel) {
+			MethodInvocationModel invocationModel = (MethodInvocationModel) property;
+			String variableName = ctx.getText().trim();
+			if(invocationModel.onClass) {
+				variableName = StringUtils.toPascalCase(variableName);
+			} else {
+				variableName = StringUtils.toCamelCase(variableName);
+			}
+			invocationModel.variableName = variableName;
 		}
 	}
 
@@ -45,6 +74,27 @@ public class MethodInvocationListener extends BaseKeywordListener {
 		
 		changeOperation(new CreateMethodInvocationOperation());
 		
-		context.finish();
+		///context.finish();
 	}
+	
+	@Override
+	public void enterClassKeyword(ClassKeywordContext ctx) {
+		super.enterClassKeyword(ctx);
+
+		Object property = context.getCommand().getProperty();
+		if(property instanceof MethodInvocationModel) {
+			((MethodInvocationModel) property).onClass = true;
+		}
+	}
+	
+	@Override
+	public void enterObjectKeyword(ObjectKeywordContext ctx) {
+		super.enterObjectKeyword(ctx);
+
+		Object property = context.getCommand().getProperty();
+		if(property instanceof MethodInvocationModel) {
+			((MethodInvocationModel) property).onClass = false;
+		}
+	}
+	
 }
