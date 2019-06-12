@@ -82,7 +82,7 @@ public class CreateMethodOperation implements Operation {
 //					}							
 
 					ListRewrite listRewrite = rewriter.getListRewrite(node, TypeDeclaration.BODY_DECLARATIONS_PROPERTY);
-					ASTNode nextNode = UIManager.getChildAfterCurrentLine(node, BodyDeclaration.class);
+					ASTNode nextNode = UIManager.getNextNodeOfType(node, BodyDeclaration.class);
 					if(nextNode != null && !node.equals(nextNode)) {
 						listRewrite.insertBefore(methodDeclaration, nextNode, null);	
 					} else {

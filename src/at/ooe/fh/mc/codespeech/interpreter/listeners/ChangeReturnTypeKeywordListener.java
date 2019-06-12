@@ -12,6 +12,7 @@ import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.IntegerKeywordContext;
 import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.PhraseContext;
 import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.PrimitiveTypeContext;
 import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.ShortKeywordContext;
+import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.SimpleTypeContext;
 import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.VoidKeywordContext;
 import at.ooe.fh.mc.codespeech.interpreter.InterpreterContext;
 import at.ooe.fh.mc.codespeech.interpreter.models.MethodModel;
@@ -35,6 +36,13 @@ public class ChangeReturnTypeKeywordListener extends BaseKeywordListener {
 		changeOperation(new ChangeReturnTypeOperation());
 		
 		//context.finish();
+	}
+	
+	@Override
+	public void enterSimpleType(SimpleTypeContext ctx) {
+		super.enterSimpleType(ctx);
+		
+		context.simpleType = ctx.getText();
 	}
 	
 	@Override

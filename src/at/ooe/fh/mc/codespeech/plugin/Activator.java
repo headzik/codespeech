@@ -96,7 +96,6 @@ public class Activator extends Plugin implements SpeechRecognitionListener, Inte
 
 		speechRecognizer = SpeechRecognizerFactory
 				.createSpeechRecognizer(SREngineType.GOOGLE_SPEECH, Mode.CONTINUOUS_SPEECH);
-
 	}
 
 	/**

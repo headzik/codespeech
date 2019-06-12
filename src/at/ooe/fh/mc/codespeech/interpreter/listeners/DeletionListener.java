@@ -1,6 +1,7 @@
 package at.ooe.fh.mc.codespeech.interpreter.listeners;
 
 
+import at.ooe.fh.mc.codespeech.general.utils.StringUtils;
 import at.ooe.fh.mc.codespeech.interpreter.InterpreterContext;
 import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.*;
 import at.ooe.fh.mc.codespeech.interpreter.operations.modification.*;
@@ -50,4 +51,23 @@ public class DeletionListener extends BaseKeywordListener {
 		//context.finish();
 	}
 
+	@Override
+	public void enterArgumentKeyword(ArgumentKeywordContext ctx) {
+		super.enterArgumentKeyword(ctx);
+		
+		changeOperation(new DeleteArgumentOperation());
+	}
+	
+	@Override
+	public void enterParametersKeyword(ParametersKeywordContext ctx) {
+		super.enterParametersKeyword(ctx);
+		changeOperation(new DeleteParameterOperation());
+	}
+	
+	@Override
+	public void enterNumber(NumberContext ctx) {
+		super.enterNumber(ctx);
+		
+		changeProperty(StringUtils.getNumber(ctx.getText().trim()));
+	}
 }

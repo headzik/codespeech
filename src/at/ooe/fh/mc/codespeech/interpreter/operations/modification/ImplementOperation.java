@@ -20,7 +20,7 @@ import at.ooe.fh.mc.codespeech.plugin.utils.UIManager;
 public class ImplementOperation implements Operation {
 
 	@Override
-	public void perform(Object property) {
+	public void perform(Object property) throws JavaModelException, BadLocationException {
 		if(property instanceof String) {
 			//try {
 				ASTNode node = Context.currentNode;
@@ -45,12 +45,8 @@ public class ImplementOperation implements Operation {
 					TextEdit te = cu.rewrite(doc, 
 							UIManager.getICompilationUnit().getJavaProject().getOptions(true));
 					
-				    try {
-						UIManager.updateCompilationUnit(te);
-						UIManager.moveToNode(typeDeclaration);
-					} catch (JavaModelException | BadLocationException e) {
-						e.printStackTrace();
-					}
+					UIManager.updateCompilationUnit(te);
+					UIManager.moveToNode(typeDeclaration);
 				}
 		//	} catch
 		}

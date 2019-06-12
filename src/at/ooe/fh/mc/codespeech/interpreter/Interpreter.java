@@ -11,6 +11,7 @@ import at.ooe.fh.mc.codespeech.general.events.EventHandler;
 import at.ooe.fh.mc.codespeech.interpreter.events.InterpretationFinishedEvent;
 import at.ooe.fh.mc.codespeech.interpreter.listeners.SelectionListener;
 import at.ooe.fh.mc.codespeech.interpreter.listeners.CreationListener;
+import at.ooe.fh.mc.codespeech.interpreter.listeners.FreeSpeechListener;
 import at.ooe.fh.mc.codespeech.plugin.InterpreterListener;
 
 /**
@@ -79,7 +80,8 @@ public class Interpreter {
 		//if(context.command.isReady()) {
 		handler.post(new InterpretationFinishedEvent(listeners, context.getCommand()));
 		//}
-		context = new InterpreterContext(this);
+		if(!(context.getCurrentListener() instanceof FreeSpeechListener))
+			context = new InterpreterContext(this);
 	}
 }
 

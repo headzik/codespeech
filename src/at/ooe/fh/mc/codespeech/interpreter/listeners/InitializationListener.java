@@ -17,6 +17,7 @@ public class InitializationListener extends BaseKeywordListener {
 	public void enterPhrase(PhraseContext ctx) {
 		super.enterPhrase(ctx);
 
+		//change to string -_-
 		VariableModel model = new VariableModel();
 		model.initializator = ctx.getText().trim();
 		

@@ -3,6 +3,9 @@ package at.ooe.fh.mc.codespeech.interpreter.operations.modification;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTNode;
+import org.eclipse.jdt.core.dom.Assignment;
+import org.eclipse.jdt.core.dom.Expression;
+import org.eclipse.jdt.core.dom.ExpressionStatement;
 import org.eclipse.jdt.core.dom.FieldDeclaration;
 import org.eclipse.jdt.core.dom.PrimitiveType;
 import org.eclipse.jdt.core.dom.SimpleType;
@@ -23,11 +26,11 @@ import at.ooe.fh.mc.codespeech.plugin.utils.UIManager;
 public class InitializeVariableOperation implements Operation {
 
 	@Override
-	public void perform(Object property) {
+	public void perform(Object property) throws JavaModelException, IllegalArgumentException, BadLocationException {
 
 		if(property instanceof VariableModel) {
 			VariableModel variableModel = (VariableModel) property;
-
+			
 			ASTNode node = Context.currentNode;
 			if (node != null) {
 				AST ast = node.getAST();		
@@ -44,6 +47,8 @@ public class InitializeVariableOperation implements Operation {
 					FieldDeclaration fieldDeclaration = (FieldDeclaration) node;
 				    declarationFragment = (VariableDeclarationFragment) fieldDeclaration.fragments().get(0);
 				    type = fieldDeclaration.getType();
+				} else {
+					return;
 				}
 
 			    if(type instanceof PrimitiveType) {
@@ -61,12 +66,8 @@ public class InitializeVariableOperation implements Operation {
 
 				rewriter.replace(declarationFragment, newDeclarationFragment, null);
 				
-				try {
-					UIManager.updateCompilationUnit(rewriter.rewriteAST());
-					UIManager.moveToNode(newDeclarationFragment);
-				} catch (JavaModelException | IllegalArgumentException | BadLocationException e) {
-					e.printStackTrace();
-				}
+				UIManager.updateCompilationUnit(rewriter.rewriteAST());
+				UIManager.moveToNode(newDeclarationFragment);
 				
 
 			}	

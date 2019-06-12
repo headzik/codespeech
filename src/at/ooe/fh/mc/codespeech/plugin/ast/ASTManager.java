@@ -232,7 +232,7 @@ public abstract class ASTManager {
 	public static void insertStatement(Statement statementToInsert, ASTNode currentNode, ASTRewrite rewriter) {
 		Block body = currentNode instanceof Block ? (Block) currentNode : ASTManager.getBody(currentNode);
 		
-		ASTNode nextNode = UIManager.getChildAfterCurrentLine(body, Statement.class);
+		ASTNode nextNode = UIManager.getNextNodeOfType(body, Statement.class);
 		ListRewrite listRewrite = rewriter.getListRewrite(body, Block.STATEMENTS_PROPERTY);
 		if(nextNode != null) {
 			if(nextNode instanceof EmptyStatement) {

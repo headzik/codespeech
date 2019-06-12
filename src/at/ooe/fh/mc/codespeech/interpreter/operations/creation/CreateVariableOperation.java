@@ -32,100 +32,93 @@ import at.ooe.fh.mc.codespeech.plugin.utils.UIManager;
 
 public class CreateVariableOperation implements Operation {
 
+	//TODO: get rid of repetitions
 	@Override
 	public void perform(Object property) {
 		if(property instanceof VariableModel) {
 			VariableModel variableModel = (VariableModel) property;
-			new UIJob("CreateVariable") {
+			try {
+				ASTNode node = Context.currentNode;
+				if (node != null) {
+					AST ast = node.getAST();		
+					ASTRewrite rewriter = ASTRewrite.create(ast);
 
-				@Override
-				public IStatus runInUIThread(IProgressMonitor monitor) {
+					VariableDeclarationFragment declarationFragment = ast.newVariableDeclarationFragment();
+					declarationFragment.setName(ast.newSimpleName(variableModel.getPhrase()));		
 
-					try {
-						ASTNode node = Context.currentNode;
-						if (node != null) {
-							AST ast = node.getAST();		
-							ASTRewrite rewriter = ASTRewrite.create(ast);
+					if(node instanceof TypeDeclaration || node instanceof FieldDeclaration ||
+							node instanceof MethodDeclaration) {								
 
-							VariableDeclarationFragment declarationFragment = ast.newVariableDeclarationFragment();
-							declarationFragment.setName(ast.newSimpleName(variableModel.getPhrase()));		
-							
-							if(node instanceof TypeDeclaration || node instanceof FieldDeclaration ||
-									node instanceof MethodDeclaration) {								
+						while(!(node instanceof TypeDeclaration)) {					
+							node = node.getParent();
+						}
 
-								while(!(node instanceof TypeDeclaration)) {					
-									node = node.getParent();
-								}
-								
-								FieldDeclaration fieldDeclaration = ast.newFieldDeclaration(declarationFragment);
-								
-								//TODO: array type
-								Type type;
-								if(variableModel.isArray) {
-									type = ast.newArrayType(ast.newPrimitiveType(variableModel.getType()));
-								} else {
-									type = ast.newPrimitiveType(variableModel.getType());
-								}
-								
-								fieldDeclaration.setType(type);
-								
-								if(variableModel.isPrimitive) {
-									fieldDeclaration.setType(ast.newPrimitiveType(variableModel.getType()));
-								} else if (!variableModel.simpleType.isEmpty()) {
-									fieldDeclaration.setType(ast.newSimpleType(ast.newSimpleName(variableModel.simpleType)));
-						        }
-								
-								
-								List<Modifier> modifiers = fieldDeclaration.modifiers();
+						FieldDeclaration fieldDeclaration = ast.newFieldDeclaration(declarationFragment);
 
-								if(variableModel.accessModifier != null) {
-									modifiers.add(ast.newModifier(AccessModifier.toASTNodeKeyword(variableModel.accessModifier)));
-								}	
-								if(variableModel.isFinal) {
-									modifiers.add(ast.newModifier(Modifier.ModifierKeyword.FINAL_KEYWORD));
-								}
-								if(variableModel.isStatic) {
-									modifiers.add(ast.newModifier(Modifier.ModifierKeyword.STATIC_KEYWORD));
-								}
-								ListRewrite listRewrite = rewriter.getListRewrite(node, TypeDeclaration.BODY_DECLARATIONS_PROPERTY);
-								listRewrite.insertFirst(fieldDeclaration, null);
+						Type type = getTypeFromModel(variableModel, ast);
+						fieldDeclaration.setType(type);					
 
-								UIManager.updateCompilationUnit(rewriter.rewriteAST());
-								UIManager.moveToNode(fieldDeclaration);
-							} else {
-								VariableDeclarationStatement declarationStatement = ast.newVariableDeclarationStatement(declarationFragment);
-								declarationStatement.setType(ast.newPrimitiveType(variableModel.getType()));
+						List<Modifier> modifiers = fieldDeclaration.modifiers();
 
-								if(variableModel.isPrimitive) {
-									declarationStatement.setType(ast.newPrimitiveType(variableModel.getType()));
-								} else if (!variableModel.simpleType.isEmpty()) {
-									declarationStatement.setType(ast.newSimpleType(ast.newSimpleName(variableModel.simpleType)));
-						        }
-								
-								List<Modifier> modifiers = declarationStatement.modifiers();
-								
-								if(variableModel.isFinal) {
-									modifiers.add(ast.newModifier(Modifier.ModifierKeyword.FINAL_KEYWORD));
-								}
-								if(variableModel.isStatic) {
-									modifiers.add(ast.newModifier(Modifier.ModifierKeyword.STATIC_KEYWORD));
-								}
-								ASTManager.insertStatement(declarationStatement, node, rewriter);
-								//this below should be an event/observer thing
-								UIManager.updateCompilationUnit(rewriter.rewriteAST());
-								UIManager.moveToNode(declarationStatement);
-							}
-														
-						}		
-					} catch(JavaModelException | IllegalArgumentException | BadLocationException exception) {
-						exception.printStackTrace();
-					} 
-					return Status.OK_STATUS;
-				}
-			}.schedule();
+						if(variableModel.accessModifier != null) {
+							modifiers.add(ast.newModifier(AccessModifier.toASTNodeKeyword(variableModel.accessModifier)));
+						}	
+						if(variableModel.isFinal) {
+							modifiers.add(ast.newModifier(Modifier.ModifierKeyword.FINAL_KEYWORD));
+						}
+						if(variableModel.isStatic) {
+							modifiers.add(ast.newModifier(Modifier.ModifierKeyword.STATIC_KEYWORD));
+						}
+						ListRewrite listRewrite = rewriter.getListRewrite(node, TypeDeclaration.BODY_DECLARATIONS_PROPERTY);
+						listRewrite.insertFirst(fieldDeclaration, null);
+
+						UIManager.updateCompilationUnit(rewriter.rewriteAST());
+						UIManager.moveToNode(fieldDeclaration);
+					} else {
+						VariableDeclarationStatement declarationStatement = ast.newVariableDeclarationStatement(declarationFragment);
+
+						Type type = getTypeFromModel(variableModel, ast);
+						declarationStatement.setType(type);			
+
+						List<Modifier> modifiers = declarationStatement.modifiers();
+
+						if(variableModel.isFinal) {
+							modifiers.add(ast.newModifier(Modifier.ModifierKeyword.FINAL_KEYWORD));
+						}
+						if(variableModel.isStatic) {
+							modifiers.add(ast.newModifier(Modifier.ModifierKeyword.STATIC_KEYWORD));
+						}
+						ASTManager.insertStatement(declarationStatement, node, rewriter);
+						//this below should be an event/observer thing
+						UIManager.updateCompilationUnit(rewriter.rewriteAST());
+						UIManager.moveToNode(declarationStatement);
+					}
+
+				}		
+			} catch(JavaModelException | IllegalArgumentException | BadLocationException exception) {
+				exception.printStackTrace();
+			}
 
 		}
-	}
-	
 
+	}
+
+
+
+	private Type getTypeFromModel(VariableModel variableModel, AST ast) {
+		Type type = null;
+		if(variableModel.isPrimitive) {
+			type = ast.newPrimitiveType(variableModel.getType());
+		} else if (!variableModel.simpleType.isEmpty()) {
+			type = ast.newSimpleType(ast.newSimpleName(variableModel.simpleType));
+		} else {
+			return null; //throw
+		}
+
+		if(variableModel.isArray) {									
+			type = ast.newArrayType(type);
+		}
+		
+		return type;
+	}
 }

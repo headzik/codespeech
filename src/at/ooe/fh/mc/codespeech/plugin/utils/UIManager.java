@@ -72,7 +72,7 @@ public class UIManager {
 	 * @return IDocument of active editor
 	 * @throws BadLocationException if IDocument could not be retrieved
 	 */
-	private static IDocument getIDocument() throws BadLocationException {
+	public static IDocument getIDocument() throws BadLocationException {
 		return activeEditor.getDocumentProvider().getDocument(activeEditor.getEditorInput());
 	}
 
@@ -147,6 +147,8 @@ public class UIManager {
 		return (int) compilationUnit.getProperty("lineNumber");
 	}
 
+	
+	
 	/**
 	 * Updates the compilation unit after changes of AST
 	 * 
@@ -162,7 +164,7 @@ public class UIManager {
 
 		compilationUnit.getBuffer().setContents(document.get());
 		compilationUnit.save(null, true);
-
+		UIManager.activeEditor.doSave(null);
 	}
 
 	/**
@@ -185,7 +187,7 @@ public class UIManager {
 					IDE.openEditor(page, file);
 
 					Context.currentNode = getNode();
-					Context.currentNode = getChildAfterCurrentLine(Context.currentNode, TypeDeclaration.class);
+					Context.currentNode = getNextNodeOfType(Context.currentNode, TypeDeclaration.class);
 				} catch (JavaModelException | PartInitException e) {
 					e.printStackTrace();
 				}
@@ -202,7 +204,7 @@ public class UIManager {
 	 * @param childClass class of a node to find
 	 * @return child node
 	 */
-	public static ASTNode getChildAfterCurrentLine(ASTNode node, Class<?> childClass) {
+	public static ASTNode getNextNodeOfType(ASTNode node, Class<?> childClass) {
 		CompilationUnit astRoot = ASTManager.getCompilationUnitAST(getICompilationUnit());
 
 		ArrayList<ASTNode> foundNode = new ArrayList<>();

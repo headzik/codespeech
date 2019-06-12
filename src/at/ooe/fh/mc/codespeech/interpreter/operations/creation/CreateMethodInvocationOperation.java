@@ -30,6 +30,7 @@ public class CreateMethodInvocationOperation implements Operation {
 	public void perform(Object property) {
 		if(property instanceof MethodInvocationModel) {
 			MethodInvocationModel methodInvocationModel = (MethodInvocationModel) property;
+			if(methodInvocationModel.methodsToInvoke.isEmpty()) return;
 			ASTNode node = Context.currentNode;
 			if (node != null) {
 				AST ast = node.getAST();		

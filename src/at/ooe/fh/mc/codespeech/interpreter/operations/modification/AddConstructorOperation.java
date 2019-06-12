@@ -42,8 +42,8 @@ public class AddConstructorOperation implements Operation {
 				ListRewrite listRewrite = rewriter.getListRewrite(node, TypeDeclaration.BODY_DECLARATIONS_PROPERTY);
 				listRewrite.insertFirst(constructor, null);					
 
-				UIManager.updateCompilationUnit(rewriter.rewriteAST());
 				UIManager.moveToNode(constructor.getName());
+				UIManager.updateCompilationUnit(rewriter.rewriteAST());
 
 			}
 		} catch(JavaModelException | IllegalArgumentException | BadLocationException exception) {

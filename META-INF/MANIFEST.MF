@@ -33,7 +33,6 @@ Automatic-Module-Name: at.ooe.fh.mc.codespeech
 Bundle-RequiredExecutionEnvironment: JavaSE-10
 Import-Package: at.ooe.fh.mc.codespeech.speechrecognition,
  org.eclipse.ui.texteditor
-Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: .,
  lib/pocketsphinx.jar,
  lib/animal-sniffer-annotations-1.14.jar,
@@ -93,3 +92,4 @@ Export-Package: at.ooe.fh.mc.codespeech.plugin,
  at.ooe.fh.mc.codespeech.plugin.utils,
  at.ooe.fh.mc.codespeech.speechrecognition,
  edu.cmu.pocketsphinx
+Bundle-ActivationPolicy: lazy

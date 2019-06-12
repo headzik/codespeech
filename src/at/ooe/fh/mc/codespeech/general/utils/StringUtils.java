@@ -202,12 +202,16 @@ public class StringUtils {
 	}
 	
 	public static String toCamelCase(String stringToModify) {
-		String newString = stringToModify.trim();
-		String first = newString.substring(0, 1).toLowerCase();
-		String second = WordUtils.capitalize(newString).substring(1);
-		newString = first + second;
-		newString = newString.replace(" ", "");
-		return newString;
+		if(stringToModify.isEmpty()) {
+			return "";
+		} else {
+			String newString = stringToModify.trim();
+			String first = newString.substring(0, 1).toLowerCase();
+			String second = WordUtils.capitalize(newString).substring(1);
+			newString = first + second;
+			newString = newString.replace(" ", "");
+			return newString;
+		}
 	}
 
 	public static String toPascalCase(String stringToModify) {

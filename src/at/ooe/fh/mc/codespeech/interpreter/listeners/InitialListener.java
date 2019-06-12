@@ -1,15 +1,20 @@
 package at.ooe.fh.mc.codespeech.interpreter.listeners;
 
 import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.AdditionContext;
+import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.AssignmentContext;
 import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.ChangeReturnTypeKeywordContext;
+import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.CommandContext;
 import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.CreationVerbContext;
 import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.DeletionContext;
+import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.FreespeechContext;
 import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.ImplementationContext;
 import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.InitializeKeywordContext;
 import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.MethodInvocationContext;
 import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.NavigationContext;
 import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.NavigationVerbContext;
+import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.PhraseContext;
 import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.SelectionVerbContext;
+import at.ooe.fh.mc.codespeech.interpreter.operations.modification.FreeSpeechOperation;
 import at.ooe.fh.mc.codespeech.plugin.Context;
 import at.ooe.fh.mc.codespeech.plugin.utils.UIManager;
 
@@ -26,6 +31,8 @@ public class InitialListener extends BaseKeywordListener {
 	public InitialListener(InterpreterContext context) {
 		super(context);
 	}
+	
+	
 	
 	@Override
 	public void enterCreationVerb(CreationVerbContext ctx) {
@@ -88,5 +95,19 @@ public class InitialListener extends BaseKeywordListener {
 		super.enterAddition(ctx);
 
 		context.continueWith(new AdditionListener(context));
+	}
+	
+	@Override
+	public void enterFreespeech(FreespeechContext ctx) {
+		super.enterFreespeech(ctx);
+
+		context.continueWith(new FreeSpeechListener(context));
+	}
+	
+	@Override
+	public void enterAssignment(AssignmentContext ctx) {
+		super.enterAssignment(ctx);
+		
+		context.continueWith(new AssignListener(context));
 	}
 }
