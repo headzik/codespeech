@@ -66,17 +66,18 @@ public class GrammarParser extends Parser {
 	};
 
 	private static final String[] _LITERAL_NAMES = {
-		null, "'undo'", "'free speech mode'", "'stop free speech mode'", "'cancel'", 
-		"'create '", "'make'", "'new'", "'public '", "'private '", "'protected '", 
-		"'on'", "'an'", "'a'", "'the'", "'.'", "'dot'", "'select '", "'go to '", 
-		"'initialize to'", "'add '", "'argument'", "'constructor'", "'parameters '", 
-		"'parameter '", "'named '", "'assign'", "'assigned'", "'to'", "'change return type to '", 
-		"'delete '", "'implements'", "'implement'", "'static '", "'final '", "'abstract '", 
-		"'project'", "'projects'", "'package'", "'class '", "'method'", "'methods'", 
-		"'variable'", "'var'", "'object'", "'type'", "'field'", "'interface'", 
-		"'if'", "'else'", "'for while'", "'for loop'", "'object '", "'objects '", 
-		"'char'", "'byte'", "'short'", "'int'", "'integer'", "'long'", "'boolean'", 
-		"'bool'", "'double'", "'float'", "'void'", "'line'", "'call'", "'array of'"
+		null, "'undo last'", "'free speech mode'", "'stop free speech mode'", 
+		"'cancel'", "'create '", "'make'", "'new'", "'public '", "'private '", 
+		"'protected '", "'on'", "'an'", "'a'", "'the'", "'.'", "'dot'", "'select '", 
+		"'go to '", "'initialize to'", "'add '", "'argument'", "'constructor'", 
+		"'parameters '", "'parameter '", "'named '", "'assign'", "'assigned'", 
+		"'to'", "'change return type to '", "'delete '", "'implements'", "'implement'", 
+		"'static '", "'final '", "'abstract '", "'project'", "'projects'", "'package'", 
+		"'class '", "'method'", "'methods'", "'variable'", "'var'", "'object'", 
+		"'type'", "'field'", "'interface'", "'if'", "'else'", "'for while'", "'for loop'", 
+		"'object '", "'objects '", "'char'", "'byte'", "'short'", "'int'", "'integer'", 
+		"'long'", "'boolean'", "'bool'", "'double'", "'float'", "'void'", "'line'", 
+		"'call'", "'array of'"
 	};
 	private static final String[] _SYMBOLIC_NAMES = {
 		null, null, null, null, null, null, null, null, null, null, null, null, 
