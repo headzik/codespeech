@@ -160,8 +160,10 @@ public class UIManager {
 		ICompilationUnit compilationUnit = getICompilationUnit();
 		Document document = new Document(compilationUnit.getSource());
 
-		edits.apply(document);
-
+		if(edits != null) {
+			edits.apply(document);
+		}
+		
 		compilationUnit.getBuffer().setContents(document.get());
 		compilationUnit.save(null, true);
 		UIManager.activeEditor.doSave(null);
@@ -298,6 +300,12 @@ public class UIManager {
 	private static void selectAndReveal(TreeViewer treeViewer, Object element) {
 		treeViewer.expandToLevel(element, 1);
 		treeViewer.setSelection(new StructuredSelection(element));
+	}
+
+	public static int getLineNumber() {
+		ITextSelection selection = (ITextSelection) activeEditor.getSelectionProvider().getSelection();
+		int lineNumber = selection.getStartLine();
+		return lineNumber;
 	}
 
 }

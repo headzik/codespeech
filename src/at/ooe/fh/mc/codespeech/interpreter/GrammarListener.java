@@ -18,6 +18,16 @@ public interface GrammarListener extends ParseTreeListener {
 	 */
 	void exitCommand(GrammarParser.CommandContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link GrammarParser#undo}.
+	 * @param ctx the parse tree
+	 */
+	void enterUndo(GrammarParser.UndoContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GrammarParser#undo}.
+	 * @param ctx the parse tree
+	 */
+	void exitUndo(GrammarParser.UndoContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link GrammarParser#freespeech}.
 	 * @param ctx the parse tree
 	 */

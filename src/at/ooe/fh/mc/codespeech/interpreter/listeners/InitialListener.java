@@ -2,6 +2,7 @@ package at.ooe.fh.mc.codespeech.interpreter.listeners;
 
 import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.AdditionContext;
 import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.AssignmentContext;
+import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.CancelContext;
 import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.ChangeReturnTypeKeywordContext;
 import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.CommandContext;
 import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.CreationVerbContext;
@@ -14,7 +15,9 @@ import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.NavigationContext;
 import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.NavigationVerbContext;
 import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.PhraseContext;
 import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.SelectionVerbContext;
+import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.UndoContext;
 import at.ooe.fh.mc.codespeech.interpreter.operations.modification.FreeSpeechOperation;
+import at.ooe.fh.mc.codespeech.interpreter.operations.modification.UndoOperation;
 import at.ooe.fh.mc.codespeech.plugin.Context;
 import at.ooe.fh.mc.codespeech.plugin.utils.UIManager;
 
@@ -31,8 +34,13 @@ public class InitialListener extends BaseKeywordListener {
 	public InitialListener(InterpreterContext context) {
 		super(context);
 	}
-	
-	
+
+	@Override
+	public void enterUndo(UndoContext ctx) {
+		changeOperation(new UndoOperation());
+		
+		super.enterUndo(ctx);
+	}
 	
 	@Override
 	public void enterCreationVerb(CreationVerbContext ctx) {

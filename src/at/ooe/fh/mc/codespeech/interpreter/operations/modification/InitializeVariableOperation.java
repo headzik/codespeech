@@ -58,10 +58,11 @@ public class InitializeVariableOperation implements Operation {
 			    }
 				VariableDeclarationFragment newDeclarationFragment = ast.newVariableDeclarationFragment();
 				newDeclarationFragment.setName(ast.newSimpleName(declarationFragment.getName().toString()));
-				if(((SimpleType)type).getName().equals("String")) {
-					newDeclarationFragment.setInitializer(StringUtils.stringToExpression(variableModel.initializator, ast));					
-				} else {
+								
+				if(type instanceof SimpleType && ((SimpleType)type).getName().toString().equals("String")) {
 					newDeclarationFragment.setInitializer(StringUtils.getStringLiteral(variableModel.initializator, ast));
+				} else {
+					newDeclarationFragment.setInitializer(StringUtils.stringToExpression(variableModel.initializator, ast));					
 				}
 
 				rewriter.replace(declarationFragment, newDeclarationFragment, null);
