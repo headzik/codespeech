@@ -25,7 +25,7 @@ public class Microphone {
     public final TargetDataLine line;
     private final InputStream inputStream;
 
-    public Microphone(
+     Microphone(
             float sampleRate,
             int sampleSize,
             boolean signed,

@@ -32,7 +32,6 @@ tmp/
 *.swp
 *~.nib
 local.properties
-build.properties
 .loadpath
 
 ##########################

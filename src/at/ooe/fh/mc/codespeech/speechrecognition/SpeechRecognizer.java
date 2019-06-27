@@ -10,7 +10,7 @@ import at.ooe.fh.mc.codespeech.general.events.EventHandler;
 import at.ooe.fh.mc.codespeech.general.exceptions.NotImplementedException;
 
 public abstract class SpeechRecognizer {
-
+	
 	protected final int TIMEOUT_IN_MS = 10000;
 	
 	public enum Mode {
@@ -28,7 +28,7 @@ public abstract class SpeechRecognizer {
 	
 	protected RecognizerThread recognizerThread;
 	
-	public SpeechRecognizer() throws NotImplementedException {
+	public SpeechRecognizer() {
 		listeners = new ArrayList<>();
 		
 		microphone = new SpeechSourceProvider().getMicrophone();
@@ -145,7 +145,7 @@ public abstract class SpeechRecognizer {
 		}
 	}
 	
-	protected abstract void setupContinuousMode();
+	protected abstract void setupContinuousMode() throws NotImplementedException;
 	protected abstract void setupKeyphraseSearchMode() throws NotImplementedException;
 	protected abstract void setupGrammarMode() throws NotImplementedException;
 	

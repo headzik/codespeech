@@ -56,8 +56,10 @@ import edu.cmu.pocketsphinx.Hypothesis;
  */
 public class PocketsphinxSpeechRecognizer extends SpeechRecognizer {
 
-	//protected static final String TAG = CMUSphinxSR.class.getSimpleName();
-
+	public static String ACOUSTIC_MODEL_PATH = "model/en-us/acoustic-pocketsphinx";
+	public static String LANGUAGE_MODEL_PATH = "model/en-us/language-pocketsphinx.bin";
+	public static String DICTIONARY_PATH = "model/en-us/dictionary-pocketsphinx.dict";
+	
 	private final static float BUFFER_SIZE_SECONDS = 0.4f;
 	private final Decoder decoder;	
 
@@ -112,19 +114,19 @@ public class PocketsphinxSpeechRecognizer extends SpeechRecognizer {
 	
 	@Override
 	protected void setupContinuousMode()  {
-    	File languageModel = new File("model/en-us/my-model.lm.bin");
+    	File languageModel = new File(LANGUAGE_MODEL_PATH);
     	addNgramSearch(Mode.CONTINUOUS_SPEECH.name(), languageModel);  
 	}
 
 	@Override
 	protected void setupKeyphraseSearchMode() {
-    	File phrases = new File("model/keyphrases/phrases.txt");
+    	File phrases = new File(CMUSphinxFilePaths.KEYPHRASES_PATH);
     	addKeyphraseSearch(Mode.KEYPHRASE_SEARCH.name(), phrases); 
 	}
 
 	@Override
 	protected void setupGrammarMode() {
-    	File grammar = new File("model/grammars/grammar.txt");
+    	File grammar = new File(CMUSphinxFilePaths.GRAMMAR_PATH);
     	addGrammarSearch(Mode.GRAMMAR.name(), grammar); 
 	}
 	
