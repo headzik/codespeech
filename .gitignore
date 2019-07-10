@@ -39,4 +39,25 @@ local.properties
 ##########################
 .DS_Store
  
-   
+*.useq
+*.png
+*.ucls
+*.dict
+*.bin
+model/en-us/acoustic-sphinx4/variances
+model/en-us/acoustic-sphinx4/transition_matrices
+model/en-us/acoustic-sphinx4/sendump
+model/en-us/acoustic-sphinx4/noisedict
+model/en-us/acoustic-sphinx4/mixture_weights
+model/en-us/acoustic-sphinx4/means
+model/en-us/acoustic-sphinx4/mdef
+model/en-us/acoustic-sphinx4/feat.params
+model/en-us/acoustic-sphinx4/README
+model/en-us/acoustic-pocketsphinx/variances
+model/en-us/acoustic-pocketsphinx/transition_matrices
+model/en-us/acoustic-pocketsphinx/sendump
+model/en-us/acoustic-pocketsphinx/noisedict
+model/en-us/acoustic-pocketsphinx/means
+model/en-us/acoustic-pocketsphinx/mdef
+model/en-us/acoustic-pocketsphinx/feat.params
+model/en-us/acoustic-pocketsphinx/README

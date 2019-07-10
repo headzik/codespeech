@@ -11,7 +11,7 @@ public class WordToNumber {
 	static int finalResult;
 	static List<String> allowedStrings = Arrays.asList //consists also hononyms like "to, for, free" 
 			(
-					"zero","one","two","to","three","free","four","for","five","six","seven",
+					"zero","one","two","to","three","free","four","for", "far", "five","six","seven",
 					"eight","nine","ten","eleven","twelve","thirteen","fourteen",
 					"fifteen","sixteen","seventeen","eighteen","nineteen","twenty",
 					"thirty","forty","fifty","sixty","seventy","eighty","ninety",
@@ -53,7 +53,7 @@ public class WordToNumber {
 				else if(str.equalsIgnoreCase("three") || str.equalsIgnoreCase("free")) {
 					result += 3;
 				}
-				else if(str.equalsIgnoreCase("four") || str.equalsIgnoreCase("for")) {
+				else if(str.equalsIgnoreCase("four") || str.equalsIgnoreCase("for") || str.equalsIgnoreCase("far")) {
 					result += 4;
 				}
 				else if(str.equalsIgnoreCase("five")) {

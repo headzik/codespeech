@@ -1,32 +1,20 @@
 package at.ooe.fh.mc.codespeech.interpreter.listeners;
 
-import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.AdditionContext;
-import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.AssignmentContext;
-import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.CancelContext;
-import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.ChangeReturnTypeKeywordContext;
-import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.CommandContext;
-import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.CreationVerbContext;
-import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.DeletionContext;
-import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.FreespeechContext;
-import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.ImplementationContext;
-import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.InitializeKeywordContext;
-import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.MethodInvocationContext;
-import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.NavigationContext;
-import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.NavigationVerbContext;
-import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.PhraseContext;
-import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.SelectionVerbContext;
-import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.UndoContext;
-import at.ooe.fh.mc.codespeech.interpreter.operations.modification.FreeSpeechOperation;
-import at.ooe.fh.mc.codespeech.interpreter.operations.modification.UndoOperation;
-import at.ooe.fh.mc.codespeech.plugin.Context;
-import at.ooe.fh.mc.codespeech.plugin.utils.UIManager;
-
-import org.eclipse.jdt.core.JavaModelException;
-import org.eclipse.jdt.core.dom.AST;
-import org.eclipse.jdt.core.dom.rewrite.ASTRewrite;
-import org.eclipse.jface.text.BadLocationException;
-
 import at.ooe.fh.mc.codespeech.interpreter.InterpreterContext;
+import at.ooe.fh.mc.codespeech.interpreter.grammar.GrammarParser.AdditionContext;
+import at.ooe.fh.mc.codespeech.interpreter.grammar.GrammarParser.AssignmentContext;
+import at.ooe.fh.mc.codespeech.interpreter.grammar.GrammarParser.ChangeReturnTypeKeywordContext;
+import at.ooe.fh.mc.codespeech.interpreter.grammar.GrammarParser.CreationContext;
+import at.ooe.fh.mc.codespeech.interpreter.grammar.GrammarParser.DeletionContext;
+import at.ooe.fh.mc.codespeech.interpreter.grammar.GrammarParser.ExtensionContext;
+import at.ooe.fh.mc.codespeech.interpreter.grammar.GrammarParser.FreespeechContext;
+import at.ooe.fh.mc.codespeech.interpreter.grammar.GrammarParser.ImplementationContext;
+import at.ooe.fh.mc.codespeech.interpreter.grammar.GrammarParser.InitializeKeywordContext;
+import at.ooe.fh.mc.codespeech.interpreter.grammar.GrammarParser.MethodInvocationContext;
+import at.ooe.fh.mc.codespeech.interpreter.grammar.GrammarParser.NavigationContext;
+import at.ooe.fh.mc.codespeech.interpreter.grammar.GrammarParser.SelectionContext;
+import at.ooe.fh.mc.codespeech.interpreter.grammar.GrammarParser.UndoContext;
+import at.ooe.fh.mc.codespeech.interpreter.operations.modification.UndoOperation;
 
 public class InitialListener extends BaseKeywordListener {
 		
@@ -43,15 +31,15 @@ public class InitialListener extends BaseKeywordListener {
 	}
 	
 	@Override
-	public void enterCreationVerb(CreationVerbContext ctx) {
-		super.enterCreationVerb(ctx);
+	public void enterCreation(CreationContext ctx) {
+		super.enterCreation(ctx);
 						
 		context.continueWith(new CreationListener(context));
 	}
 	
 	@Override
-	public void enterSelectionVerb(SelectionVerbContext ctx) {
-		super.enterSelectionVerb(ctx);
+	public void enterSelection(SelectionContext ctx) {
+		super.enterSelection(ctx);
 						
 		context.continueWith(new SelectionListener(context));
 	}
@@ -117,5 +105,12 @@ public class InitialListener extends BaseKeywordListener {
 		super.enterAssignment(ctx);
 		
 		context.continueWith(new AssignListener(context));
+	}
+	
+	@Override
+	public void enterExtension(ExtensionContext ctx) {
+		super.enterExtension(ctx);
+
+		context.continueWith(new ExtensionListener(context));
 	}
 }

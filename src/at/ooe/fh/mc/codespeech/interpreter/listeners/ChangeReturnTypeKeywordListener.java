@@ -2,19 +2,19 @@ package at.ooe.fh.mc.codespeech.interpreter.listeners;
 
 import org.eclipse.jdt.core.dom.PrimitiveType;
 
-import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.BooleanKeywordContext;
-import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.ByteKeywordContext;
-import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.ChangeReturnTypeContext;
-import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.CharKeywordContext;
-import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.DoubleKeywordContext;
-import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.FloatKeywordContext;
-import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.IntegerKeywordContext;
-import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.PhraseContext;
-import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.PrimitiveTypeContext;
-import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.ShortKeywordContext;
-import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.SimpleTypeContext;
-import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.VoidKeywordContext;
 import at.ooe.fh.mc.codespeech.interpreter.InterpreterContext;
+import at.ooe.fh.mc.codespeech.interpreter.grammar.GrammarParser.BooleanKeywordContext;
+import at.ooe.fh.mc.codespeech.interpreter.grammar.GrammarParser.ByteKeywordContext;
+import at.ooe.fh.mc.codespeech.interpreter.grammar.GrammarParser.ChangeReturnTypeContext;
+import at.ooe.fh.mc.codespeech.interpreter.grammar.GrammarParser.CharKeywordContext;
+import at.ooe.fh.mc.codespeech.interpreter.grammar.GrammarParser.DoubleKeywordContext;
+import at.ooe.fh.mc.codespeech.interpreter.grammar.GrammarParser.FloatKeywordContext;
+import at.ooe.fh.mc.codespeech.interpreter.grammar.GrammarParser.IntegerKeywordContext;
+import at.ooe.fh.mc.codespeech.interpreter.grammar.GrammarParser.PhraseContext;
+import at.ooe.fh.mc.codespeech.interpreter.grammar.GrammarParser.PrimitiveTypeContext;
+import at.ooe.fh.mc.codespeech.interpreter.grammar.GrammarParser.ShortKeywordContext;
+import at.ooe.fh.mc.codespeech.interpreter.grammar.GrammarParser.SimpleTypeContext;
+import at.ooe.fh.mc.codespeech.interpreter.grammar.GrammarParser.VoidKeywordContext;
 import at.ooe.fh.mc.codespeech.interpreter.models.MethodModel;
 import at.ooe.fh.mc.codespeech.interpreter.operations.modification.ChangeReturnTypeOperation;
 

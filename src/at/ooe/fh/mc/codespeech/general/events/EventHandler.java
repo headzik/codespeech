@@ -23,7 +23,6 @@ public class EventHandler {
 		event.run();
 	}
 	
-//	public EventHandler() {
-//		
-//	}
+	
+	
 }

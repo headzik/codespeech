@@ -1,18 +1,18 @@
 package at.ooe.fh.mc.codespeech.interpreter.listeners;
 
 import at.ooe.fh.mc.codespeech.interpreter.InterpreterContext;
+import at.ooe.fh.mc.codespeech.interpreter.grammar.GrammarParser.ClassKeywordContext;
+import at.ooe.fh.mc.codespeech.interpreter.grammar.GrammarParser.PackageKeywordContext;
+import at.ooe.fh.mc.codespeech.interpreter.grammar.GrammarParser.PhraseContext;
+import at.ooe.fh.mc.codespeech.interpreter.grammar.GrammarParser.ProjectKeywordContext;
+import at.ooe.fh.mc.codespeech.interpreter.grammar.GrammarParser.SelectionContext;
+import at.ooe.fh.mc.codespeech.interpreter.grammar.GrammarParser.TypeKeywordContext;
 import at.ooe.fh.mc.codespeech.interpreter.models.ClassModel;
 import at.ooe.fh.mc.codespeech.interpreter.models.PackageModel;
 import at.ooe.fh.mc.codespeech.interpreter.models.ProjectModel;
 import at.ooe.fh.mc.codespeech.interpreter.operations.navigation.SelectAndOpenClassFileOperation;
 import at.ooe.fh.mc.codespeech.interpreter.operations.navigation.SelectPackageOperation;
 import at.ooe.fh.mc.codespeech.interpreter.operations.navigation.SelectProjectOperation;
-import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.ClassKeywordContext;
-import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.PackageKeywordContext;
-import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.PhraseContext;
-import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.ProjectKeywordContext;
-import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.SelectionContext;
-import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.TypeKeywordContext;
 
 public class SelectionListener extends BaseKeywordListener {
 	
@@ -50,12 +50,5 @@ public class SelectionListener extends BaseKeywordListener {
 
 		changePhrase(ctx.getText());
 	}
-	
-	@Override
-	public void exitSelection(SelectionContext ctx) {
-		super.exitSelection(ctx);
-
-		//context.finish();
-	}
-	
+		
 }

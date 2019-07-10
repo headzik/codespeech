@@ -2,22 +2,18 @@ package at.ooe.fh.mc.codespeech.interpreter.models;
 
 import at.ooe.fh.mc.codespeech.general.utils.StringUtils;
 
-public class ProjectModel extends Model implements WithPhrase {
+public class ProjectModel extends Model {
 	
-	public String name = "PlaceholderProjectName";
-	
+	public String name = "PlaceholderName";
+
 	@Override
 	public String getPhrase() {
 		return name;
 	}
 
 	@Override
-	public void setPhrase(String phrase) {
-		this.name = StringUtils.toPascalCase(phrase);
+	public void setPhrase(String name) {
+		this.name = StringUtils.toPascalCase(name);
 	}
 
-	@Override
-	public boolean isReady() {
-		return !name.isEmpty();
-	}
 }

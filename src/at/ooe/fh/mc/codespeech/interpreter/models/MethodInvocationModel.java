@@ -10,8 +10,13 @@ public class MethodInvocationModel extends Model {
 	public boolean onClass;
 	
 	@Override
-	public boolean isReady() {
-		return true;
+	public String getPhrase() {
+		return variableName;
+	}
+	
+	@Override
+	public void setPhrase(String phrase) {
+		variableName = phrase;
 	}
 	
 }

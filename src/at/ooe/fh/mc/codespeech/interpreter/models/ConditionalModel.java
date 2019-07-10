@@ -1,13 +1,8 @@
 package at.ooe.fh.mc.codespeech.interpreter.models;
 
-public class ConditionalModel extends Model implements WithPhrase {
-	public String condition = "";
-	//public boolean isElse;
+public class ConditionalModel extends Model {
 	
-	@Override
-	public boolean isReady() {
-		return true; //!condition.isEmpty();
-	}
+	public String condition = "";
 
 	@Override
 	public String getPhrase() {
@@ -15,7 +10,7 @@ public class ConditionalModel extends Model implements WithPhrase {
 	}
 
 	@Override
-	public void setPhrase(String phrase) {
-		condition = phrase.trim();
+	public void setPhrase(String condition) {
+		this.condition = condition.trim();
 	}
 }

@@ -3,11 +3,10 @@ package at.ooe.fh.mc.codespeech.interpreter.models;
 import org.eclipse.jdt.core.dom.PrimitiveType;
 
 import at.ooe.fh.mc.codespeech.general.utils.StringUtils;
-import at.ooe.fh.mc.codespeech.interpreter.operations.Operation;
 
-public class MethodModel extends Model implements WithPhrase {
+public class MethodModel extends Model {
 
-	public String name = "placeholderMethodName";
+	public String name = "placeholderName";
 	public boolean isAbstract;
 	public boolean isFinal;
 	public boolean isStatic;
@@ -15,12 +14,6 @@ public class MethodModel extends Model implements WithPhrase {
 	public AccessModifier accessModifier;
 	public String simpleType = "";
 	public PrimitiveType.Code primitiveType;
-	//public List<> arguments;
-	
-	@Override
-	public boolean isReady() {
-		return !(name.isEmpty());
-	}
 
 	@Override
 	public String getPhrase() {
@@ -28,8 +21,8 @@ public class MethodModel extends Model implements WithPhrase {
 	}
 
 	@Override
-	public void setPhrase(String phrase) {
-		this.name = StringUtils.toCamelCase(phrase);
+	public void setPhrase(String name) {
+		this.name = StringUtils.toCamelCase(name);
 	}
 	
 	

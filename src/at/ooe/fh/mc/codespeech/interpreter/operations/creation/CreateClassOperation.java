@@ -8,10 +8,9 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 
 import at.ooe.fh.mc.codespeech.interpreter.models.ClassModel;
-import at.ooe.fh.mc.codespeech.interpreter.models.Model;
 import at.ooe.fh.mc.codespeech.interpreter.operations.Operation;
-import at.ooe.fh.mc.codespeech.plugin.utils.SelectionService;
-import at.ooe.fh.mc.codespeech.plugin.utils.UIManager;
+import at.ooe.fh.mc.codespeech.plugin.utils.EditorManager;
+import at.ooe.fh.mc.codespeech.plugin.utils.PackageExplorerManager;
 
 public class CreateClassOperation implements Operation {
 
@@ -23,7 +22,7 @@ public class CreateClassOperation implements Operation {
 			ICompilationUnit iCompilationUnit = null;
 
 			try {
-				IPackageFragment packageFragment = SelectionService.getSelectedPackage(); 	
+				IPackageFragment packageFragment = PackageExplorerManager.getSelectedPackage(); 	
 				if(packageFragment != null) {
 
 					StringBuffer buffer = new StringBuffer();
@@ -51,7 +50,7 @@ public class CreateClassOperation implements Operation {
 					buffer.append("}");
 					iCompilationUnit = packageFragment.createCompilationUnit(classModel.name + ".java", buffer.toString(), false, null);
 								
-					UIManager.openNewEditor(iCompilationUnit);
+					EditorManager.openNewEditor(iCompilationUnit);
 
 				} else {
 					MessageDialog.openError(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), 

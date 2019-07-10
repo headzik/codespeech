@@ -1,9 +1,11 @@
 package at.ooe.fh.mc.codespeech.interpreter.listeners;
 
 import at.ooe.fh.mc.codespeech.interpreter.InterpreterContext;
-import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.PhraseContext;
-import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.StopfreespeechContext;
+import at.ooe.fh.mc.codespeech.interpreter.grammar.GrammarParser.PhraseContext;
+import at.ooe.fh.mc.codespeech.interpreter.grammar.GrammarParser.StopfreespeechContext;
+import at.ooe.fh.mc.codespeech.interpreter.grammar.GrammarParser.UndoContext;
 import at.ooe.fh.mc.codespeech.interpreter.operations.modification.FreeSpeechOperation;
+import at.ooe.fh.mc.codespeech.interpreter.operations.modification.UndoOperation;
 
 public class FreeSpeechListener extends BaseKeywordListener {
 
@@ -21,10 +23,17 @@ public class FreeSpeechListener extends BaseKeywordListener {
 	
 	@Override
 	public void enterStopfreespeech(StopfreespeechContext ctx) {
-		// TODO Auto-generated method stub
 		super.enterStopfreespeech(ctx);
-		
+
+		changeProperty(null);
+		changeOperation(null);
 		context.continueWith(new InitialListener(context));
 	}
 
+	@Override
+	public void enterUndo(UndoContext ctx) {
+		changeOperation(new UndoOperation());
+		
+		super.enterUndo(ctx);
+	}
 }

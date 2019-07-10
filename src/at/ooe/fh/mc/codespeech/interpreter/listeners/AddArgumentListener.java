@@ -2,7 +2,7 @@ package at.ooe.fh.mc.codespeech.interpreter.listeners;
 
 import at.ooe.fh.mc.codespeech.general.utils.StringUtils;
 import at.ooe.fh.mc.codespeech.interpreter.InterpreterContext;
-import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.VariableNameContext;
+import at.ooe.fh.mc.codespeech.interpreter.grammar.GrammarParser.VariableNameContext;
 import at.ooe.fh.mc.codespeech.interpreter.operations.modification.AddArgumentOperation;
 
 public class AddArgumentListener extends BaseKeywordListener {

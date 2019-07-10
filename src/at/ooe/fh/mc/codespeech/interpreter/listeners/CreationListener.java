@@ -2,9 +2,9 @@ package at.ooe.fh.mc.codespeech.interpreter.listeners;
 
 import org.eclipse.jdt.core.dom.PrimitiveType;
 
-import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.*;
 import at.ooe.fh.mc.codespeech.general.utils.StringUtils;
 import at.ooe.fh.mc.codespeech.interpreter.InterpreterContext;
+import at.ooe.fh.mc.codespeech.interpreter.grammar.GrammarParser.*;
 import at.ooe.fh.mc.codespeech.interpreter.models.*;
 import at.ooe.fh.mc.codespeech.interpreter.operations.creation.*;
 
@@ -179,12 +179,6 @@ public class CreationListener extends BaseKeywordListener {
 		context.simpleType = StringUtils.toPascalCase(ctx.getText());
 	}
 
-	@Override
-	public void exitCreation(CreationContext ctx) {
-		super.exitCreation(ctx);
-
-		//context.finish();
-	}
 
 	@Override
 	public void enterInterfaceKeyword(InterfaceKeywordContext ctx) {
@@ -245,4 +239,6 @@ public class CreationListener extends BaseKeywordListener {
 
 		context.isArray = true;
 	}
+	
+
 }

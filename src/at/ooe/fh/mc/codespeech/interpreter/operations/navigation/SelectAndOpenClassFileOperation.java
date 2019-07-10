@@ -11,20 +11,21 @@ import org.eclipse.jdt.core.search.SearchMatch;
 import org.eclipse.jdt.core.search.SearchPattern;
 import org.eclipse.jdt.core.search.SearchRequestor;
 
-import at.ooe.fh.mc.codespeech.interpreter.Searcher;
-import at.ooe.fh.mc.codespeech.interpreter.models.WithPhrase;
+import at.ooe.fh.mc.codespeech.interpreter.models.ClassModel;
 import at.ooe.fh.mc.codespeech.interpreter.operations.Operation;
-import at.ooe.fh.mc.codespeech.plugin.utils.SelectionService;
-import at.ooe.fh.mc.codespeech.plugin.utils.UIManager;
+import at.ooe.fh.mc.codespeech.plugin.utils.EditorManager;
+import at.ooe.fh.mc.codespeech.plugin.utils.PackageExplorerManager;
+import at.ooe.fh.mc.codespeech.plugin.utils.Searcher;
 
 public class SelectAndOpenClassFileOperation implements Operation {
 
 	@Override
 	public void perform(Object property) {
-		if(property instanceof WithPhrase) {
+		if(property instanceof ClassModel) {
+			ClassModel classModel = (ClassModel) property;
 			
 			SearchPattern pattern = SearchPattern.createPattern(
-					((WithPhrase) property).getPhrase(), IJavaSearchConstants.CLASS_AND_INTERFACE, 
+					classModel.getPhrase(), IJavaSearchConstants.CLASS_AND_INTERFACE, 
 					IJavaSearchConstants.DECLARATIONS, 
 					SearchPattern.R_EXACT_MATCH);
 
@@ -33,17 +34,17 @@ public class SelectAndOpenClassFileOperation implements Operation {
 				@Override
 				public void acceptSearchMatch(SearchMatch match) throws CoreException {	
 					
-					UIManager.revealInPackageExplorer(match.getElement());
+					PackageExplorerManager.reveal(match.getElement());
 
 					IMember element = (IMember) match.getElement();
-					UIManager.openNewEditor(element.getCompilationUnit());
+					EditorManager.openNewEditor(element.getCompilationUnit());
 				}
 			};
 
 
 			IJavaSearchScope scope;
 			try {
-				scope = SearchEngine.createJavaSearchScope(new IJavaElement[] {SelectionService.getSelectedProject()});
+				scope = SearchEngine.createJavaSearchScope(new IJavaElement[] {PackageExplorerManager.getSelectedProject()});
 				Searcher.search(pattern, requestor, scope);
 			} catch (JavaModelException e) {
 				e.printStackTrace();

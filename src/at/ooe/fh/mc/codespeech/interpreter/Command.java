@@ -2,7 +2,6 @@ package at.ooe.fh.mc.codespeech.interpreter;
 
 import org.eclipse.swt.widgets.Display;
 
-import at.ooe.fh.mc.codespeech.interpreter.models.Model;
 import at.ooe.fh.mc.codespeech.interpreter.operations.Operation;
 
 public class Command {
@@ -11,7 +10,7 @@ public class Command {
 	Operation operation;
 
 	public void execute() {
-		if(operation != null) {
+		//if(isSet()) {
 			Display.getDefault().asyncExec(new Runnable() {
 				@Override
 				public void run() {
@@ -22,11 +21,19 @@ public class Command {
 					}
 				}
 			});
-		}
+		//}
 	}
 
+	public boolean isSet() {
+		return operation != null;
+	}
+	
 	public void setOperation(Operation operation) {
 		this.operation = operation;
+	}
+	
+	public Operation getOperation() {
+		return operation;
 	}
 
 	public Object getProperty() {

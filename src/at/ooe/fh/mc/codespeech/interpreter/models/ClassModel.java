@@ -2,9 +2,7 @@ package at.ooe.fh.mc.codespeech.interpreter.models;
 
 import org.apache.commons.lang3.text.WordUtils;
 
-import at.ooe.fh.mc.codespeech.interpreter.operations.Operation;
-
-public class ClassModel extends Model implements WithPhrase {
+public class ClassModel extends Model {
 	
 	public String name = "PlaceholderClassName";
 	public boolean isAbstract;
@@ -18,13 +16,9 @@ public class ClassModel extends Model implements WithPhrase {
 	}
 
 	@Override
-	public void setPhrase(String phrase) {
-		this.name = WordUtils.capitalize(phrase).replace(" ", "").trim();
+	public void setPhrase(String name) {
+		this.name = WordUtils.capitalize(name).replace(" ", "").trim();
 	}
 
-	@Override
-	public boolean isReady() {
-		return !name.isEmpty();
-	}
 
 }

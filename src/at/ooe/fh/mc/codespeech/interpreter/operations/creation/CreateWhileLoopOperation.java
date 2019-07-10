@@ -11,19 +11,17 @@ import org.eclipse.jface.text.BadLocationException;
 
 import at.ooe.fh.mc.codespeech.general.utils.StringUtils;
 import at.ooe.fh.mc.codespeech.interpreter.models.ConditionalModel;
-import at.ooe.fh.mc.codespeech.interpreter.models.Model;
 import at.ooe.fh.mc.codespeech.interpreter.operations.Operation;
-import at.ooe.fh.mc.codespeech.plugin.Context;
-import at.ooe.fh.mc.codespeech.plugin.ast.ASTManager;
-import at.ooe.fh.mc.codespeech.plugin.utils.UIManager;
+import at.ooe.fh.mc.codespeech.plugin.utils.ASTManager;
+import at.ooe.fh.mc.codespeech.plugin.utils.EditorManager;
 
 public class CreateWhileLoopOperation implements Operation {
 
 	@Override
-	public void perform(Object property) {
+	public void perform(Object property) throws Exception {
 		if(property instanceof ConditionalModel) {
 			ConditionalModel ifModel = (ConditionalModel) property;
-			ASTNode node = Context.currentNode;
+			ASTNode node = ASTManager.getCurrentNode();
 			if (node != null) {
 
 				AST ast = node.getAST();		
@@ -41,11 +39,11 @@ public class CreateWhileLoopOperation implements Operation {
 				ASTManager.insertStatement(whileStatement, node, rewriter);
 
 				try {
-					UIManager.updateCompilationUnit(rewriter.rewriteAST());
+					EditorManager.updateCompilationUnit(rewriter.rewriteAST());
 				} catch (JavaModelException | IllegalArgumentException | BadLocationException e) {
 					e.printStackTrace();
 				}
-				UIManager.moveToNode(whileStatement);
+				EditorManager.moveToNode(whileStatement);
 			}
 		}
 	}

@@ -2,6 +2,8 @@ package at.ooe.fh.mc.codespeech.interpreter.operations.navigation;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jdt.core.IJavaElement;
+import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.core.search.IJavaSearchConstants;
 import org.eclipse.jdt.core.search.IJavaSearchScope;
@@ -9,34 +11,48 @@ import org.eclipse.jdt.core.search.SearchEngine;
 import org.eclipse.jdt.core.search.SearchMatch;
 import org.eclipse.jdt.core.search.SearchPattern;
 import org.eclipse.jdt.core.search.SearchRequestor;
+import org.eclipse.jdt.internal.core.PackageFragmentRoot;
 
-import at.ooe.fh.mc.codespeech.interpreter.Searcher;
-import at.ooe.fh.mc.codespeech.interpreter.models.WithPhrase;
+import at.ooe.fh.mc.codespeech.interpreter.models.PackageModel;
 import at.ooe.fh.mc.codespeech.interpreter.operations.Operation;
-import at.ooe.fh.mc.codespeech.plugin.utils.SelectionService;
-import at.ooe.fh.mc.codespeech.plugin.utils.UIManager;
+import at.ooe.fh.mc.codespeech.plugin.utils.PackageExplorerManager;
+import at.ooe.fh.mc.codespeech.plugin.utils.Searcher;
 
 public class SelectPackageOperation implements Operation {
 
 	@Override
-	public void perform(Object property) {
+	public void perform(Object property) throws JavaModelException {
 
-		if(property instanceof WithPhrase) {
+		if(property instanceof PackageModel) {
+			PackageModel packageModel = (PackageModel) property;
+			
+			String packageName = "*" + packageModel.getPhrase();
+			
 			SearchPattern pattern = SearchPattern.createPattern(
-					((WithPhrase) property).getPhrase(), IJavaSearchConstants.PACKAGE, 
+					packageName, IJavaSearchConstants.PACKAGE, 
 					IJavaSearchConstants.DECLARATIONS, 
-					SearchPattern.R_EXACT_MATCH);
+					SearchPattern.R_PATTERN_MATCH);
 
 			SearchRequestor requestor = new SearchRequestor() {
 
 				@Override
 				public void acceptSearchMatch(SearchMatch match) throws CoreException {
-					UIManager.revealInPackageExplorer(match.getElement());
+					PackageExplorerManager.reveal(match.getElement());
 				}
 			};
+			
+			IPackageFragmentRoot packageFragmentRoot;
+			IPackageFragmentRoot [] packageFragmentRoots = PackageExplorerManager.getSelectedProject().getAllPackageFragmentRoots();
+			for(int i = 0; i < packageFragmentRoots.length; i++) {
+				if(packageFragmentRoots[i].getElementName().equals("src")) {
+					packageFragmentRoot = packageFragmentRoots[i];
 
-			IJavaSearchScope scope = SearchEngine.createWorkspaceScope();
-			Searcher.search(pattern, requestor, scope);
+					IJavaSearchScope scope = SearchEngine.createJavaSearchScope(new IJavaElement[] {packageFragmentRoot});						
+					Searcher.search(pattern, requestor, scope);
+					
+					break;
+				}
+			}
 		}
 	}
 

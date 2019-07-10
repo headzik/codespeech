@@ -3,31 +3,25 @@ package at.ooe.fh.mc.codespeech.interpreter.operations.modification;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTNode;
-import org.eclipse.jdt.core.dom.Block;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
-import org.eclipse.jdt.core.dom.PrimitiveType;
-import org.eclipse.jdt.core.dom.PrimitiveType.Code;
-import org.eclipse.jdt.core.dom.ReturnStatement;
 import org.eclipse.jdt.core.dom.Type;
-import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jdt.core.dom.rewrite.ASTRewrite;
 import org.eclipse.jface.text.BadLocationException;
 
 import at.ooe.fh.mc.codespeech.general.utils.StringUtils;
 import at.ooe.fh.mc.codespeech.interpreter.models.MethodModel;
-import at.ooe.fh.mc.codespeech.interpreter.models.Model;
 import at.ooe.fh.mc.codespeech.interpreter.operations.Operation;
-import at.ooe.fh.mc.codespeech.plugin.Context;
-import at.ooe.fh.mc.codespeech.plugin.utils.UIManager;
+import at.ooe.fh.mc.codespeech.plugin.utils.ASTManager;
+import at.ooe.fh.mc.codespeech.plugin.utils.EditorManager;
 
 public class ChangeReturnTypeOperation implements Operation {
 
 	@Override
-	public void perform(Object property) {
+	public void perform(Object property) throws Exception {
 		if(property instanceof MethodModel) {
 			MethodModel methodModel = (MethodModel) property;			
 
-			ASTNode node = Context.currentNode;
+			ASTNode node = ASTManager.getCurrentNode();
 			if (node != null) {
 
 				while(!(node instanceof MethodDeclaration)) {					
@@ -55,8 +49,8 @@ public class ChangeReturnTypeOperation implements Operation {
 				rewriter.replace(oldReturnType, newReturnType, null);
 				
 				try {
-					UIManager.updateCompilationUnit(rewriter.rewriteAST());
-					UIManager.moveToNode(newReturnType);
+					EditorManager.updateCompilationUnit(rewriter.rewriteAST());
+					EditorManager.moveToNode(newReturnType);
 				} catch (JavaModelException | IllegalArgumentException | BadLocationException e) {
 					e.printStackTrace();
 				}

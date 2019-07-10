@@ -3,11 +3,10 @@ package at.ooe.fh.mc.codespeech.interpreter.models;
 import org.eclipse.jdt.core.dom.PrimitiveType.Code;
 
 import at.ooe.fh.mc.codespeech.general.utils.StringUtils;
-import at.ooe.fh.mc.codespeech.interpreter.operations.Operation;
 
-public class VariableModel extends Model implements WithPhrase {
+public class VariableModel extends Model {
 	
-	public String name = "placeholderVarName";
+	public String name = "placeholderName";
 	public boolean isFinal;
 	public boolean isStatic;
 	public boolean isPrimitive;
@@ -31,12 +30,8 @@ public class VariableModel extends Model implements WithPhrase {
 	}
 
 	@Override
-	public void setPhrase(String phrase) {
-		this.name = StringUtils.toCamelCase(phrase);
+	public void setPhrase(String name) {
+		this.name = StringUtils.toCamelCase(name);
 	}
-
-	@Override
-	public boolean isReady() {
-		return !name.isEmpty();
-	}
+	
 }

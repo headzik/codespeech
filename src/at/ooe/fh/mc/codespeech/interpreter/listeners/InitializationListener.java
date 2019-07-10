@@ -1,8 +1,8 @@
 package at.ooe.fh.mc.codespeech.interpreter.listeners;
 
-import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.InitializationContext;
-import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.PhraseContext;
 import at.ooe.fh.mc.codespeech.interpreter.InterpreterContext;
+import at.ooe.fh.mc.codespeech.interpreter.grammar.GrammarParser.InitializationContext;
+import at.ooe.fh.mc.codespeech.interpreter.grammar.GrammarParser.PhraseContext;
 import at.ooe.fh.mc.codespeech.interpreter.models.VariableModel;
 import at.ooe.fh.mc.codespeech.interpreter.operations.modification.InitializeVariableOperation;
 
@@ -17,7 +17,7 @@ public class InitializationListener extends BaseKeywordListener {
 	public void enterPhrase(PhraseContext ctx) {
 		super.enterPhrase(ctx);
 
-		//change to string -_-
+		//change to string ?
 		VariableModel model = new VariableModel();
 		model.initializator = ctx.getText().trim();
 		

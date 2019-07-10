@@ -2,13 +2,11 @@ package at.ooe.fh.mc.codespeech.interpreter.listeners;
 
 
 import at.ooe.fh.mc.codespeech.interpreter.Command;
-import at.ooe.fh.mc.codespeech.interpreter.GrammarBaseListener;
-//import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.CancelContext;
 import at.ooe.fh.mc.codespeech.interpreter.InterpreterContext;
-import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.CancelContext;
-import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.CommandContext;
+import at.ooe.fh.mc.codespeech.interpreter.grammar.GrammarBaseListener;
+import at.ooe.fh.mc.codespeech.interpreter.grammar.GrammarParser.CancelContext;
+import at.ooe.fh.mc.codespeech.interpreter.grammar.GrammarParser.CommandContext;
 import at.ooe.fh.mc.codespeech.interpreter.models.Model;
-import at.ooe.fh.mc.codespeech.interpreter.models.WithPhrase;
 import at.ooe.fh.mc.codespeech.interpreter.operations.Operation;
 
 public abstract class BaseKeywordListener extends GrammarBaseListener {
@@ -43,8 +41,8 @@ public abstract class BaseKeywordListener extends GrammarBaseListener {
 	protected void changePhrase(String text) {
 		Command command = context.getCommand();      
 		Object property = command.getProperty();
-		if(property instanceof WithPhrase) {
-			WithPhrase model = (WithPhrase) command.getProperty();   
+		if(property instanceof Model) {
+			Model model = (Model) command.getProperty();   
 			if(model != null) {		
 				String phrase = text;            
 		        
@@ -73,12 +71,4 @@ public abstract class BaseKeywordListener extends GrammarBaseListener {
 		
 		context.finish();
 	}
-//	private void storeRemainingUtterance(ParserRuleContext ctx) {
-//		Token stop = ctx.getStop();
-//		if(stop == null) return;
-//		
-//		CharStream stream = stop.getInputStream();
-//		context.remainingUtterance = stream.getText(new Interval(stop.getStopIndex() + 1, stream.size())).trim();		
-//	}
-	
 }

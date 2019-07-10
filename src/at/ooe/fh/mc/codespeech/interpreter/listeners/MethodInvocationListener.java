@@ -2,14 +2,14 @@ package at.ooe.fh.mc.codespeech.interpreter.listeners;
 
 import at.ooe.fh.mc.codespeech.general.utils.StringUtils;
 import at.ooe.fh.mc.codespeech.interpreter.InterpreterContext;
+import at.ooe.fh.mc.codespeech.interpreter.grammar.GrammarParser.ClassKeywordContext;
+import at.ooe.fh.mc.codespeech.interpreter.grammar.GrammarParser.MethodInvocationContext;
+import at.ooe.fh.mc.codespeech.interpreter.grammar.GrammarParser.MethodNamesContext;
+import at.ooe.fh.mc.codespeech.interpreter.grammar.GrammarParser.ObjectKeywordContext;
+import at.ooe.fh.mc.codespeech.interpreter.grammar.GrammarParser.VariableNameContext;
 import at.ooe.fh.mc.codespeech.interpreter.models.MethodInvocationModel;
 import at.ooe.fh.mc.codespeech.interpreter.models.Model;
 import at.ooe.fh.mc.codespeech.interpreter.operations.creation.CreateMethodInvocationOperation;
-import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.ClassKeywordContext;
-import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.MethodInvocationContext;
-import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.MethodNamesContext;
-import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.ObjectKeywordContext;
-import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.VariableNameContext;
 
 public class MethodInvocationListener extends BaseKeywordListener {
 

@@ -1,16 +1,11 @@
 package at.ooe.fh.mc.codespeech.interpreter.listeners;
 
-import at.ooe.fh.mc.codespeech.interpreter.InterpreterContext;
-import at.ooe.fh.mc.codespeech.plugin.utils.UIManager;
-
-import org.eclipse.swt.widgets.Display;
-
 import at.ooe.fh.mc.codespeech.general.utils.StringUtils;
-import at.ooe.fh.mc.codespeech.general.utils.WordToNumber;
-import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.CreationContext;
-//import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.IntegerContext;
-import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.NavigationContext;
-import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.NumberContext;
+import at.ooe.fh.mc.codespeech.interpreter.InterpreterContext;
+import at.ooe.fh.mc.codespeech.interpreter.grammar.GrammarParser.LineNavigationContext;
+import at.ooe.fh.mc.codespeech.interpreter.grammar.GrammarParser.NumberContext;
+import at.ooe.fh.mc.codespeech.interpreter.grammar.GrammarParser.PhraseContext;
+import at.ooe.fh.mc.codespeech.interpreter.operations.navigation.LineNavigationOperation;
 
 public class NavigationListener extends BaseKeywordListener {
 
@@ -19,27 +14,21 @@ public class NavigationListener extends BaseKeywordListener {
 	}
 
 	@Override
-	public void enterNumber(NumberContext ctx) {
-		super.enterNumber(ctx);
-
-		//TODO: to operation
-		Display.getDefault().asyncExec(new Runnable() {
-			@Override
-			public void run() {
-				String text = ctx.getText().trim();
-				int lineNumber = StringUtils.getNumber((text)) - 1;
-				if(lineNumber > 0) {
-					UIManager.moveToLine(lineNumber);
-				}
-			}
-		});
+	public void enterLineNavigation(LineNavigationContext ctx) {
+		super.enterLineNavigation(ctx);
+		
+		changeOperation(new LineNavigationOperation());
 	}
-
-
+		
 	@Override
-	public void exitNavigation(NavigationContext ctx) {
-		super.exitNavigation(ctx); 
+	public void enterPhrase(PhraseContext ctx) {
+		super.enterPhrase(ctx);
 
-		//context.finish();
+		String text = ctx.getText().trim();
+		int lineNumber = StringUtils.getNumber((text)) - 1;
+		
+		changeProperty(lineNumber);
+
 	}
+
 }

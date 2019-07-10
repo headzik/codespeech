@@ -2,10 +2,10 @@ package at.ooe.fh.mc.codespeech.interpreter.listeners;
 
 import at.ooe.fh.mc.codespeech.general.utils.StringUtils;
 import at.ooe.fh.mc.codespeech.interpreter.InterpreterContext;
-import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.AssignedValueContext;
-import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.AssignmentContext;
-import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.PhraseContext;
-import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.VariableNameContext;
+import at.ooe.fh.mc.codespeech.interpreter.grammar.GrammarParser.AssignedValueContext;
+import at.ooe.fh.mc.codespeech.interpreter.grammar.GrammarParser.AssignmentContext;
+import at.ooe.fh.mc.codespeech.interpreter.grammar.GrammarParser.PhraseContext;
+import at.ooe.fh.mc.codespeech.interpreter.grammar.GrammarParser.VariableNameContext;
 import at.ooe.fh.mc.codespeech.interpreter.models.MethodInvocationModel;
 import at.ooe.fh.mc.codespeech.interpreter.models.VariableModel;
 import at.ooe.fh.mc.codespeech.interpreter.operations.modification.AssignOperation;

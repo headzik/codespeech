@@ -57,4 +57,8 @@ public class Microphone {
 		line.close();
 		inputStream.close();
 	}
+
+	public static Microphone getDefaultMicrophone() {
+		return new Microphone(16000, 16, true, false);
+	}
 }

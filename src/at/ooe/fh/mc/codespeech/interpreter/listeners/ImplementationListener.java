@@ -1,9 +1,9 @@
 package at.ooe.fh.mc.codespeech.interpreter.listeners;
 
 import at.ooe.fh.mc.codespeech.general.utils.StringUtils;
-import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.ImplementationContext;
-import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.PhraseContext;
 import at.ooe.fh.mc.codespeech.interpreter.InterpreterContext;
+import at.ooe.fh.mc.codespeech.interpreter.grammar.GrammarParser.ImplementationContext;
+import at.ooe.fh.mc.codespeech.interpreter.grammar.GrammarParser.PhraseContext;
 import at.ooe.fh.mc.codespeech.interpreter.operations.modification.ImplementOperation;
 
 public class ImplementationListener extends BaseKeywordListener {
@@ -20,11 +20,5 @@ public class ImplementationListener extends BaseKeywordListener {
 		changeOperation(new ImplementOperation());
 	}
 
-	@Override
-	public void exitImplementation(ImplementationContext ctx) {
-		super.exitImplementation(ctx);
-		
-		//context.finish();
-	}
 	
 }

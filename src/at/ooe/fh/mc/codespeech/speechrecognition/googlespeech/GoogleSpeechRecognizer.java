@@ -19,34 +19,27 @@ import com.google.protobuf.ByteString;
 
 import at.ooe.fh.mc.codespeech.general.exceptions.NotImplementedException;
 import at.ooe.fh.mc.codespeech.speechrecognition.SpeechRecognizer;
-import at.ooe.fh.mc.codespeech.speechrecognition.events.OnErrorEvent;
-import at.ooe.fh.mc.codespeech.speechrecognition.events.ResultEvent;
+import at.ooe.fh.mc.codespeech.speechrecognition.events.*;
 
 public class GoogleSpeechRecognizer extends SpeechRecognizer{
 
-	private final int BUFFER_SIZE = 64000;
-	private final int GOOGLE_TIMEOUT_LIMIT_IN_MS = 55000;
-	
 	SpeechClient client;
 	ClientStream<StreamingRecognizeRequest> clientStream;     
 	RecognitionConfig recognitionConfig;
 	StreamingRecognitionConfig streamingRecognitionConfig;
-	
+
 	ResponseObserver<StreamingRecognizeResponse> responseObserver;
 
 	public GoogleSpeechRecognizer(Mode mode) throws NotImplementedException {
 		super();	
-		
-		// unfortunately must be called in each subclass for now, because of restriction
-		// enforcing super() to be called first which creates an issue because subclass's 
-		// variables that are referenced are not initialized yet
+
 		setMode(mode);
 	}
 
 
 	@Override
 	protected RecognizerThread createNewRecognizerThread() {
-		return new GoogleSpeechRecognizerThread(TIMEOUT_IN_MS);
+		return new GoogleSpeechRecognizerThread(DEFAULT_TIMEOUT_IN_MS);
 	}
 
 	@Override
@@ -58,7 +51,9 @@ public class GoogleSpeechRecognizer extends SpeechRecognizer{
 
 				ArrayList<StreamingRecognizeResponse> responses = new ArrayList<>();
 
-				public void onStart(StreamController controller) {}
+				public void onStart(StreamController controller) {
+					eventHandler.post(new OnSpeechChangeEvent(listeners, true));
+				}
 
 				public void onResponse(StreamingRecognizeResponse response) {
 					responses.add(response);
@@ -68,20 +63,18 @@ public class GoogleSpeechRecognizer extends SpeechRecognizer{
 						// use the first (most likely) one here.
 						SpeechRecognitionAlternative alternative = result.getAlternativesList().get(0);
 						//System.out.printf("Transcript : %s\n", alternative.getTranscript());
-						eventHandler.post(new ResultEvent(listeners, alternative.getTranscript().trim()));
-						//stopListening(true);
+						eventHandler.post(new OnResultEvent(listeners, alternative.getTranscript().trim()));
 					}
 				}
 
 				public void onComplete() {
-					//
 				}
 
 				public void onError(Throwable throwable) {
 					eventHandler.post(new OnErrorEvent(listeners, throwable));
 				}
 			};
-			
+
 			recognitionConfig =
 					RecognitionConfig.newBuilder()
 					.setEncoding(RecognitionConfig.AudioEncoding.LINEAR16)
@@ -109,66 +102,66 @@ public class GoogleSpeechRecognizer extends SpeechRecognizer{
 
 	private class GoogleSpeechRecognizerThread extends RecognizerThread {
 		
+		private final int GOOGLE_TIMEOUT_LIMIT_IN_MS = 55000;
+		
+		private StreamingRecognizeRequest request;
+		
+		private long connectionStartTime;
+		private long connectionElapsedTime;
+
 		public GoogleSpeechRecognizerThread(int timeout) {
 			super(timeout);
 		}
 
 		@Override
-		protected void recognize() {			
-
-			int numberOfBytes;
-			
-			long startTime = System.currentTimeMillis(); 
-			
-			try {
-				clientStream = client.streamingRecognizeCallable().splitCall(responseObserver);
-				
-				StreamingRecognizeRequest request =
-						StreamingRecognizeRequest.newBuilder()
-						.setStreamingConfig(streamingRecognitionConfig)
-						.build(); // The first request in a streaming call has to be a config
-
-				clientStream.send(request);
-				
-				while (!interrupted) {					
-					long elapsedTime = System.currentTimeMillis() - startTime;
-					
-					if(elapsedTime >= GOOGLE_TIMEOUT_LIMIT_IN_MS) {
-						clientStream.closeSend();
-
-		                clientStream = client.streamingRecognizeCallable().splitCall(responseObserver);
-					    
-		                request = StreamingRecognizeRequest.newBuilder()
-		                         .setStreamingConfig(streamingRecognitionConfig)
-		                         .build();
-		                
-		                clientStream.send(request);
-		                startTime = System.currentTimeMillis();
-					}
-					
-					byte[] bytes = new byte[BUFFER_SIZE];
-					numberOfBytes = microphone.getStream().read(bytes);
-
-					if(numberOfBytes > 0) {
-						ByteBuffer byteBufer = ByteBuffer.wrap(bytes, 0, numberOfBytes);
-						byteBufer.order(ByteOrder.LITTLE_ENDIAN);
-
-						request = StreamingRecognizeRequest.newBuilder()
-								.setAudioContent(ByteString.copyFrom(byteBufer))
-								.build();
-						
-						clientStream.send(request);
-					}
-				} 
-
-			} catch (IOException e) {
-				e.printStackTrace();
-			} finally {
-				clientStream.closeSend();
+		protected void recognize(byte [] bytes, int numberOfBytes) throws Exception {		
+			if(reachedConnectionTimeOut()) {
+				renewConnection();
 			}
-			
+
+			ByteBuffer byteBufer = ByteBuffer.wrap(bytes, 0, numberOfBytes);
+			byteBufer.order(ByteOrder.LITTLE_ENDIAN);
+
+			request = StreamingRecognizeRequest.newBuilder()
+					.setAudioContent(ByteString.copyFrom(byteBufer))
+					.build();
+
+			clientStream.send(request);
 		}
 
+		@Override
+		protected void beforeRecognition() {
+			clientStream = client.streamingRecognizeCallable().splitCall(responseObserver);
+
+			request = StreamingRecognizeRequest.newBuilder()
+					.setStreamingConfig(streamingRecognitionConfig)
+					.build(); // The first request in a streaming call has to be a config
+
+			clientStream.send(request);
+		}
+
+		@Override
+		protected void afterRecognition() {
+			clientStream.closeSend();
+		}
+		
+		private boolean reachedConnectionTimeOut() {
+			connectionElapsedTime = System.currentTimeMillis() - connectionStartTime;
+			return connectionElapsedTime >= GOOGLE_TIMEOUT_LIMIT_IN_MS;
+		}
+		
+		private void renewConnection() {
+			clientStream.closeSend();
+
+			clientStream = client.streamingRecognizeCallable().splitCall(responseObserver);
+
+			request = StreamingRecognizeRequest.newBuilder()
+					.setStreamingConfig(streamingRecognitionConfig)
+					.build();
+
+			clientStream.send(request);
+			connectionStartTime = System.currentTimeMillis();
+		}
 
 	}
 

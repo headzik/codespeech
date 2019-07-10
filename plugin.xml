@@ -31,12 +31,12 @@
    <extension
          point="org.eclipse.ui.commands">
       <command
-            defaultHandler="at.ooe.fh.mc.codespeech.plugin.commands.ToggleSpeechRecognitionHandler"
+            defaultHandler="at.ooe.fh.mc.codespeech.plugin.menu.ToggleSpeechRecognitionHandler"
             id="at.ooe.fh.mc.codespeech.toggleSpeechRecognition"
             name="ToggleSpeechRecognition">
       </command>
       <command
-            defaultHandler="at.ooe.fh.mc.codespeech.plugin.commands.EnterCommandHandler"
+            defaultHandler="at.ooe.fh.mc.codespeech.plugin.menu.EnterCommandHandler"
             id="at.ooe.fh.mc.codespeech.plugin.EnterCommand"
             name="EnterCommand">
       </command>

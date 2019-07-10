@@ -9,9 +9,6 @@ import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Status;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
@@ -20,13 +17,10 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.launching.IVMInstall;
 import org.eclipse.jdt.launching.JavaRuntime;
 import org.eclipse.jdt.launching.LibraryLocation;
-import org.eclipse.ui.progress.UIJob;
 
-import at.ooe.fh.mc.codespeech.interpreter.models.Model;
 import at.ooe.fh.mc.codespeech.interpreter.models.ProjectModel;
 import at.ooe.fh.mc.codespeech.interpreter.operations.Operation;
-import at.ooe.fh.mc.codespeech.plugin.utils.SelectionService;
-import at.ooe.fh.mc.codespeech.plugin.utils.UIManager;
+import at.ooe.fh.mc.codespeech.plugin.utils.PackageExplorerManager;
 
 public class CreateProjectOperation implements Operation {
 
@@ -42,7 +36,7 @@ public class CreateProjectOperation implements Operation {
 				setOutputLocation(javaProject, project.getFolder("bin"));		
 				defineClassPathEntries(javaProject);				
 				createAndAddSourceFolder(project, javaProject);
-				UIManager.revealInPackageExplorer(javaProject);
+				PackageExplorerManager.reveal(javaProject);
 			} catch(CoreException exception) {
 				exception.printStackTrace();
 			}

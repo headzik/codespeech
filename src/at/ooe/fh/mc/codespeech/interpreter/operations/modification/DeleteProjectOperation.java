@@ -6,9 +6,8 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jdt.core.IJavaElement;
 
-import at.ooe.fh.mc.codespeech.interpreter.models.Model;
 import at.ooe.fh.mc.codespeech.interpreter.operations.Operation;
-import at.ooe.fh.mc.codespeech.plugin.utils.SelectionService;
+import at.ooe.fh.mc.codespeech.plugin.utils.PackageExplorerManager;
 
 public class DeleteProjectOperation implements Operation {
 
@@ -17,7 +16,7 @@ public class DeleteProjectOperation implements Operation {
 
 		try {
 
-			IJavaElement selectedElement = SelectionService.getSelectedProject();
+			IJavaElement selectedElement = PackageExplorerManager.getSelectedProject();
 			if(selectedElement != null) {
 				IWorkspace myWorkspace = ResourcesPlugin.getWorkspace();
 				IWorkspaceRoot myWorkspaceRoot = myWorkspace.getRoot();

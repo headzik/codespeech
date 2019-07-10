@@ -4,7 +4,7 @@ import org.eclipse.jdt.core.dom.PrimitiveType;
 
 import at.ooe.fh.mc.codespeech.general.utils.StringUtils;
 import at.ooe.fh.mc.codespeech.interpreter.InterpreterContext;
-import at.ooe.fh.mc.codespeech.interpreter.GrammarParser.*;
+import at.ooe.fh.mc.codespeech.interpreter.grammar.GrammarParser.*;
 import at.ooe.fh.mc.codespeech.interpreter.models.VariableModel;
 import at.ooe.fh.mc.codespeech.interpreter.operations.creation.CreateVariableOperation;
 import at.ooe.fh.mc.codespeech.interpreter.operations.modification.AddConstructorOperation;
@@ -23,12 +23,6 @@ public class AdditionListener extends BaseKeywordListener {
 		changeOperation(new AddConstructorOperation());
 	}
 	
-	@Override
-	public void enterAddition(AdditionContext ctx) {
-		super.enterAddition(ctx);
-		
-	}
-
 	@Override
 	public void enterSimpleType(SimpleTypeContext ctx) {
 		super.enterSimpleType(ctx);

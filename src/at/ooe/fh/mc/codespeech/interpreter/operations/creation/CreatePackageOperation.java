@@ -4,11 +4,10 @@ import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.JavaModelException;
 
-import at.ooe.fh.mc.codespeech.interpreter.models.Model;
 import at.ooe.fh.mc.codespeech.interpreter.models.PackageModel;
 import at.ooe.fh.mc.codespeech.interpreter.operations.Operation;
-import at.ooe.fh.mc.codespeech.plugin.utils.SelectionService;
-import at.ooe.fh.mc.codespeech.plugin.utils.UIManager;
+import at.ooe.fh.mc.codespeech.plugin.utils.EditorManager;
+import at.ooe.fh.mc.codespeech.plugin.utils.PackageExplorerManager;
 
 public class CreatePackageOperation implements Operation {
 
@@ -18,11 +17,11 @@ public class CreatePackageOperation implements Operation {
 			PackageModel packageModel = (PackageModel) property;
 			try {
 				IPackageFragment fragment = null;
-				IPackageFragmentRoot packageFragmentRoot = SelectionService.getSelectedPackageFragmentRoot();
+				IPackageFragmentRoot packageFragmentRoot = PackageExplorerManager.getSelectedPackageFragmentRoot();
 
 				fragment = packageFragmentRoot.createPackageFragment(packageModel.name, true, null);
-				UIManager.revealInPackageExplorer(fragment);
-				//SelectionService.selectAndReveal(fragment);
+				PackageExplorerManager.reveal(fragment);
+				//PackageExplorerManager.selectAndReveal(fragment);
 			} catch (JavaModelException exception) {
 				exception.printStackTrace();
 			}

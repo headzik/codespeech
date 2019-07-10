@@ -34,10 +34,7 @@ import static edu.cmu.pocketsphinx.Decoder.defaultConfig;
 import static edu.cmu.pocketsphinx.Decoder.fileConfig;
 
 import java.io.File;
-import java.io.IOException;
 
-import at.ooe.fh.mc.codespeech.general.exceptions.NotImplementedException;
-import at.ooe.fh.mc.codespeech.speechrecognition.SpeechRecognizer.Mode;
 import edu.cmu.pocketsphinx.Config;
 
 /**
@@ -59,6 +56,10 @@ public class PocketsphinxSetup {
         return new PocketsphinxSetup(defaultConfig());
     }
 
+    public Config getConfig() {
+    	return config;
+    }
+    
     /**
      * Creates new speech recognizer builder from configuration file.
      * Configuration file should consist of lines containing key-value pairs.
@@ -72,10 +73,6 @@ public class PocketsphinxSetup {
 
     private PocketsphinxSetup(Config config) {
         this.config = config;
-    }
-
-    public PocketsphinxSpeechRecognizer getRecognizer(Mode mode) throws IOException, NotImplementedException {
-        return new PocketsphinxSpeechRecognizer(config, mode);
     }
 
     public PocketsphinxSetup setAcousticModel(File model) {

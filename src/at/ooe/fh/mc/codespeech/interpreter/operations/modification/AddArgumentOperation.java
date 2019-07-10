@@ -1,48 +1,48 @@
 package at.ooe.fh.mc.codespeech.interpreter.operations.modification;
 
+import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTNode;
-import org.eclipse.jdt.core.dom.MethodDeclaration;
+import org.eclipse.jdt.core.dom.ChildListPropertyDescriptor;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.core.dom.SimpleName;
+import org.eclipse.jdt.core.dom.SuperConstructorInvocation;
 import org.eclipse.jdt.core.dom.rewrite.ASTRewrite;
 import org.eclipse.jdt.core.dom.rewrite.ListRewrite;
+import org.eclipse.jface.text.BadLocationException;
 
 import at.ooe.fh.mc.codespeech.interpreter.operations.Operation;
-import at.ooe.fh.mc.codespeech.plugin.Context;
-import at.ooe.fh.mc.codespeech.plugin.ast.ASTManager;
-import at.ooe.fh.mc.codespeech.plugin.utils.UIManager;
+import at.ooe.fh.mc.codespeech.plugin.utils.ASTManager;
+import at.ooe.fh.mc.codespeech.plugin.utils.EditorManager;
 
 public class AddArgumentOperation implements Operation {
 
 	@Override
-	public void perform(Object property) {
+	public void perform(Object property) throws Exception {
 		if(property instanceof String) {
+			ASTNode currentNode = ASTManager.getCurrentNode();
+			
+			if(currentNode instanceof SuperConstructorInvocation) {
+				addArgument(currentNode, (String) property, SuperConstructorInvocation.ARGUMENTS_PROPERTY);
+				
+			} else {
+				currentNode = ASTManager.getNextNodeOfType(ASTManager.getCurrentNode(), MethodInvocation.class);
+				if(currentNode != null) {
+					addArgument(currentNode, (String) property, MethodInvocation.ARGUMENTS_PROPERTY);
+				} 
+			} 			
 
-			try {
-				ASTNode node = UIManager.getNextNodeOfType(Context.currentNode, MethodInvocation.class);
-				if (node != null) {
-
-					AST ast = node.getAST();
-					ASTRewrite rewriter = ASTRewrite.create(ast);
-					ListRewrite listRewrite;
-								
-					if(node instanceof MethodInvocation) {
-						MethodInvocation methodInvocation = (MethodInvocation) node;
-						SimpleName name = ast.newSimpleName((String) property);
-						listRewrite = rewriter.getListRewrite(node, MethodInvocation.ARGUMENTS_PROPERTY);
-						listRewrite.insertLast(name,  null);	
-						
-						UIManager.updateCompilationUnit(rewriter.rewriteAST());
-						UIManager.moveToNode(name);					
-					}
-
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
 		}
-
 	}
 
+	private void addArgument(ASTNode node, String argumentName, ChildListPropertyDescriptor descriptor) throws JavaModelException, IllegalArgumentException, BadLocationException {
+		AST ast = node.getAST();
+		ASTRewrite rewriter = ASTRewrite.create(ast);
+		ListRewrite listRewrite = rewriter.getListRewrite(node, descriptor);
+		SimpleName name = ast.newSimpleName((String) argumentName);
+		listRewrite.insertLast(name,  null);	
+
+		EditorManager.updateCompilationUnit(rewriter.rewriteAST());
+		EditorManager.moveToNode(name);
+	}
 }

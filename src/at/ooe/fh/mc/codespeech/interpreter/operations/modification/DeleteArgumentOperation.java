@@ -8,8 +8,8 @@ import org.eclipse.jdt.core.dom.rewrite.ASTRewrite;
 import org.eclipse.jdt.core.dom.rewrite.ListRewrite;
 
 import at.ooe.fh.mc.codespeech.interpreter.operations.Operation;
-import at.ooe.fh.mc.codespeech.plugin.Context;
-import at.ooe.fh.mc.codespeech.plugin.utils.UIManager;
+import at.ooe.fh.mc.codespeech.plugin.utils.ASTManager;
+import at.ooe.fh.mc.codespeech.plugin.utils.EditorManager;
 
 public class DeleteArgumentOperation implements Operation {
 
@@ -18,7 +18,7 @@ public class DeleteArgumentOperation implements Operation {
 		if(property instanceof Integer) {
 
 			try {
-				ASTNode node = UIManager.getNextNodeOfType(Context.currentNode, MethodInvocation.class);
+				ASTNode node = ASTManager.getNextNodeOfType(ASTManager.getCurrentNode(), MethodInvocation.class);
 				if (node != null) {
 
 					AST ast = node.getAST();
@@ -32,8 +32,8 @@ public class DeleteArgumentOperation implements Operation {
 						listRewrite = rewriter.getListRewrite(node, MethodInvocation.ARGUMENTS_PROPERTY);
 						listRewrite.remove(argument, null);	
 						
-						UIManager.updateCompilationUnit(rewriter.rewriteAST());
-						UIManager.moveToNode(methodInvocation);					
+						EditorManager.updateCompilationUnit(rewriter.rewriteAST());
+						EditorManager.moveToNode(methodInvocation);					
 					}
 
 				}

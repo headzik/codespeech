@@ -12,8 +12,9 @@ public class InterpreterContext {
 	private BaseKeywordListener currentListener;
 	
 	Command command;
-    
+	
 	public String remainingUtterance;
+    public String phrase;
 	public boolean isAbstract;
 	public boolean isFinal;
 	public boolean isStatic;
@@ -21,8 +22,7 @@ public class InterpreterContext {
 	public boolean isArray;
 	public AccessModifier accessModifier;
 	public String simpleType;
-	public PrimitiveType.Code primitiveType;
-	
+	public PrimitiveType.Code primitiveType;	
 	
 	public InterpreterContext(Interpreter interpreter) {
 		this.interpreter = interpreter;
@@ -47,13 +47,11 @@ public class InterpreterContext {
 		this.command = command;
 	}
 	
-	//change to notify?
 	public void continueWith(BaseKeywordListener newListener) {
 		setCurrentListener(newListener);
 		interpreter.interpret(remainingUtterance);
 	}
 
-	//change to notify?
 	public void finish() {
 		interpreter.finish();
 	}

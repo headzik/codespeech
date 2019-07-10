@@ -1,54 +1,54 @@
 package at.ooe.fh.mc.codespeech.interpreter.operations.modification;
 
-import org.eclipse.jdt.core.JavaModelException;
+import java.util.List;
+
 import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.Block;
+import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
+import org.eclipse.jdt.core.dom.Modifier;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jdt.core.dom.rewrite.ASTRewrite;
 import org.eclipse.jdt.core.dom.rewrite.ListRewrite;
-import org.eclipse.jface.text.BadLocationException;
 
+import at.ooe.fh.mc.codespeech.interpreter.models.AccessModifier;
 import at.ooe.fh.mc.codespeech.interpreter.operations.Operation;
-import at.ooe.fh.mc.codespeech.plugin.Context;
-import at.ooe.fh.mc.codespeech.plugin.utils.UIManager;
+import at.ooe.fh.mc.codespeech.plugin.utils.ASTManager;
+import at.ooe.fh.mc.codespeech.plugin.utils.EditorManager;
 
 public class AddConstructorOperation implements Operation {
 
 	@Override
-	public void perform(Object property) {
-		try {
-			ASTNode node = Context.currentNode;
-			if (node != null) {
+	public void perform(Object property) throws Exception {
+		ASTNode node = ASTManager.getCurrentNode();
+		if (node != null) {
 
-				while(!(node instanceof TypeDeclaration)) {					
-					node = node.getParent();
-				}
-
-				TypeDeclaration typeDeclaration = (TypeDeclaration) node;
-
-				AST ast = node.getAST();		
-				ASTRewrite rewriter = ASTRewrite.create(ast);
-
-				MethodDeclaration constructor = ast.newMethodDeclaration();
-				constructor.setConstructor(true);
-				constructor.setName(ast.newSimpleName(typeDeclaration.getName().toString()));
-
-				Block block = ast.newBlock();
-				block.statements().add(ast.newEmptyStatement());
-				constructor.setBody(block);	
-				
-				ListRewrite listRewrite = rewriter.getListRewrite(node, TypeDeclaration.BODY_DECLARATIONS_PROPERTY);
-				listRewrite.insertFirst(constructor, null);					
-
-				UIManager.moveToNode(constructor.getName());
-				UIManager.updateCompilationUnit(rewriter.rewriteAST());
-
+			if(!(node instanceof TypeDeclaration)) {
+				node = ASTManager.getNextNodeOfType(node.getRoot(), TypeDeclaration.class);
+				if(node == null) return;
 			}
-		} catch(JavaModelException | IllegalArgumentException | BadLocationException exception) {
-			exception.printStackTrace();
-		} 
+
+			TypeDeclaration typeDeclaration = (TypeDeclaration) node;
+
+			AST ast = node.getAST();		
+			ASTRewrite rewriter = ASTRewrite.create(ast);
+
+			MethodDeclaration constructor = ast.newMethodDeclaration();
+			constructor.setConstructor(true);
+			constructor.setName(ast.newSimpleName(typeDeclaration.getName().toString()));
+
+			Block block = ast.newBlock();
+			block.statements().add(ast.newEmptyStatement());
+			constructor.setBody(block);		
+						
+			ListRewrite listRewrite = rewriter.getListRewrite(node, TypeDeclaration.BODY_DECLARATIONS_PROPERTY);
+			listRewrite.insertFirst(constructor, null);					
+
+			EditorManager.updateCompilationUnit(rewriter.rewriteAST());
+			EditorManager.moveToNode(constructor.getName());
+
+		}
 	}
 
 

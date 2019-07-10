@@ -3,9 +3,7 @@ package at.ooe.fh.mc.codespeech.interpreter.operations.modification;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTNode;
-import org.eclipse.jdt.core.dom.Assignment;
-import org.eclipse.jdt.core.dom.Expression;
-import org.eclipse.jdt.core.dom.ExpressionStatement;
+import org.eclipse.jdt.core.dom.ArrayType;
 import org.eclipse.jdt.core.dom.FieldDeclaration;
 import org.eclipse.jdt.core.dom.PrimitiveType;
 import org.eclipse.jdt.core.dom.SimpleType;
@@ -17,11 +15,10 @@ import org.eclipse.jface.text.BadLocationException;
 
 import at.ooe.fh.mc.codespeech.general.utils.StringUtils;
 import at.ooe.fh.mc.codespeech.general.utils.WordToNumber;
-import at.ooe.fh.mc.codespeech.interpreter.models.Model;
 import at.ooe.fh.mc.codespeech.interpreter.models.VariableModel;
 import at.ooe.fh.mc.codespeech.interpreter.operations.Operation;
-import at.ooe.fh.mc.codespeech.plugin.Context;
-import at.ooe.fh.mc.codespeech.plugin.utils.UIManager;
+import at.ooe.fh.mc.codespeech.plugin.utils.ASTManager;
+import at.ooe.fh.mc.codespeech.plugin.utils.EditorManager;
 
 public class InitializeVariableOperation implements Operation {
 
@@ -31,7 +28,7 @@ public class InitializeVariableOperation implements Operation {
 		if(property instanceof VariableModel) {
 			VariableModel variableModel = (VariableModel) property;
 			
-			ASTNode node = Context.currentNode;
+			ASTNode node = ASTManager.getCurrentNode();
 			if (node != null) {
 				AST ast = node.getAST();		
 				ASTRewrite rewriter = ASTRewrite.create(ast);
@@ -59,16 +56,19 @@ public class InitializeVariableOperation implements Operation {
 				VariableDeclarationFragment newDeclarationFragment = ast.newVariableDeclarationFragment();
 				newDeclarationFragment.setName(ast.newSimpleName(declarationFragment.getName().toString()));
 								
-				if(type instanceof SimpleType && ((SimpleType)type).getName().toString().equals("String")) {
-					newDeclarationFragment.setInitializer(StringUtils.getStringLiteral(variableModel.initializator, ast));
+				if(type instanceof SimpleType) {
+					String typeName = ((SimpleType)type).getName().toString();
+					if(typeName.equals("String")) {
+						newDeclarationFragment.setInitializer(StringUtils.getStringLiteral(variableModel.initializator, ast));
+					} 
 				} else {
 					newDeclarationFragment.setInitializer(StringUtils.stringToExpression(variableModel.initializator, ast));					
 				}
-
+				
 				rewriter.replace(declarationFragment, newDeclarationFragment, null);
 				
-				UIManager.updateCompilationUnit(rewriter.rewriteAST());
-				UIManager.moveToNode(newDeclarationFragment);
+				EditorManager.updateCompilationUnit(rewriter.rewriteAST());
+				EditorManager.moveToNode(newDeclarationFragment);
 				
 
 			}	
