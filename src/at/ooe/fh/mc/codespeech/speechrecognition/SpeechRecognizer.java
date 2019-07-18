@@ -185,11 +185,7 @@ public abstract class SpeechRecognizer {
 				microphone.stopRecording();	
 				finished = true;
 			}
-			
-//			if(listenAgain) {
-//				startListening();
-//			}
-			
+		
 		}
 
 		protected boolean timeOut(long elapsedTime) {

@@ -1,9 +1,9 @@
 package at.ooe.fh.mc.codespeech.interpreter.operations.modification;
 
-import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTNode;
-import org.eclipse.jdt.core.dom.ArrayType;
+import org.eclipse.jdt.core.dom.Assignment;
+import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.FieldDeclaration;
 import org.eclipse.jdt.core.dom.PrimitiveType;
 import org.eclipse.jdt.core.dom.SimpleType;
@@ -11,10 +11,9 @@ import org.eclipse.jdt.core.dom.Type;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 import org.eclipse.jdt.core.dom.VariableDeclarationStatement;
 import org.eclipse.jdt.core.dom.rewrite.ASTRewrite;
-import org.eclipse.jface.text.BadLocationException;
 
+import at.ooe.fh.mc.codespeech.general.exceptions.InvalidWordException;
 import at.ooe.fh.mc.codespeech.general.utils.StringUtils;
-import at.ooe.fh.mc.codespeech.general.utils.WordToNumber;
 import at.ooe.fh.mc.codespeech.interpreter.models.VariableModel;
 import at.ooe.fh.mc.codespeech.interpreter.operations.Operation;
 import at.ooe.fh.mc.codespeech.plugin.utils.ASTManager;
@@ -23,7 +22,7 @@ import at.ooe.fh.mc.codespeech.plugin.utils.EditorManager;
 public class InitializeVariableOperation implements Operation {
 
 	@Override
-	public void perform(Object property) throws JavaModelException, IllegalArgumentException, BadLocationException {
+	public void perform(Object property) throws Exception {
 
 		if(property instanceof VariableModel) {
 			VariableModel variableModel = (VariableModel) property;
@@ -48,14 +47,19 @@ public class InitializeVariableOperation implements Operation {
 					return;
 				}
 
+				//TODO: should be done in String utils ?
 			    if(type instanceof PrimitiveType) {
-			    	if(!StringUtils.isNumeric(variableModel.initializator)) {
-			    		variableModel.initializator = Integer.toString(WordToNumber.convert(variableModel.initializator));
-			    	}
+			    	int number;
+			    	try {
+			    		number = StringUtils.getNumber(variableModel.initializator);
+			    		variableModel.initializator = Integer.toString(number);
+			    	} catch(InvalidWordException exception) {
+			    		exception.printStackTrace();
+		    		}
 			    }
 				VariableDeclarationFragment newDeclarationFragment = ast.newVariableDeclarationFragment();
 				newDeclarationFragment.setName(ast.newSimpleName(declarationFragment.getName().toString()));
-								
+											
 				if(type instanceof SimpleType) {
 					String typeName = ((SimpleType)type).getName().toString();
 					if(typeName.equals("String")) {

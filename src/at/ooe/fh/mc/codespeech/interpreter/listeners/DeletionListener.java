@@ -43,14 +43,6 @@ public class DeletionListener extends BaseKeywordListener {
 		changeOperation(new DeleteNodeInLineOperation());
 	}
 
-
-	@Override
-	public void exitDeletion(DeletionContext ctx) {
-		super.exitDeletion(ctx);
-		
-		//context.finish();
-	}
-
 	@Override
 	public void enterArgumentKeyword(ArgumentKeywordContext ctx) {
 		super.enterArgumentKeyword(ctx);
@@ -68,6 +60,11 @@ public class DeletionListener extends BaseKeywordListener {
 	public void enterNumber(NumberContext ctx) {
 		super.enterNumber(ctx);
 		
-		changeProperty(StringUtils.getNumber(ctx.getText().trim()));
+		try {
+			changeProperty(StringUtils.getNumber(ctx.getText().trim()));
+		} catch (Exception e) {
+			e.printStackTrace();
+			cancel();
+		}
 	}
 }

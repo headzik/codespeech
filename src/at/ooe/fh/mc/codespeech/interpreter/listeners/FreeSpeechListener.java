@@ -32,8 +32,8 @@ public class FreeSpeechListener extends BaseKeywordListener {
 
 	@Override
 	public void enterUndo(UndoContext ctx) {
-		changeOperation(new UndoOperation());
-		
 		super.enterUndo(ctx);
+		
+		changeOperation(new UndoOperation());
 	}
 }

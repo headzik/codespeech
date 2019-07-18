@@ -52,7 +52,6 @@ public class GoogleSpeechRecognizer extends SpeechRecognizer{
 				ArrayList<StreamingRecognizeResponse> responses = new ArrayList<>();
 
 				public void onStart(StreamController controller) {
-					eventHandler.post(new OnSpeechChangeEvent(listeners, true));
 				}
 
 				public void onResponse(StreamingRecognizeResponse response) {

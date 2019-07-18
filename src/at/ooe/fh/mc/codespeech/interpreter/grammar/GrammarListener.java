@@ -18,46 +18,6 @@ public interface GrammarListener extends ParseTreeListener {
 	 */
 	void exitCommand(GrammarParser.CommandContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link GrammarParser#undo}.
-	 * @param ctx the parse tree
-	 */
-	void enterUndo(GrammarParser.UndoContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link GrammarParser#undo}.
-	 * @param ctx the parse tree
-	 */
-	void exitUndo(GrammarParser.UndoContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link GrammarParser#freespeech}.
-	 * @param ctx the parse tree
-	 */
-	void enterFreespeech(GrammarParser.FreespeechContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link GrammarParser#freespeech}.
-	 * @param ctx the parse tree
-	 */
-	void exitFreespeech(GrammarParser.FreespeechContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link GrammarParser#stopfreespeech}.
-	 * @param ctx the parse tree
-	 */
-	void enterStopfreespeech(GrammarParser.StopfreespeechContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link GrammarParser#stopfreespeech}.
-	 * @param ctx the parse tree
-	 */
-	void exitStopfreespeech(GrammarParser.StopfreespeechContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link GrammarParser#cancel}.
-	 * @param ctx the parse tree
-	 */
-	void enterCancel(GrammarParser.CancelContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link GrammarParser#cancel}.
-	 * @param ctx the parse tree
-	 */
-	void exitCancel(GrammarParser.CancelContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link GrammarParser#creation}.
 	 * @param ctx the parse tree
 	 */
@@ -78,16 +38,6 @@ public interface GrammarListener extends ParseTreeListener {
 	 */
 	void exitCreationVerb(GrammarParser.CreationVerbContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link GrammarParser#accessModifier}.
-	 * @param ctx the parse tree
-	 */
-	void enterAccessModifier(GrammarParser.AccessModifierContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link GrammarParser#accessModifier}.
-	 * @param ctx the parse tree
-	 */
-	void exitAccessModifier(GrammarParser.AccessModifierContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link GrammarParser#structure}.
 	 * @param ctx the parse tree
 	 */
@@ -97,66 +47,6 @@ public interface GrammarListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitStructure(GrammarParser.StructureContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link GrammarParser#methodInvocation}.
-	 * @param ctx the parse tree
-	 */
-	void enterMethodInvocation(GrammarParser.MethodInvocationContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link GrammarParser#methodInvocation}.
-	 * @param ctx the parse tree
-	 */
-	void exitMethodInvocation(GrammarParser.MethodInvocationContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link GrammarParser#article}.
-	 * @param ctx the parse tree
-	 */
-	void enterArticle(GrammarParser.ArticleContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link GrammarParser#article}.
-	 * @param ctx the parse tree
-	 */
-	void exitArticle(GrammarParser.ArticleContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link GrammarParser#methodNames}.
-	 * @param ctx the parse tree
-	 */
-	void enterMethodNames(GrammarParser.MethodNamesContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link GrammarParser#methodNames}.
-	 * @param ctx the parse tree
-	 */
-	void exitMethodNames(GrammarParser.MethodNamesContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link GrammarParser#variableName}.
-	 * @param ctx the parse tree
-	 */
-	void enterVariableName(GrammarParser.VariableNameContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link GrammarParser#variableName}.
-	 * @param ctx the parse tree
-	 */
-	void exitVariableName(GrammarParser.VariableNameContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link GrammarParser#dot}.
-	 * @param ctx the parse tree
-	 */
-	void enterDot(GrammarParser.DotContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link GrammarParser#dot}.
-	 * @param ctx the parse tree
-	 */
-	void exitDot(GrammarParser.DotContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link GrammarParser#arrayKeyword}.
-	 * @param ctx the parse tree
-	 */
-	void enterArrayKeyword(GrammarParser.ArrayKeywordContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link GrammarParser#arrayKeyword}.
-	 * @param ctx the parse tree
-	 */
-	void exitArrayKeyword(GrammarParser.ArrayKeywordContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link GrammarParser#selection}.
 	 * @param ctx the parse tree
@@ -177,16 +67,6 @@ public interface GrammarListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitSelectionVerb(GrammarParser.SelectionVerbContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link GrammarParser#lineKeyword}.
-	 * @param ctx the parse tree
-	 */
-	void enterLineKeyword(GrammarParser.LineKeywordContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link GrammarParser#lineKeyword}.
-	 * @param ctx the parse tree
-	 */
-	void exitLineKeyword(GrammarParser.LineKeywordContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link GrammarParser#navigation}.
 	 * @param ctx the parse tree
@@ -218,15 +98,15 @@ public interface GrammarListener extends ParseTreeListener {
 	 */
 	void exitNavigationVerb(GrammarParser.NavigationVerbContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link GrammarParser#number}.
+	 * Enter a parse tree produced by {@link GrammarParser#lineKeyword}.
 	 * @param ctx the parse tree
 	 */
-	void enterNumber(GrammarParser.NumberContext ctx);
+	void enterLineKeyword(GrammarParser.LineKeywordContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link GrammarParser#number}.
+	 * Exit a parse tree produced by {@link GrammarParser#lineKeyword}.
 	 * @param ctx the parse tree
 	 */
-	void exitNumber(GrammarParser.NumberContext ctx);
+	void exitLineKeyword(GrammarParser.LineKeywordContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link GrammarParser#modification}.
 	 * @param ctx the parse tree
@@ -257,106 +137,6 @@ public interface GrammarListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitInitializeKeyword(GrammarParser.InitializeKeywordContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link GrammarParser#addition}.
-	 * @param ctx the parse tree
-	 */
-	void enterAddition(GrammarParser.AdditionContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link GrammarParser#addition}.
-	 * @param ctx the parse tree
-	 */
-	void exitAddition(GrammarParser.AdditionContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link GrammarParser#additionKeyword}.
-	 * @param ctx the parse tree
-	 */
-	void enterAdditionKeyword(GrammarParser.AdditionKeywordContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link GrammarParser#additionKeyword}.
-	 * @param ctx the parse tree
-	 */
-	void exitAdditionKeyword(GrammarParser.AdditionKeywordContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link GrammarParser#argumentKeyword}.
-	 * @param ctx the parse tree
-	 */
-	void enterArgumentKeyword(GrammarParser.ArgumentKeywordContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link GrammarParser#argumentKeyword}.
-	 * @param ctx the parse tree
-	 */
-	void exitArgumentKeyword(GrammarParser.ArgumentKeywordContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link GrammarParser#constructorKeyword}.
-	 * @param ctx the parse tree
-	 */
-	void enterConstructorKeyword(GrammarParser.ConstructorKeywordContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link GrammarParser#constructorKeyword}.
-	 * @param ctx the parse tree
-	 */
-	void exitConstructorKeyword(GrammarParser.ConstructorKeywordContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link GrammarParser#parametersKeyword}.
-	 * @param ctx the parse tree
-	 */
-	void enterParametersKeyword(GrammarParser.ParametersKeywordContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link GrammarParser#parametersKeyword}.
-	 * @param ctx the parse tree
-	 */
-	void exitParametersKeyword(GrammarParser.ParametersKeywordContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link GrammarParser#variableType}.
-	 * @param ctx the parse tree
-	 */
-	void enterVariableType(GrammarParser.VariableTypeContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link GrammarParser#variableType}.
-	 * @param ctx the parse tree
-	 */
-	void exitVariableType(GrammarParser.VariableTypeContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link GrammarParser#simpleType}.
-	 * @param ctx the parse tree
-	 */
-	void enterSimpleType(GrammarParser.SimpleTypeContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link GrammarParser#simpleType}.
-	 * @param ctx the parse tree
-	 */
-	void exitSimpleType(GrammarParser.SimpleTypeContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link GrammarParser#assignment}.
-	 * @param ctx the parse tree
-	 */
-	void enterAssignment(GrammarParser.AssignmentContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link GrammarParser#assignment}.
-	 * @param ctx the parse tree
-	 */
-	void exitAssignment(GrammarParser.AssignmentContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link GrammarParser#assignKeyword}.
-	 * @param ctx the parse tree
-	 */
-	void enterAssignKeyword(GrammarParser.AssignKeywordContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link GrammarParser#assignKeyword}.
-	 * @param ctx the parse tree
-	 */
-	void exitAssignKeyword(GrammarParser.AssignKeywordContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link GrammarParser#assignedValue}.
-	 * @param ctx the parse tree
-	 */
-	void enterAssignedValue(GrammarParser.AssignedValueContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link GrammarParser#assignedValue}.
-	 * @param ctx the parse tree
-	 */
-	void exitAssignedValue(GrammarParser.AssignedValueContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link GrammarParser#changeReturnType}.
 	 * @param ctx the parse tree
@@ -418,45 +198,165 @@ public interface GrammarListener extends ParseTreeListener {
 	 */
 	void exitExtension(GrammarParser.ExtensionContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link GrammarParser#primitiveType}.
+	 * Enter a parse tree produced by {@link GrammarParser#addition}.
 	 * @param ctx the parse tree
 	 */
-	void enterPrimitiveType(GrammarParser.PrimitiveTypeContext ctx);
+	void enterAddition(GrammarParser.AdditionContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link GrammarParser#primitiveType}.
+	 * Exit a parse tree produced by {@link GrammarParser#addition}.
 	 * @param ctx the parse tree
 	 */
-	void exitPrimitiveType(GrammarParser.PrimitiveTypeContext ctx);
+	void exitAddition(GrammarParser.AdditionContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link GrammarParser#staticKeyword}.
+	 * Enter a parse tree produced by {@link GrammarParser#additionKeyword}.
 	 * @param ctx the parse tree
 	 */
-	void enterStaticKeyword(GrammarParser.StaticKeywordContext ctx);
+	void enterAdditionKeyword(GrammarParser.AdditionKeywordContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link GrammarParser#staticKeyword}.
+	 * Exit a parse tree produced by {@link GrammarParser#additionKeyword}.
 	 * @param ctx the parse tree
 	 */
-	void exitStaticKeyword(GrammarParser.StaticKeywordContext ctx);
+	void exitAdditionKeyword(GrammarParser.AdditionKeywordContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link GrammarParser#finalKeyword}.
+	 * Enter a parse tree produced by {@link GrammarParser#argumentKeyword}.
 	 * @param ctx the parse tree
 	 */
-	void enterFinalKeyword(GrammarParser.FinalKeywordContext ctx);
+	void enterArgumentKeyword(GrammarParser.ArgumentKeywordContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link GrammarParser#finalKeyword}.
+	 * Exit a parse tree produced by {@link GrammarParser#argumentKeyword}.
 	 * @param ctx the parse tree
 	 */
-	void exitFinalKeyword(GrammarParser.FinalKeywordContext ctx);
+	void exitArgumentKeyword(GrammarParser.ArgumentKeywordContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link GrammarParser#abstractKeyword}.
+	 * Enter a parse tree produced by {@link GrammarParser#constructorKeyword}.
 	 * @param ctx the parse tree
 	 */
-	void enterAbstractKeyword(GrammarParser.AbstractKeywordContext ctx);
+	void enterConstructorKeyword(GrammarParser.ConstructorKeywordContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link GrammarParser#abstractKeyword}.
+	 * Exit a parse tree produced by {@link GrammarParser#constructorKeyword}.
 	 * @param ctx the parse tree
 	 */
-	void exitAbstractKeyword(GrammarParser.AbstractKeywordContext ctx);
+	void exitConstructorKeyword(GrammarParser.ConstructorKeywordContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link GrammarParser#parametersKeyword}.
+	 * @param ctx the parse tree
+	 */
+	void enterParametersKeyword(GrammarParser.ParametersKeywordContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GrammarParser#parametersKeyword}.
+	 * @param ctx the parse tree
+	 */
+	void exitParametersKeyword(GrammarParser.ParametersKeywordContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link GrammarParser#assignment}.
+	 * @param ctx the parse tree
+	 */
+	void enterAssignment(GrammarParser.AssignmentContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GrammarParser#assignment}.
+	 * @param ctx the parse tree
+	 */
+	void exitAssignment(GrammarParser.AssignmentContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link GrammarParser#assignKeyword}.
+	 * @param ctx the parse tree
+	 */
+	void enterAssignKeyword(GrammarParser.AssignKeywordContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GrammarParser#assignKeyword}.
+	 * @param ctx the parse tree
+	 */
+	void exitAssignKeyword(GrammarParser.AssignKeywordContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link GrammarParser#assignedValue}.
+	 * @param ctx the parse tree
+	 */
+	void enterAssignedValue(GrammarParser.AssignedValueContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GrammarParser#assignedValue}.
+	 * @param ctx the parse tree
+	 */
+	void exitAssignedValue(GrammarParser.AssignedValueContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link GrammarParser#undo}.
+	 * @param ctx the parse tree
+	 */
+	void enterUndo(GrammarParser.UndoContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GrammarParser#undo}.
+	 * @param ctx the parse tree
+	 */
+	void exitUndo(GrammarParser.UndoContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link GrammarParser#returnStatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterReturnStatement(GrammarParser.ReturnStatementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GrammarParser#returnStatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitReturnStatement(GrammarParser.ReturnStatementContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link GrammarParser#methodInvocation}.
+	 * @param ctx the parse tree
+	 */
+	void enterMethodInvocation(GrammarParser.MethodInvocationContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GrammarParser#methodInvocation}.
+	 * @param ctx the parse tree
+	 */
+	void exitMethodInvocation(GrammarParser.MethodInvocationContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link GrammarParser#methodNames}.
+	 * @param ctx the parse tree
+	 */
+	void enterMethodNames(GrammarParser.MethodNamesContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GrammarParser#methodNames}.
+	 * @param ctx the parse tree
+	 */
+	void exitMethodNames(GrammarParser.MethodNamesContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link GrammarParser#objectKeyword}.
+	 * @param ctx the parse tree
+	 */
+	void enterObjectKeyword(GrammarParser.ObjectKeywordContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GrammarParser#objectKeyword}.
+	 * @param ctx the parse tree
+	 */
+	void exitObjectKeyword(GrammarParser.ObjectKeywordContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link GrammarParser#cancel}.
+	 * @param ctx the parse tree
+	 */
+	void enterCancel(GrammarParser.CancelContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GrammarParser#cancel}.
+	 * @param ctx the parse tree
+	 */
+	void exitCancel(GrammarParser.CancelContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link GrammarParser#freespeech}.
+	 * @param ctx the parse tree
+	 */
+	void enterFreespeech(GrammarParser.FreespeechContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GrammarParser#freespeech}.
+	 * @param ctx the parse tree
+	 */
+	void exitFreespeech(GrammarParser.FreespeechContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link GrammarParser#stopfreespeech}.
+	 * @param ctx the parse tree
+	 */
+	void enterStopfreespeech(GrammarParser.StopfreespeechContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GrammarParser#stopfreespeech}.
+	 * @param ctx the parse tree
+	 */
+	void exitStopfreespeech(GrammarParser.StopfreespeechContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link GrammarParser#projectKeyword}.
 	 * @param ctx the parse tree
@@ -478,6 +378,16 @@ public interface GrammarListener extends ParseTreeListener {
 	 */
 	void exitPackageKeyword(GrammarParser.PackageKeywordContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link GrammarParser#typeKeyword}.
+	 * @param ctx the parse tree
+	 */
+	void enterTypeKeyword(GrammarParser.TypeKeywordContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GrammarParser#typeKeyword}.
+	 * @param ctx the parse tree
+	 */
+	void exitTypeKeyword(GrammarParser.TypeKeywordContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link GrammarParser#classKeyword}.
 	 * @param ctx the parse tree
 	 */
@@ -488,36 +398,6 @@ public interface GrammarListener extends ParseTreeListener {
 	 */
 	void exitClassKeyword(GrammarParser.ClassKeywordContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link GrammarParser#methodKeyword}.
-	 * @param ctx the parse tree
-	 */
-	void enterMethodKeyword(GrammarParser.MethodKeywordContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link GrammarParser#methodKeyword}.
-	 * @param ctx the parse tree
-	 */
-	void exitMethodKeyword(GrammarParser.MethodKeywordContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link GrammarParser#variableKeyword}.
-	 * @param ctx the parse tree
-	 */
-	void enterVariableKeyword(GrammarParser.VariableKeywordContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link GrammarParser#variableKeyword}.
-	 * @param ctx the parse tree
-	 */
-	void exitVariableKeyword(GrammarParser.VariableKeywordContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link GrammarParser#fieldKeyword}.
-	 * @param ctx the parse tree
-	 */
-	void enterFieldKeyword(GrammarParser.FieldKeywordContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link GrammarParser#fieldKeyword}.
-	 * @param ctx the parse tree
-	 */
-	void exitFieldKeyword(GrammarParser.FieldKeywordContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link GrammarParser#interfaceKeyword}.
 	 * @param ctx the parse tree
 	 */
@@ -527,6 +407,36 @@ public interface GrammarListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitInterfaceKeyword(GrammarParser.InterfaceKeywordContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link GrammarParser#primitiveType}.
+	 * @param ctx the parse tree
+	 */
+	void enterPrimitiveType(GrammarParser.PrimitiveTypeContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GrammarParser#primitiveType}.
+	 * @param ctx the parse tree
+	 */
+	void exitPrimitiveType(GrammarParser.PrimitiveTypeContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link GrammarParser#variableType}.
+	 * @param ctx the parse tree
+	 */
+	void enterVariableType(GrammarParser.VariableTypeContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GrammarParser#variableType}.
+	 * @param ctx the parse tree
+	 */
+	void exitVariableType(GrammarParser.VariableTypeContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link GrammarParser#methodKeyword}.
+	 * @param ctx the parse tree
+	 */
+	void enterMethodKeyword(GrammarParser.MethodKeywordContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GrammarParser#methodKeyword}.
+	 * @param ctx the parse tree
+	 */
+	void exitMethodKeyword(GrammarParser.MethodKeywordContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link GrammarParser#ifStatementKeyword}.
 	 * @param ctx the parse tree
@@ -567,26 +477,6 @@ public interface GrammarListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitForLoopKeyword(GrammarParser.ForLoopKeywordContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link GrammarParser#typeKeyword}.
-	 * @param ctx the parse tree
-	 */
-	void enterTypeKeyword(GrammarParser.TypeKeywordContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link GrammarParser#typeKeyword}.
-	 * @param ctx the parse tree
-	 */
-	void exitTypeKeyword(GrammarParser.TypeKeywordContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link GrammarParser#objectKeyword}.
-	 * @param ctx the parse tree
-	 */
-	void enterObjectKeyword(GrammarParser.ObjectKeywordContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link GrammarParser#objectKeyword}.
-	 * @param ctx the parse tree
-	 */
-	void exitObjectKeyword(GrammarParser.ObjectKeywordContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link GrammarParser#charKeyword}.
 	 * @param ctx the parse tree
@@ -678,6 +568,66 @@ public interface GrammarListener extends ParseTreeListener {
 	 */
 	void exitVoidKeyword(GrammarParser.VoidKeywordContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link GrammarParser#variableName}.
+	 * @param ctx the parse tree
+	 */
+	void enterVariableName(GrammarParser.VariableNameContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GrammarParser#variableName}.
+	 * @param ctx the parse tree
+	 */
+	void exitVariableName(GrammarParser.VariableNameContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link GrammarParser#simpleType}.
+	 * @param ctx the parse tree
+	 */
+	void enterSimpleType(GrammarParser.SimpleTypeContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GrammarParser#simpleType}.
+	 * @param ctx the parse tree
+	 */
+	void exitSimpleType(GrammarParser.SimpleTypeContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link GrammarParser#accessModifier}.
+	 * @param ctx the parse tree
+	 */
+	void enterAccessModifier(GrammarParser.AccessModifierContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GrammarParser#accessModifier}.
+	 * @param ctx the parse tree
+	 */
+	void exitAccessModifier(GrammarParser.AccessModifierContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link GrammarParser#staticKeyword}.
+	 * @param ctx the parse tree
+	 */
+	void enterStaticKeyword(GrammarParser.StaticKeywordContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GrammarParser#staticKeyword}.
+	 * @param ctx the parse tree
+	 */
+	void exitStaticKeyword(GrammarParser.StaticKeywordContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link GrammarParser#finalKeyword}.
+	 * @param ctx the parse tree
+	 */
+	void enterFinalKeyword(GrammarParser.FinalKeywordContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GrammarParser#finalKeyword}.
+	 * @param ctx the parse tree
+	 */
+	void exitFinalKeyword(GrammarParser.FinalKeywordContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link GrammarParser#abstractKeyword}.
+	 * @param ctx the parse tree
+	 */
+	void enterAbstractKeyword(GrammarParser.AbstractKeywordContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GrammarParser#abstractKeyword}.
+	 * @param ctx the parse tree
+	 */
+	void exitAbstractKeyword(GrammarParser.AbstractKeywordContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link GrammarParser#nameKeyword}.
 	 * @param ctx the parse tree
 	 */
@@ -688,6 +638,36 @@ public interface GrammarListener extends ParseTreeListener {
 	 */
 	void exitNameKeyword(GrammarParser.NameKeywordContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link GrammarParser#article}.
+	 * @param ctx the parse tree
+	 */
+	void enterArticle(GrammarParser.ArticleContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GrammarParser#article}.
+	 * @param ctx the parse tree
+	 */
+	void exitArticle(GrammarParser.ArticleContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link GrammarParser#dot}.
+	 * @param ctx the parse tree
+	 */
+	void enterDot(GrammarParser.DotContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GrammarParser#dot}.
+	 * @param ctx the parse tree
+	 */
+	void exitDot(GrammarParser.DotContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link GrammarParser#arrayKeyword}.
+	 * @param ctx the parse tree
+	 */
+	void enterArrayKeyword(GrammarParser.ArrayKeywordContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GrammarParser#arrayKeyword}.
+	 * @param ctx the parse tree
+	 */
+	void exitArrayKeyword(GrammarParser.ArrayKeywordContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link GrammarParser#phrase}.
 	 * @param ctx the parse tree
 	 */
@@ -697,4 +677,14 @@ public interface GrammarListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitPhrase(GrammarParser.PhraseContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link GrammarParser#number}.
+	 * @param ctx the parse tree
+	 */
+	void enterNumber(GrammarParser.NumberContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GrammarParser#number}.
+	 * @param ctx the parse tree
+	 */
+	void exitNumber(GrammarParser.NumberContext ctx);
 }

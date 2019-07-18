@@ -24,10 +24,16 @@ public class NavigationListener extends BaseKeywordListener {
 	public void enterPhrase(PhraseContext ctx) {
 		super.enterPhrase(ctx);
 
+		int lineNumber; 
 		String text = ctx.getText().trim();
-		int lineNumber = StringUtils.getNumber((text)) - 1;
 		
-		changeProperty(lineNumber);
+		try {			
+			lineNumber = StringUtils.getNumber((text)) - 1;
+			changeProperty(lineNumber);
+		} catch (Exception e) {
+			e.printStackTrace();
+			cancel();
+		}
 
 	}
 

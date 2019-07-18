@@ -12,8 +12,11 @@ import at.ooe.fh.mc.codespeech.interpreter.grammar.GrammarParser.ImplementationC
 import at.ooe.fh.mc.codespeech.interpreter.grammar.GrammarParser.InitializeKeywordContext;
 import at.ooe.fh.mc.codespeech.interpreter.grammar.GrammarParser.MethodInvocationContext;
 import at.ooe.fh.mc.codespeech.interpreter.grammar.GrammarParser.NavigationContext;
+import at.ooe.fh.mc.codespeech.interpreter.grammar.GrammarParser.PhraseContext;
+import at.ooe.fh.mc.codespeech.interpreter.grammar.GrammarParser.ReturnStatementContext;
 import at.ooe.fh.mc.codespeech.interpreter.grammar.GrammarParser.SelectionContext;
 import at.ooe.fh.mc.codespeech.interpreter.grammar.GrammarParser.UndoContext;
+import at.ooe.fh.mc.codespeech.interpreter.operations.modification.ReturnOperation;
 import at.ooe.fh.mc.codespeech.interpreter.operations.modification.UndoOperation;
 
 public class InitialListener extends BaseKeywordListener {
@@ -113,4 +116,12 @@ public class InitialListener extends BaseKeywordListener {
 
 		context.continueWith(new ExtensionListener(context));
 	}
+	
+	@Override
+	public void enterReturnStatement(ReturnStatementContext ctx) {
+		super.enterReturnStatement(ctx);
+		
+		context.continueWith(new ReturnListener(context));
+	}
+	
 }

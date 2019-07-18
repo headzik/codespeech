@@ -20,9 +20,8 @@ public abstract class BaseKeywordListener extends GrammarBaseListener {
 	@Override
 	public void enterCancel(CancelContext ctx) {
 		super.enterCancel(ctx);
-				
-		context.finish();
-		context.setCurrentListener(new InitialListener(context));
+		
+		cancel();
 	}
 	
 	@Override
@@ -70,5 +69,12 @@ public abstract class BaseKeywordListener extends GrammarBaseListener {
 		super.exitCommand(ctx);
 		
 		context.finish();
+	}
+	
+	protected void cancel() {
+		changeOperation(null);
+		changeProperty(null);
+		context.finish();
+		context.setCurrentListener(new InitialListener(context));
 	}
 }

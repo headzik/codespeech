@@ -77,9 +77,10 @@ public class PluginManager extends Plugin implements SpeechRecognitionListener, 
 	
 	long startTime;
 	
+	ArrayList<Long> speakingTimes = new ArrayList<>();
 	ArrayList<Long> recognitionTimes = new ArrayList<>();
 	ArrayList<Long> operationTimes = new ArrayList<>();
-	
+
 	/**
 	 * Method called on the start of the plugin. All necessary initializations
 	 * are performed here. 
@@ -105,7 +106,7 @@ public class PluginManager extends Plugin implements SpeechRecognitionListener, 
 		speechRecognizer.addListener(getDefault());
 		
 		DateFormat dateFormat = new SimpleDateFormat("yyyy_MM_dd HH_mm");
-		File file = new File(dateFormat.format(new Date()) + "recognition_log.txt");
+		File file = new File(dateFormat.format(new Date()) + "recognition_log.csv");
 		log = new FileWriter(file);
 	}
 
@@ -114,26 +115,45 @@ public class PluginManager extends Plugin implements SpeechRecognitionListener, 
 	 */
 	@Override
 	public void stop(BundleContext context) throws Exception {
-		long sum = 0;
-		long average = 0;
-		for(Long time: recognitionTimes) {
-			sum += time;
-		}
-		average = sum / recognitionTimes.size();
-		log.append("\n average recognition time: " + average/1000.00 + "s \n");
-
-		sum = 0;
-		average = 0;
-		for(Long time: operationTimes) {
-			sum += time;
-		}
-		average = sum / operationTimes.size();
-		log.append("\n average operation time: " + average/1000.00 + "s \n");
-		
-		log.close();
-		instance = null;
 		turnOffRecognition();
 		speechRecognizer.shutdown();
+		
+		long sum;
+		long average;
+
+		if (!speakingTimes.isEmpty()) {
+			sum = 0;
+			average = 0;
+			for(Long time: speakingTimes) {
+				sum += time;
+			}
+			average = sum / speakingTimes.size();
+			log.append("\n average speaking time; " + average/1000.00 + " \n");
+		}
+
+		if (!recognitionTimes.isEmpty()) {
+			sum = 0;
+			average = 0;
+			for(Long time: recognitionTimes) {
+				sum += time;
+			}
+			average = sum / recognitionTimes.size();
+			log.append("\n average recognition time; " + average/1000.00 + " \n");
+		}
+
+		if (!operationTimes.isEmpty()) {
+			sum = 0;
+			average = 0;
+			for(Long time: operationTimes) {
+				sum += time;
+			}
+			average = sum / operationTimes.size();
+			log.append("\n average operation time; " + average/1000.00 + " \n");
+		}
+
+		log.flush();
+		log.close();
+		instance = null;
 		super.stop(context);
 	}
 
@@ -188,7 +208,16 @@ public class PluginManager extends Plugin implements SpeechRecognitionListener, 
 	 */
 	@Override
 	public void onEndOfSpeech() {
-		//System.out.println("end");
+		try {
+			long speakingTime = (System.currentTimeMillis() - startTime);
+			speakingTimes.add(speakingTime);
+			log.append(" Speaking time; " + speakingTime/1000.00 + " \n");
+
+			startTime = System.currentTimeMillis();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 	/**
@@ -197,13 +226,16 @@ public class PluginManager extends Plugin implements SpeechRecognitionListener, 
 	@Override
 	public void onResult(String result) {
 		try {
-			long recognitionTime = (System.currentTimeMillis() - startTime);
-			recognitionTimes.add(recognitionTime);
-			log.append(result);
-			log.append(" time: " + recognitionTime/1000.00 + "s \n");
+//			long recognitionTime = (System.currentTimeMillis() - startTime);
+//			recognitionTimes.add(recognitionTime);
+			log.append("Result; " + result + ";1; \n");
+//			log.append(" time; " + recognitionTime/1000.00 + "s \n");
+//
+//			startTime = System.currentTimeMillis();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		startTime = System.currentTimeMillis();
 		System.out.println(result);
 		interpret(result);	
 	}
@@ -274,7 +306,8 @@ public class PluginManager extends Plugin implements SpeechRecognitionListener, 
 				operationTimes.add(operationTime);
 				log.append("<-------- " +  command.getOperation().getClass().getSimpleName().toString());
 				command.execute();		
-				log.append(" time: " + operationTime/1000.00 + "s \n");
+				log.append(" time; " + operationTime/1000.00 + ";;1 \n");
+				log.flush();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

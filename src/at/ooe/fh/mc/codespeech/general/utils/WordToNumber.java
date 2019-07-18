@@ -5,6 +5,8 @@ package at.ooe.fh.mc.codespeech.general.utils;
 import java.util.Arrays;
 import java.util.List;
 
+import at.ooe.fh.mc.codespeech.general.exceptions.InvalidWordException;
+
 public class WordToNumber {
 
 	static int result;
@@ -20,8 +22,7 @@ public class WordToNumber {
 					);
 
 
-	//TODO: change -1 to exception
-	public static int convert(String numericWordToConvert) {
+	public static int convert(String numericWordToConvert) throws InvalidWordException {
 		finalResult = 0;
 		result = 0;
 
@@ -36,7 +37,7 @@ public class WordToNumber {
 				if(!allowedStrings.contains(str))
 				{
 					System.out.println("Invalid word found : "+str);
-					return -1;
+					throw new InvalidWordException("Word is not a number");
 				}
 			}
 			for(String str : splittedParts)

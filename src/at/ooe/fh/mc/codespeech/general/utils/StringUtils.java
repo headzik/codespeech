@@ -222,19 +222,12 @@ public class StringUtils {
 		return stringToModify.trim().toLowerCase().replace(" ", ".");
 	}
 
-	public static int getNumber(String text) {
-		int number = -1;
+	public static int getNumber(String text) throws Exception {
+		int number = 0;
 		if(StringUtils.isNumeric(text)) {
-			try {
-				number = Integer.parseInt(text);
-			} catch (NumberFormatException e) {
-				e.printStackTrace();				
-			}
+			number = Integer.parseInt(text);
 		} else {
-			int numeric = WordToNumber.convert(text);
-			if(numeric >= 0) {
-				number = numeric;
-			}
+			number = WordToNumber.convert(text);
 		}
 		return number;
 	}
