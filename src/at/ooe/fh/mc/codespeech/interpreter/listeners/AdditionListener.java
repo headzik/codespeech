@@ -42,6 +42,11 @@ public class AdditionListener extends BaseKeywordListener {
 		model.isArray = context.isArray;
 		model.simpleType = context.simpleType;
 		changeProperty(model);
+	}
+	
+	@Override
+	public void exitParametersKeyword(ParametersKeywordContext ctx) {
+		super.exitParametersKeyword(ctx);
 		changeOperation(new AddParameterOperation());
 	}
 	

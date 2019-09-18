@@ -24,10 +24,19 @@ public class AddConstructorOperation implements Operation {
 		ASTNode node = ASTManager.getCurrentNode();
 		if (node != null) {
 
-			if(!(node instanceof TypeDeclaration)) {
-				node = ASTManager.getNextNodeOfType(node.getRoot(), TypeDeclaration.class);
-				if(node == null) return;
+			while(node != null && !(node instanceof TypeDeclaration)) {					
+				node = node.getParent();
 			}
+
+			if(node == null) {
+				node = ASTManager.getCurrentNode();
+
+				if(!(node instanceof TypeDeclaration)) {
+					node = ASTManager.getNextNodeOfType(node.getRoot(), TypeDeclaration.class);
+					if(node == null) return;
+				}
+			}
+			
 
 			TypeDeclaration typeDeclaration = (TypeDeclaration) node;
 
@@ -37,13 +46,14 @@ public class AddConstructorOperation implements Operation {
 			MethodDeclaration constructor = ast.newMethodDeclaration();
 			constructor.setConstructor(true);
 			constructor.setName(ast.newSimpleName(typeDeclaration.getName().toString()));
+			constructor.modifiers().add(ast.newModifier(Modifier.ModifierKeyword.PUBLIC_KEYWORD));
 
 			Block block = ast.newBlock();
 			block.statements().add(ast.newEmptyStatement());
 			constructor.setBody(block);		
 						
 			ListRewrite listRewrite = rewriter.getListRewrite(node, TypeDeclaration.BODY_DECLARATIONS_PROPERTY);
-			listRewrite.insertFirst(constructor, null);					
+			listRewrite.insertLast(constructor, null);					
 
 			EditorManager.updateCompilationUnit(rewriter.rewriteAST());
 			EditorManager.moveToNode(constructor.getName());

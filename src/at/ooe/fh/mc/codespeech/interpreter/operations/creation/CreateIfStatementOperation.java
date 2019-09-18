@@ -4,6 +4,7 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.Block;
+import org.eclipse.jdt.core.dom.EmptyStatement;
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.IfStatement;
 import org.eclipse.jdt.core.dom.rewrite.ASTRewrite;
@@ -23,7 +24,7 @@ public class CreateIfStatementOperation implements Operation {
 			ConditionalModel ifModel = (ConditionalModel) property;
 			ASTNode node = ASTManager.getCurrentNode();
 			if (node != null) {
-			
+				
 				AST ast = node.getAST();		
 				ASTRewrite rewriter = ASTRewrite.create(ast);
 				
@@ -32,16 +33,14 @@ public class CreateIfStatementOperation implements Operation {
 				
 				ifStatement.setExpression(conditionExpression);
 				Block thenBlock = ast.newBlock();
-				thenBlock.statements().add(ast.newEmptyStatement());
+				EmptyStatement emtpyStatement = ast.newEmptyStatement();
+				thenBlock.statements().add(emtpyStatement);
 				ifStatement.setThenStatement(thenBlock);
 				ASTManager.insertStatement(ifStatement, node, rewriter);
 				
-				try {
-					EditorManager.updateCompilationUnit(rewriter.rewriteAST());
-					EditorManager.moveToNode(ifStatement);
-				} catch (JavaModelException | IllegalArgumentException | BadLocationException e) {
-					e.printStackTrace();
-				}
+				EditorManager.updateCompilationUnit(rewriter.rewriteAST());
+
+				EditorManager.moveToNode(emtpyStatement);		
 			}
 		}
 	}

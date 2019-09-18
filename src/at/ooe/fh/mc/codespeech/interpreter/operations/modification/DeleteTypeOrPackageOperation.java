@@ -15,6 +15,7 @@ public class DeleteTypeOrPackageOperation implements Operation {
 
 			try {
 				selectedElement.getJavaModel().delete(new IJavaElement [] {selectedElement}, true, null);
+				PackageExplorerManager.selectAndReveal(selectedElement.getParent());
 			} catch (JavaModelException e) {
 				e.printStackTrace();
 			}

@@ -12,7 +12,7 @@
                   commandId="at.ooe.fh.mc.codespeech.toggleSpeechRecognition"
                   icon="rsc/icon/voice-icon3.png"
                   label="SR"
-                  style="push">
+                  style="toggle">
             </command>
          </toolbar>
       </menuContribution>

@@ -33,11 +33,7 @@ public class ReturnOperation  implements Operation {
 
 				ASTManager.insertStatement(returnStatement, node, rewriter);
 
-				try {
-					EditorManager.updateCompilationUnit(rewriter.rewriteAST());
-				} catch (JavaModelException | IllegalArgumentException | BadLocationException e) {
-					e.printStackTrace();
-				}
+				EditorManager.updateCompilationUnit(rewriter.rewriteAST());
 				EditorManager.moveToNode(returnStatement);
 			}
 

@@ -164,7 +164,7 @@ public class EditorManager {
 	 * @throws JavaModelException if error with Java model
 	 * @throws PartInitException if error with location
 	 */
-	public static void openNewEditor(ICompilationUnit compilationUnit) throws JavaModelException, PartInitException {
+	public static void openNewEditor(ICompilationUnit compilationUnit) {
 		Display.getDefault().asyncExec(new Runnable() {
 			@Override
 			public void run() {
@@ -175,6 +175,7 @@ public class EditorManager {
 
 					PackageExplorerManager.reveal(compilationUnit);	
 					IDE.openEditor(page, file);
+					ASTManager.findNewNode();
 				} catch (JavaModelException | PartInitException e) {
 					e.printStackTrace();
 				}

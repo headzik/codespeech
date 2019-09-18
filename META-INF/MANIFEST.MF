@@ -54,11 +54,12 @@ Bundle-ClassPath: .,
  lib/proto-google-iam-v1-0.12.0.jar,
  lib/protobuf-java-3.6.1.jar,
  lib/protobuf-java-util-3.6.1.jar,
- lib/ST4-4.0.8.jar,
- lib/threetenbp-1.3.3.jar,
- lib/sphinx4-data-1.0.0.jar,
  lib/sphinx4-core-1.0.0-javadoc.jar,
- lib/sphinx4-core-1.0.0.jar
+ lib/sphinx4-core-1.0.0.jar,
+ lib/sphinx4-custom-core.jar,
+ lib/sphinx4-data-1.0.0.jar,
+ lib/ST4-4.0.8.jar,
+ lib/threetenbp-1.3.3.jar
 Bundle-Activator: at.ooe.fh.mc.codespeech.plugin.PluginManager
 Export-Package: at.ooe.fh.mc.codespeech.general.events,
  at.ooe.fh.mc.codespeech.general.exceptions,
@@ -105,9 +106,8 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.ltk.core.refactoring;bundle-version="3.9.100",
  org.eclipse.ui,
  org.eclipse.core.runtime,
- org.apache.commons.lang3
-Import-Package: at.ooe.fh.mc.codespeech.speechrecognition,
- org.eclipse.ui.texteditor
+ org.apache.commons.lang3,
+ org.eclipse.ui.workbench.texteditor
 Automatic-Module-Name: at.ooe.fh.mc.codespeech;singleton:=true
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-10

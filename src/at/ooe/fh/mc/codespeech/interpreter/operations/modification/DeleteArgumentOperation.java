@@ -33,7 +33,7 @@ public class DeleteArgumentOperation implements Operation {
 						listRewrite.remove(argument, null);	
 						
 						EditorManager.updateCompilationUnit(rewriter.rewriteAST());
-						EditorManager.moveToNode(methodInvocation);					
+						EditorManager.moveToNode(methodInvocation.getName());					
 					}
 
 				}

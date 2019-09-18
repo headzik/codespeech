@@ -7,6 +7,7 @@ import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.Block;
 import org.eclipse.jdt.core.dom.BodyDeclaration;
+import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.Modifier;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
@@ -23,14 +24,16 @@ import at.ooe.fh.mc.codespeech.plugin.utils.EditorManager;
 public class CreateMethodOperation implements Operation {
 
 	@Override
-	public void perform(Object property) {
+	public void perform(Object property) throws Exception {
 		if(property instanceof MethodModel) {
 			MethodModel methodModel = (MethodModel) property;
 
-			try {
 				ASTNode node = ASTManager.getCurrentNode();
 				if (node != null) {
-
+					
+					if(node instanceof CompilationUnit) {
+						node = ASTManager.getNextNodeOfType(node, TypeDeclaration.class);
+					}
 					while(!(node instanceof TypeDeclaration)) {					
 						node = node.getParent();
 					}
@@ -85,9 +88,6 @@ public class CreateMethodOperation implements Operation {
 					EditorManager.moveToNode(methodDeclaration);
 
 				}
-			} catch(JavaModelException | IllegalArgumentException | BadLocationException exception) {
-				exception.printStackTrace();
-			} 
 
 		}
 	}

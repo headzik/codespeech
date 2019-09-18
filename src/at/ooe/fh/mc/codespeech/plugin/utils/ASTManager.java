@@ -12,6 +12,7 @@ import org.eclipse.jdt.core.dom.Block;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.EmptyStatement;
 import org.eclipse.jdt.core.dom.Statement;
+import org.eclipse.jdt.core.dom.StructuralPropertyDescriptor;
 import org.eclipse.jdt.core.dom.rewrite.ASTRewrite;
 import org.eclipse.jdt.core.dom.rewrite.ListRewrite;
 
@@ -97,6 +98,10 @@ public abstract class ASTManager {
 		Block body = null;
 		if(node.getParent() instanceof Block) {
 			body = (Block) node.getParent();
+		}
+		ArrayList<ASTNode> bodies = new ArrayList<>();
+		if(body == null) {
+			body = (Block) getNextNodeOfType(node, Block.class);
 		}
 		return body;
 	}

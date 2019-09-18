@@ -6,7 +6,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -73,13 +72,13 @@ public class PluginManager extends Plugin implements SpeechRecognitionListener, 
 	 */
 	SpeechRecognizer speechRecognizer;
 	
-	FileWriter log;
+//	FileWriter log;
 	
-	long startTime;
+//	long startTime;
 	
-	ArrayList<Long> speakingTimes = new ArrayList<>();
-	ArrayList<Long> recognitionTimes = new ArrayList<>();
-	ArrayList<Long> operationTimes = new ArrayList<>();
+//	ArrayList<Long> speakingTimes = new ArrayList<>();
+//	ArrayList<Long> recognitionTimes = new ArrayList<>();
+//	ArrayList<Long> operationTimes = new ArrayList<>();
 
 	/**
 	 * Method called on the start of the plugin. All necessary initializations
@@ -105,9 +104,9 @@ public class PluginManager extends Plugin implements SpeechRecognitionListener, 
 		
 		speechRecognizer.addListener(getDefault());
 		
-		DateFormat dateFormat = new SimpleDateFormat("yyyy_MM_dd HH_mm");
-		File file = new File(dateFormat.format(new Date()) + "recognition_log.csv");
-		log = new FileWriter(file);
+//		DateFormat dateFormat = new SimpleDateFormat("yyyy_MM_dd HH_mm");
+//		File file = new File(dateFormat.format(new Date()) + "recognition_log.csv");
+//		log = new FileWriter(file);
 	}
 
 	/**
@@ -118,41 +117,41 @@ public class PluginManager extends Plugin implements SpeechRecognitionListener, 
 		turnOffRecognition();
 		speechRecognizer.shutdown();
 		
-		long sum;
-		long average;
+//		long sum;
+//		long average;
 
-		if (!speakingTimes.isEmpty()) {
-			sum = 0;
-			average = 0;
-			for(Long time: speakingTimes) {
-				sum += time;
-			}
-			average = sum / speakingTimes.size();
-			log.append("\n average speaking time; " + average/1000.00 + " \n");
-		}
-
-		if (!recognitionTimes.isEmpty()) {
-			sum = 0;
-			average = 0;
-			for(Long time: recognitionTimes) {
-				sum += time;
-			}
-			average = sum / recognitionTimes.size();
-			log.append("\n average recognition time; " + average/1000.00 + " \n");
-		}
-
-		if (!operationTimes.isEmpty()) {
-			sum = 0;
-			average = 0;
-			for(Long time: operationTimes) {
-				sum += time;
-			}
-			average = sum / operationTimes.size();
-			log.append("\n average operation time; " + average/1000.00 + " \n");
-		}
-
-		log.flush();
-		log.close();
+//		if (!speakingTimes.isEmpty()) {
+//			sum = 0;
+//			average = 0;
+//			for(Long time: speakingTimes) {
+//				sum += time;
+//			}
+//			average = sum / speakingTimes.size();
+//			log.append("\n average speaking time; " + average/1000.00 + " \n");
+//		}
+//
+//		if (!recognitionTimes.isEmpty()) {
+//			sum = 0;
+//			average = 0;
+//			for(Long time: recognitionTimes) {
+//				sum += time;
+//			}
+//			average = sum / recognitionTimes.size();
+//			log.append("\n average recognition time; " + average/1000.00 + " \n");
+//		}
+//
+//		if (!operationTimes.isEmpty()) {
+//			sum = 0;
+//			average = 0;
+//			for(Long time: operationTimes) {
+//				sum += time;
+//			}
+//			average = sum / operationTimes.size();
+//			log.append("\n average operation time; " + average/1000.00 + " \n");
+//		}
+//
+//		log.flush();
+//		log.close();
 		instance = null;
 		super.stop(context);
 	}
@@ -194,71 +193,6 @@ public class PluginManager extends Plugin implements SpeechRecognitionListener, 
 		log(status);
 	}
 
-	/**
-	 * {@link RecognitionListener.onBeginningOfSpeech}
-	 */
-	@Override
-	public void onBeginningOfSpeech() {
-		//System.out.println("start");
-		startTime = System.currentTimeMillis();
-	}
-
-	/**
-	 * {@link RecognitionListener.onEndOfSpeech}
-	 */
-	@Override
-	public void onEndOfSpeech() {
-		try {
-			long speakingTime = (System.currentTimeMillis() - startTime);
-			speakingTimes.add(speakingTime);
-			log.append(" Speaking time; " + speakingTime/1000.00 + " \n");
-
-			startTime = System.currentTimeMillis();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-	}
-
-	/**
-	 * {@link RecognitionListener.onResult}
-	 */
-	@Override
-	public void onResult(String result) {
-		try {
-//			long recognitionTime = (System.currentTimeMillis() - startTime);
-//			recognitionTimes.add(recognitionTime);
-			log.append("Result; " + result + ";1; \n");
-//			log.append(" time; " + recognitionTime/1000.00 + "s \n");
-//
-//			startTime = System.currentTimeMillis();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		startTime = System.currentTimeMillis();
-		System.out.println(result);
-		interpret(result);	
-	}
-
-	/**
-	 * {@link RecognitionListener.onError}
-	 */
-	@Override
-	public void onError(Throwable throwable) {
-		throwable.printStackTrace();
-	}
-
-	/**
-	 * {@link RecognitionListener.onTimeout}
-	 */
-	@Override
-	public void onTimeout() {
-		System.out.println("Timeout");
-		//speechRecognizer.stopListening();
-		turnOffRecognition();
-		//speechRecognizer.startListening();
-	}
-
 	public void toggle() {
 		if(!speechRecognizer.isOn()) {	    		    	
 			turnOnRecognition();
@@ -298,20 +232,87 @@ public class PluginManager extends Plugin implements SpeechRecognitionListener, 
 		interpreter.interpret(utterance.toLowerCase());
 	}
 
+
+	/**
+	 * {@link RecognitionListener.onBeginningOfSpeech}
+	 */
+	@Override
+	public void onBeginningOfSpeech() {
+		//System.out.println("start");
+//		startTime = System.currentTimeMillis();
+	}
+
+	/**
+	 * {@link RecognitionListener.onEndOfSpeech}
+	 */
+	@Override
+	public void onEndOfSpeech() {
+//		try {
+////			long speakingTime = (System.currentTimeMillis() - startTime);
+////			speakingTimes.add(speakingTime);
+////			log.append(" Speaking time; " + speakingTime/1000.00 + " \n");
+////
+////			startTime = System.currentTimeMillis();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+		
+	}
+
+	/**
+	 * {@link RecognitionListener.onResult}
+	 */
+	@Override
+	public void onResult(String result) {
+//		try {
+////			long recognitionTime = (System.currentTimeMillis() - startTime);
+////			recognitionTimes.add(recognitionTime);
+////			log.append("Result; " + result + ";1; \n");
+////			log.append(" time; " + recognitionTime/1000.00 + "s \n");
+////
+////			startTime = System.currentTimeMillis();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//		startTime = System.currentTimeMillis();
+		System.out.println(result);
+		interpret(result);	
+	}
+
+	/**
+	 * {@link RecognitionListener.onError}
+	 */
+	@Override
+	public void onError(Throwable throwable) {
+		throwable.printStackTrace();
+	}
+
+	/**
+	 * {@link RecognitionListener.onTimeout}
+	 */
+	@Override
+	public void onTimeout() {
+		System.out.println("Timeout");
+		//speechRecognizer.stopListening();
+		turnOffRecognition();
+		//speechRecognizer.startListening();
+	}
+	
+
 	@Override
 	public void onInterpretationFinished(Command command) {
 		if(command.isSet()) {
-			try {
-				long operationTime = (System.currentTimeMillis() - startTime);
-				operationTimes.add(operationTime);
-				log.append("<-------- " +  command.getOperation().getClass().getSimpleName().toString());
+//			try {
+//				long operationTime = (System.currentTimeMillis() - startTime);
+//				operationTimes.add(operationTime);
+//				log.append("<-------- " +  command.getOperation().getClass().getSimpleName().toString());
 				command.execute();		
-				log.append(" time; " + operationTime/1000.00 + ";;1 \n");
-				log.flush();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+//				log.append(" time; " + operationTime/1000.00 + ";;1 \n");
+//				log.flush();
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
 		}
 	}
 

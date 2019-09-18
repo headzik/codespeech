@@ -39,7 +39,7 @@ public class StringUtils {
 		} else if(isPrefix(stringExpression)){
 			PrefixExpression prefixExpression = ast.newPrefixExpression();
 			prefixExpression.setOperator(PrefixExpression.Operator.NOT);
-			prefixExpression.setOperand(ast.newName(stringExpression.replace("!", "")));
+			prefixExpression.setOperand(getProperLiteral(stringExpression.replace("not ", ""), ast));
 			expression = prefixExpression;
 		} else {
 			expression = getProperLiteral(stringExpression, ast);
@@ -66,7 +66,7 @@ public class StringUtils {
 	 * @return true if expression was recognized as prefix, false if not
 	 */
 	private static boolean isPrefix(String expression) {
-		return expression.startsWith("!");
+		return expression.startsWith("not ");
 	}	
 
 	/**
@@ -106,7 +106,7 @@ public class StringUtils {
 	private static Matcher getComparatorMatcher(String stringToMatch) {
 		String comparators = "is less than | is less or equal to | "
 							+ "is greater than | is greater or equal to |"
-							+ "is equal to | equals | is not equal to | is different than"; //==|!=|>=|<=|<|>";
+							+ "is equal to | equals to | equals | is not equal to | is different than"; //==|!=|>=|<=|<|>";
 		Pattern pattern = Pattern.compile(comparators);
 		Matcher matcher = pattern.matcher(stringToMatch);
 		//matcher.find();

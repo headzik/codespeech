@@ -48,12 +48,8 @@ public class ChangeReturnTypeOperation implements Operation {
 					
 				rewriter.replace(oldReturnType, newReturnType, null);
 				
-				try {
-					EditorManager.updateCompilationUnit(rewriter.rewriteAST());
-					EditorManager.moveToNode(newReturnType);
-				} catch (JavaModelException | IllegalArgumentException | BadLocationException e) {
-					e.printStackTrace();
-				}
+				EditorManager.updateCompilationUnit(rewriter.rewriteAST());
+				EditorManager.moveToNode(((MethodDeclaration)node).getName());
 			}
 		}
 	}

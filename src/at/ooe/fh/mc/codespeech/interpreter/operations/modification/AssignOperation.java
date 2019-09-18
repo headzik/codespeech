@@ -32,6 +32,8 @@ public class AssignOperation implements Operation {
 				//								
 				Assignment assignment = ast.newAssignment();
 				assignment.setLeftHandSide(ast.newSimpleName(variableModel.name));
+				
+				
 				assignment.setRightHandSide(ast.newSimpleName(variableModel.initializator));
 				assignment.setOperator(Operator.ASSIGN);					
 				ExpressionStatement expressionStatement = ast.newExpressionStatement(assignment);
@@ -39,7 +41,7 @@ public class AssignOperation implements Operation {
 				ASTManager.insertStatement(expressionStatement, node, rewriter);
 				//this below should be an event/observer thing
 				EditorManager.updateCompilationUnit(rewriter.rewriteAST());
-				EditorManager.moveToNode(expressionStatement);
+				EditorManager.moveToNode(assignment);
 				//}
 
 			}

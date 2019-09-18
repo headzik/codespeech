@@ -2,6 +2,7 @@ package at.ooe.fh.mc.codespeech.interpreter.listeners;
 
 
 import at.ooe.fh.mc.codespeech.general.utils.StringUtils;
+import at.ooe.fh.mc.codespeech.general.utils.WordToNumber;
 import at.ooe.fh.mc.codespeech.interpreter.InterpreterContext;
 import at.ooe.fh.mc.codespeech.interpreter.grammar.GrammarParser.*;
 import at.ooe.fh.mc.codespeech.interpreter.operations.modification.*;
@@ -62,6 +63,18 @@ public class DeletionListener extends BaseKeywordListener {
 		
 		try {
 			changeProperty(StringUtils.getNumber(ctx.getText().trim()));
+		} catch (Exception e) {
+			e.printStackTrace();
+			cancel();
+		}
+	}
+	
+	@Override
+	public void enterPhrase(PhraseContext ctx) {
+		super.enterPhrase(ctx);
+		
+		try {
+			changeProperty(WordToNumber.convert(ctx.getText().trim()));
 		} catch (Exception e) {
 			e.printStackTrace();
 			cancel();

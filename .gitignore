@@ -62,3 +62,5 @@ model/en-us/acoustic-pocketsphinx/mdef
 model/en-us/acoustic-pocketsphinx/feat.params
 model/en-us/acoustic-pocketsphinx/README
 *.csv
+plugin.zip
+logs.zip

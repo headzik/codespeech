@@ -29,7 +29,7 @@ public class DeleteParameterOperation implements Operation {
 					listRewrite = rewriter.getListRewrite(node, MethodDeclaration.PARAMETERS_PROPERTY);
 					listRewrite.remove(decl,  null);	
 					EditorManager.updateCompilationUnit(rewriter.rewriteAST());
-					EditorManager.moveToNode(decl);					
+					EditorManager.moveToNode(methodDeclaration.getName());					
 
 
 				}
