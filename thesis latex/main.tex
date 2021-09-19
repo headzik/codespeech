@@ -1,0 +1,89 @@
+%%% File encoding: UTF-8
+%% äöüÄÖÜß  <-- no German Umlauts here? Use an UTF-8 compatible editor!
+
+%%% Magic comments for setting the correct parameters in compatible IDEs
+% !TeX encoding = utf8
+% !TeX program = pdflatex 
+% !TeX spellcheck = en_US
+% !BIB program = biber
+
+\documentclass[master,english]{hgbthesis}
+% Permissible options in [..]: 
+%   Type of work: diploma, master (default), bachelor, internship 
+%   Main language: german, english (default)
+%%%----------------------------------------------------------
+
+\RequirePackage[utf8]{inputenc}		% Remove when using lualatex or xelatex entfernen!
+
+\usepackage[graphicx]{realboxes}
+\usepackage{rotating}
+\usepackage{array}
+
+\makeatletter% Set distance from top of page to first float
+\setlength{\@fptop}{5pt}
+\makeatother
+
+\graphicspath{{images/}}    % location of images and graphics
+\logofile{logo}				% logo file = images/logo.pdf (use \logofile{} for no logo)
+\bibliography{references}  	% name of bibliography file (references.bib)
+
+%%%----------------------------------------------------------
+% Title page entries
+%%%----------------------------------------------------------
+
+%%% Entries for ALL types of work: --------------------------
+\title{CodeSpeech: An Eclipse Plugin for \\Java Programming by Voice }
+\author{Łukasz Strzelecki}
+\programname{Mobile Computing}
+\placeofstudy{Hagenberg}
+\dateofsubmission{2019}{08}{26}	% {YYYY}{MM}{DD}
+
+%%% Restricted publication license instead of CC (master only):
+%\strictlicense
+
+%%%----------------------------------------------------------
+\begin{document}
+%%%----------------------------------------------------------
+
+%%%----------------------------------------------------------
+\frontmatter							% title part (roman page numbers)
+%%%----------------------------------------------------------
+
+\maketitle
+\tableofcontents
+
+%\include{front/preface} 	% preface is optional
+\include{front/abstract}
+%\include{front/kurzfassung}
+
+%%%----------------------------------------------------------
+\mainmatter          			% main part (arabic page numbers)
+%%%----------------------------------------------------------
+
+\include{chapters/introduction}
+\include{chapters/related_work}
+\include{chapters/tools}
+\include{chapters/method}
+\include{chapters/implementation}
+\include{chapters/evaluation}
+\include{chapters/conclusions}
+
+%%%----------------------------------------------------------
+\appendix                                         % appendix 
+%%%----------------------------------------------------------
+
+%\include{back/appendix_a}	% technical supplements
+\include{back/appendix_b}	% contents of the CD-ROM/DVD
+%\include{back/appendix_c}	% chronological list of changes
+\include{back/appendix_d}	% source text of this document
+
+%%%----------------------------------------------------------
+\MakeBibliography                        				% references
+%%%----------------------------------------------------------
+
+%%% special page for checking print size --------------------
+\include{back/printbox}
+
+%%%----------------------------------------------------------
+\end{document}
+%%%----------------------------------------------------------

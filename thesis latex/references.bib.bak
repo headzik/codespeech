@@ -1,0 +1,346 @@
+
+@InProceedings{Arnold2000,
+  author       = {Arnold, Stephen C. and Mark, Leo and Goldthwaite, John},
+  title        = {Programming By Voice, Vocal Programming},
+  booktitle    = {Proceedings of the fourth international ACM conference on Assistive technologies},
+  year         = {2000},
+  pages        = {149--155},
+  organization = {ACM},
+  abstract     = {A system that enables a person to program without typing is needed because of the high incidents of repetitive stress injuries among people who program. This paper presents a design for a system that generates environments that enables people to program by voice and a method of determining if the system is successful. It also shows how this generator can be used to support entering data and writing XML documents. },
+  comment      = {Comments how commercial speech-to-text programs fail in field of programming taking into account its specific syntax (punctuations, braces etc). They describe VocalGenerator - generates as output a programming environment in which the programmer can write programs by voice input alone after providing lanugauges CFG and voice vocabulary of the language. Provides easy navigation by recgonizion structures (classes). Auto-completing structure (if creates all of the braces). Points out that programming languages have limited vocabulary compared to natural languages, therefore it is easier to recognize specific words. Gives example on creation of syntex-directed programming.},
+  file         = {:G\:/UNI/sem3/MasterThesis/related work/Programming By Voice, Vocal Programming.pdf:PDF},
+  keywords     = {programming by voice},
+}
+
+@InProceedings{Desilets2006,
+  author       = {D{\'e}silets, Alain and Fox, David C. and Norton, Stuart},
+  title        = {Voicecode: An innovative speech interface for programming-by-voice},
+  booktitle    = {CHI'06 Extended Abstracts on Human Factors in Computing Systems},
+  year         = {2006},
+  pages        = {239--242},
+  organization = {ACM},
+  abstract     = {In this paper we describe VoiceCode, a system for programming-by-voice. With VoiceCode, programmers can dictate code in an easy to pronounce syntax, which the system translates to native syntax in the current programming language. We illustrate how this approach addresses most of the usability issues for programming-by-voice. },
+  file         = {:G\:/UNI/sem3/MasterThesis/related work/Voicecode An innovative speech interface for programming-by-voice.pdf:PDF},
+  keywords     = {programming by voice},
+}
+
+@InProceedings{Begel2005,
+  author    = {Begel, Andrew},
+  title     = {Programming by voice: A domain-specific application of speech recognition},
+  booktitle = {AVIOS speech technology symposium--SpeechTek West},
+  year      = {2005},
+  abstract  = {Programmers who suffer from repetitive stress injuries have difficulty staying productive in a work environment that requires long hours of typing. Programming By Voice helps to lower these barriers by enabling developers to reduce their dependence on typing by using speech. We exploit the domain-specific nature of programming, and apply programming language-based analyses to a naturally verbalized form of authoring, editing and navigating through code. We have developed Spoken Java, a dialect of Java that is more naturally verbalized by human developers, along with a command and control language designed to enable programmers to find pieces of code and modify them in high-level linguistic ways. },
+  comment   = {Comments how commercial speech-to-text programs fail in field of programming taking into account its specific syntax (punctuations, braces etc). Criticises use of rule-based grammar (VoiceGrip) for awkward, overstylized code entry pointing out that context-sensitive detection and keyword triggered code template expansion fixes it a bit. Praises NaturalJava for parts of it pointing out that "there are restrictions on the form of the input, and the decision tree/case frame mechanism used to determine system actions is somewhat ad hoc". Syntax-directed editing in VocalGrammar has also limitations. Introduces SpokenJava -  designed to be semantically isomorphic to Java – despite the different input method a programmer uses to enter program text, the result is indistinguishable from a traditionally coded Java program. They made a research first - made people read a program out loud. They realized differences e.g. between native speakers and non-natives, problem with punctuations, homophones. They introduced SPED plugin for eclipse (not available anymore) and program analysis framework called Harmonia (boshernitsan2001harmonia). Harmonia can recognize, handle and support ambiguities through the syntactic phases of program analysis [Begel 04], as well as execute semantic analyses to disambiguate the myriad possible interpretations of the input that the first two phases create. They introduced Blender -  a lexer and parser generator that can merge descriptions of formally specified languages (for instance, from Spoken Java and its associated command language) into a tool that seamlessly recognizes the combination used for high-level program manipulations (refactoring). They described a way of finding out phrases combined out of many words (fileToLoad). 
+},
+  file      = {:G\:/UNI/sem3/MasterThesis/related work/Programming By Voice A Domain-specific Application of Speech Recognition.pdf:PDF},
+  keywords  = {programming by voice},
+}
+
+@Article{Desilets2001,
+  author    = {Desilets, Alain},
+  title     = {VoiceGrip: a tool for programming-by-voice},
+  journal   = {International Journal of Speech Technology},
+  year      = {2001},
+  volume    = {4},
+  number    = {2},
+  pages     = {103--116},
+  abstract  = {In recent years, there has been an increase in the number of computer programmers suffering from RepetitiveStrainInjury(RSI)—anumbrellatermcoveringaseriesofmusculoskeletaldisorderscausedbyrepetitive motion of the hands and arms. For those individuals, or any programmer with a handicap that precludes keyboard and/or mouse input, Speech Recognition (SR) is an attractive alternative because it could allow them to do their work without using such devices. Unfortunately, programming-by-voice with current SR systems is awkward because programming languages are not meant to be spoken. In this paper we describe various usability problems with programming-by-voice and show that none of the existing programming-by-voice tools address all of those barriers. We then present VoiceGrip, a programming-by-voice tool that adresses the widest range of programmingby-voiceproblemstodate.VoiceGripusesauniqueapproachwhereprogrammersﬁrstdictatecodeusinganeasyto utter pseudo-syntax, and then translate that automatically to native code in the appropriate programming language. The system has been downloaded by 343 individuals, and postings on a neutral programming-by-voice mailing list indicate that it is being used by at least some of them. We also present an experiment evaluating the performance of the system’s symbol translation algorithm. In this experiment, the system exhibited low error rates in the range of 2.7% when confusion between homophonic symbols (i.e. symbols that have the same spoken pseudo code form) was ignored and 6.6% when confusion between homophonic symbols was taken into account. Finally, even though VoiceGrip is the tool that currently addresses the widest range of programming-by-voice problems, we conclude that a better tool can be developed by combining features of VoiceGrip with features of other existing programming-by-voice tools.},
+  comment   = {Comments how commercial speech-to-text programs fail in field of programming taking into account its specific syntax (punctuations, braces etc). Voice and cognitive load not wanted. Not natural, based on dictation of code using a pseudo code syntax (strict, needs for learning) because uses rule-based grammar. Lists problem of programming using current (2001) SR:
+
+code dictation 
+•punctuation (. / {})
+•symbols  (currRecNum)
+code navigation 
+•global navigation (in file)
+•local navigation (separate files)
+error correction
+mouse-free operation
+
+Compares different existing tools with VoiceGrip with coverage of code editing problems as criteria.
+
+Code navigation done by "search code"...
+VoiceGrip is cross editor and cross SR.
+Pseudot code is dictated, written in editor and then CodeTranslator after starting translates it to native code.
+Users would like to have option of error correction similar to SR (mark and list of similar appears).
+Not as productive as mouse and keyboard, covers most of code editing problems.
+//CachePad allows dictating eg "symbol N" for using alrady entered symbol... interesting
+},
+  file      = {:G\:/UNI/sem3/MasterThesis/related work/VoiceGrip a tool for programming-by-voice.pdf:PDF},
+  keywords  = {programming by voice},
+  publisher = {Springer},
+}
+
+@InProceedings{Wagner2012,
+  author       = {Wagner, Amber and Rudraraju, Ramaraju and Datla, Srinivasa and Banerjee, Avishek and Sudame, Mandar and Gray, Jeff},
+  title        = {Programming by voice: a hands-free approach for motorically challenged children},
+  booktitle    = {CHI'12 Extended Abstracts on Human Factors in Computing Systems},
+  year         = {2012},
+  pages        = {2087--2092},
+  organization = {ACM},
+  abstract     = {This paper introduces a voice-driven tool applied to an Initial Programming Environment (IPE), which gives motorically challenged individuals the opportunity to learn programming skills; in particular, our project allows programming by voice within Scratch. Although the native Scratch environment allows users to create a program by arranging graphical blocks logically, such visual languages are completely dependent on the use of a mouse and keyboard. This modality of interaction limits users based on physical abilities. Our solution is a tool, called Myna, which is a voice-driven Java application executed parallel to Scratch. Myna processes voice commands from the user, interprets those commands according to a pre-defined grammar, and simulates synonymous actions of a mouse and keyboard within Scratch. The resulting environment assists those with a motor disability (particularly young children) in learning the joy of programming. This extended abstract describes the motivation behind the project, a technical description of Myna, and defines the current work in progress.},
+  file         = {:G\:/UNI/sem3/MasterThesis/related work/Programming by voice a hands-free approach for motorically challenged children.pdf:PDF},
+  keywords     = {programming by voice},
+}
+
+@Article{Snell2000,
+  author   = {Snell, Lindsey and Cunningham, Mr Jim},
+  title    = {An investigation into programming by voice and development of a toolkit for writing voice-controlled applications},
+  journal  = {M. Eng. Report, Imperial College of Science, Technology and Medicine, London},
+  year     = {2000},
+  abstract = {This project investigates the problems associated with, and solutions to, the task of programming by voice. In
+addition it provides a toolkit for rapid development of voice−controlled software.
+At present very little research has been carried out in the field of programming by voice but, as voice recognition
+software continues to improve and basic entry−level computers are able to cope with the computational demands
+of such software, interest is increasing. In the USA alone there are in the region of 3 million people who are unable
+to use a computer via normal methods but could interact with one by voice. Enabling such people to programme
+would open the door to the fastest growing industry in the world. So far research has been on informal basis (no
+papers have been written on the subject) and has focused on developing macros for existing text editors on the
+Unix platform.
+This project aims to broaden the current state of research by developing an editor specifically designed to be
+controlled by voice, which supports the programming task and runs on all the major platforms. It also introduces
+new ideas for improving the programming task and provides a formal investigation into whether these methods
+(both those currently used and those proposed during the project) actually improve the task.
+It was found that providing a method of automatically replacing certain keywords with specific text was the major
+factor in improving the programming task. Another key factor that improves efficiency is to provide a method of
+automatically creating variable, class and function names from a series of distinct words. Software has been
+written building upon approaches suggested by other research but the fastest method was found to be one
+developed by the author. This new method works by examining the context in which the text is dictated and
+automatically detecting when the user is trying to dictate a variable, class or function name.
+The use of the software developed as a toolkit for rapid development of voice−controlled software was proven by
+developing a simple drawing package in a matter of hours.},
+  file     = {:G\:/UNI/sem3/MasterThesis/related work/AN INVESTIGATION INTO PROGRAMMING BY VOICE AND.PDF:PDF},
+  keywords = {programming by voice},
+}
+
+@InProceedings{Price2002,
+  author       = {Price, David E and Dahlstrom, DA and Newton, Ben and Zachary, Joseph L},
+  title        = {Using a" Wizard of Oz" study to learn how to design a spoken language interface for programming},
+  booktitle    = {Frontiers in Education, 2002. FIE 2002. 32nd Annual},
+  year         = {2002},
+  volume       = {1},
+  pages        = {T2G--T2G},
+  organization = {IEEE},
+  abstract     = { We are in the early stages of developing a spoken language inferface that will help beginners write programs. Our goal is a system in which a student will talk to a computer using English sentences, in response to which the computer will generate syntactically correct Java source code. We believe that such a system would help beginning students by allowing them tofocus on con- cepts insfead ofsyntactic details, and that it would also be a boon to students with visual or mobility impairments. As a prelude to designing and implementing such a system, we evaluated the concept via a mzard of Ozstudy. Volun- teer subjects were told that they were helping us evaluate a working system. In rea&, an accompiished program- mer was playing the role ofthe purported system, and we were studying how the subjects interacted with if. We de- scribe the system that we envision, discuss the process of running a Wizard of Oz study in the context of our own recently completed studxand summarize our preliminary results. },
+  file         = {:G\:/UNI/sem3/MasterThesis/related work/USING A “WIZARD OF OZ” STUDY TO LEARN HOW TO.pdf:PDF},
+  groups       = {Human-Computer Interactions},
+}
+
+@InProceedings{Price2000,
+  author       = {Price, David and Rilofff, Ellen and Zachary, Joseph and Harvey, Brandon},
+  title        = {NaturalJava: a natural language interface for programming in Java},
+  booktitle    = {Proceedings of the 5th international conference on Intelligent user interfaces},
+  year         = {2000},
+  pages        = {207--211},
+  organization = {ACM},
+  abstract     = {NaturalJava is a prototype for an intelligent natural-languagebased
+user interface for creating, modifying, and examining Java
+programs. The interface exploits three subsystems. The
+Sundance natural language processing system accepts English
+sentences as input and uses information extraction techniques
+to generate case frames representing program construction and
+editing directives. A knowledge-based case flame interpreter,
+PRISM, uses a decision tree to infer program modification
+operations tiom the case thunes. A Java abstract syntax tree
+manager, TreeFace, provides the interface that PRISM uses to
+build and navigate the tree representation of an evolving Java
+program. In this paper, we describe the technical details of each
+component, explain the capabilities of the user interface, and
+present examples of NaturalJava in use. },
+  comment      = {Sundunce natural language - for recognizing natural language to generate case frames representing program construction and editing directives., TreeFace - java abstract syntax tree used by PRISM - which uses decision trees to infer program modification operations tiom the case frames to  build and navigate the tree representation of an evolving Java program. NaturalJava was not complete because they did not provide all case frames in PRISM or AST support in TreeFace. Edition not supported. },
+  file         = {:G\:/UNI/sem3/MasterThesis/related work/NaturalJava A Natural Language Interface for.pdf:PDF},
+  groups       = {Other programming techniques},
+}
+
+@Article{Begel2004a,
+  author    = {Begel, Andrew and Graham, Susan L},
+  title     = {Language analysis and tools for ambiguous input streams},
+  journal   = {Electronic Notes in Theoretical Computer Science},
+  year      = {2004},
+  volume    = {110},
+  pages     = {75--96},
+  abstract  = {Automatically generated lexers and parsers for programming languages have a long history. Although they are well-suited for many languages, many widely-used generators, among them Flex and Bison, fail to handle input stream ambiguities that arise in embedded languages, in legacy languages, and in programming by voice. We have developed Blender, a combined lexer and parser generator that enables designers to describe many classes of embedded languages and to handle ambiguities in spoken input and in legacy languages. We have enhanced the incremental lexing and parsing algorithms in our Harmonia framework to analyze lexical, syntactic and semantic ambiguities. The combination of better language description and enhanced analysis provides a powerful platform on which to build the next generation of language analysis tools.},
+  file      = {:G\:/UNI/sem3/MasterThesis/related work/Language Analysis and Tools for Ambiguous.pdf:PDF},
+  groups    = {Other programming techniques},
+  publisher = {Elsevier},
+}
+
+@Book{Boshernitsan2001,
+  title     = {Harmonia: A flexible framework for constructing interactive language-based programming tools},
+  publisher = {Computer Science Division, University of California},
+  year      = {2001},
+  author    = {Boshernitsan, Marat},
+  abstract  = {Despite many attempts in both research and industry to develop successful language-based software
+engineering tools, the resulting systems consistently fail to become adopted by working programmers.
+One of the main reasons for this failure is the closed-world view adopted by these systems: it is virtually
+impossible to integrate them with any outside technology. To address this problem, and to create a exible research infrastructure, we created HARMONIA, an open framework for constructing interactive
+language-based programming tools. This report presents the architecture of the HARMONIA framework.
+We briefly review the design of the two earlier Berkeley pro jects, the PAN and ENSEMBLE systems, discuss
+their inuences on the design of HARMONIA, and present the organization and interactions of the ma jor
+components in the HARMONIA framework.},
+  file      = {:G\:/UNI/sem3/MasterThesis/related work/HARMONIA  A Flexible Framework for Constructing Interactive.pdf:PDF},
+  groups    = {Other programming techniques},
+}
+
+@Article{Shinde2017,
+  author   = {Shinde, Archana R},
+  title    = {Natural Language Interface for Java Programming: Survey},
+  journal  = {International Journal on Recent and Innovation Trends in Computing and Communication},
+  year     = {2017},
+  volume   = {5},
+  number   = {11},
+  pages    = {17--20},
+  abstract = {It is really difficult for new  programmers  to deal with the programming language syntax while learning programming .New programmers often struggle because they are forced to learn syntax and general programming skills simultaneously. NaturalJava is a prototype text-based natural language interface for Java programming that accepts English sentences from the keyboard and produces syntactically correct Java source code. This interface mainly contains three components:first is a Sundance which is a  partial parser, second is  PRISM, A knowledge-based case frame interpreter and third component is Treeface, Abstract Syntax Tree(AST) Manager. This paper aims to provide overview on NaturalJava Prototype which converts english sentences into java source code.  
+ },
+  file     = {:G\:/UNI/sem3/MasterThesis/related work/Natural Language Interface for Java ProgrammingSurvey.pdf:PDF},
+  groups   = {Other programming techniques},
+}
+
+@Article{English2015,
+  author  = {English, Matt},
+  title   = {The Efficiency of Programming Through Automated Speech Recognition},
+  year    = {2015},
+  comment = {Main focus of the paper is to test efficiency of HMM when varying of number of hidden states and/or length of observations.
+
+Quick introduction to how speech is used by machine learning algorithms using HMM and Viterbi Algorithmt that finds a proper path to piecing together phonemes and Bayesian Inference to change probabilities over time.
+
+The paper points out important issues with programming using SR: 
+1. Background noise
+2. Navigation - in a file (deleting, modifying code), between files
+3. Usage of previously defined variables - need of backtracking
+4. Numbers - ("two" vs 2)
+5. Want to wait for the text to appear, rather than trusting for words to be transcribed correctly
+6. Varying accents (recognize speech -> wreck a nice beach, homonyms - "to", "too", "two") - solved by looking at the context, calibration of user's voice to the program to normalize frequencies, rather than generalize frequences to all users
+
+Point out - 'Difference in speed between typing versus speaking, measured in words per minute, also benefits the argument that coding by speech may be more efficient than typing simply because we can speak faster than we type. The average speaking speed for speech recognition software is "at about 105 words per minute".  It drops when taken into account error correction, but is still better than many jobs that require keyboard speeds of 60-70 wpm. ( Page 9/10) - hard to apply for programming.
+
+HMM is crucial because they store voice commands which can be used to produce text or perform actions (more states are added to HMM)
+
+Small library vs big library - small library has less power to perform actions by voice, good for frequently used commands, with larger library more freedom is possible, but long time to transfer text 
+
+**Find Bettini and Chin's for debugging by voice
+
+**DEMACS and ELSE
+
+**CachePad, EmacsListe
+
+Fast Fourier Transformation - changing waveforms to frequencies (transform to frequency domain) - complexity O(N^2) N - number of samples in tme
+
+Reesults: assuming that 1.5 secs or higher is too long for speech recgonition, following values of observation length vs size of HMM become to be inefficient:
+500-10.000. This proves that even if the sequence of phonemes (up to 500 which is the limit) is not relevant, because for voice coding 500 phonemes is illogical number to be used in practice, the size of grammar (commands possible) is finite. Not common but important commands should be combined with another command to decrease the size of HMM.
+
+},
+  file    = {:G\:/UNI/sem3/MasterThesis/related work/The Efficiency of Programming Through Automated Speech Recognition.pdf:PDF},
+}
+
+@Article{Tremblay2010,
+  author    = {Tremblay, Mark Stephen and Colley, Rachel Christine and Saunders, Travis John and Healy, Genevieve Nissa and Owen, Neville},
+  title     = {Physiological and health implications of a sedentary lifestyle},
+  journal   = {Applied physiology, nutrition, and metabolism},
+  year      = {2010},
+  volume    = {35},
+  number    = {6},
+  pages     = {725--740},
+  file      = {:G\:/UNI/sem3/MasterThesis/related work/Physiological and health implications of a sedentary lifestyle.pdf:PDF},
+  publisher = {NRC Research Press},
+}
+
+@Article{VanTulder2007,
+  author    = {Van Tulder, Maurits and Malmivaara, Antti and Koes, Bart},
+  title     = {Repetitive strain injury},
+  journal   = {The Lancet},
+  year      = {2007},
+  volume    = {369},
+  number    = {9575},
+  pages     = {1815--1822},
+  file      = {:G\:/UNI/sem3/MasterThesis/related work/sdarticle.pdf:PDF},
+  publisher = {Elsevier},
+}
+
+@Article{,
+  title = {webArtiicle},
+  file  = {:G\:/UNI/sem3/MasterThesis/related work/webArticle.pdf:PDF},
+}
+
+@InProceedings{Rodriguez-Cartagena2015,
+  author       = {Rodriguez-Cartagena, Jean K and Claudio-Palacios, Andrea C and Pacheco-Tallaj, Natalia and Santiago Gonz{\'a}lez, Valerie and Ordonez-Franco, Patricia},
+  title        = {The implementation of a vocabulary and grammar for an open-source speech-recognition programming platform},
+  booktitle    = {Proceedings of the 17th International ACM SIGACCESS Conference on Computers \& Accessibility},
+  year         = {2015},
+  pages        = {447--448},
+  organization = {ACM},
+}
+
+@PhdThesis{Bouse2017,
+  author = {Bouse, Leana Morgan},
+  title  = {Voice and gesture development environment: keyboard free programming},
+  year   = {2017},
+  file   = {:G\:/UNI/sem3/MasterThesis/related work/VOICE AND GESTURE DEVELOPMENT ENVIRONMENT KEYBOARD FREE PROGRAMMING.pdf:PDF},
+}
+
+@InProceedings{Fogel1989,
+  author       = {Fogel, David B and Fogel, LJ},
+  title        = {Evolutionary programming for voice feature analysis},
+  booktitle    = {Twenty-Third Asilomar Conference on Signals, Systems and Computers, 1989.},
+  year         = {1989},
+  pages        = {381--383},
+  organization = {IEEE},
+  file         = {:G\:/UNI/sem3/MasterThesis/related work/Evolutionary Programming for Voice Feature Analysis .pdf:PDF},
+}
+
+@PhdThesis{Islam2018,
+  author = {Islam, MD and Mobarak, Hosne and Islam, MD and others},
+  title  = {Voice command based android java code generator},
+  school = {BRAC University},
+  year   = {2018},
+  file   = {:G\:/UNI/sem3/MasterThesis/related work/Voice Command based Android Java Code Generator .pdf:PDF},
+}
+
+@Article{Rosenblatt2018,
+  author = {Rosenblatt, Lucas and Carrington, Patrick and Hara, Kotaro and Bigham, Jeffrey P},
+  title  = {Vocal Programming for People with Upper-Body Motor Impairments},
+  year   = {2018},
+  file   = {:G\:/UNI/sem3/MasterThesis/related work/Vocal Programming for People with Upper-Body Motor Impairments.pdf:PDF},
+}
+
+@InProceedings{Leopold1997,
+  author       = {Leopold, Jennifer L and Ambler, Allen L},
+  title        = {Keyboardless visual programming using voice, handwriting, and gesture},
+  booktitle    = {Visual Languages, 1997. Proceedings. 1997 IEEE Symposium on},
+  year         = {1997},
+  pages        = {28--35},
+  organization = {IEEE},
+  file         = {:G\:/UNI/sem3/MasterThesis/related work/Keyboardless visual programming using voice, handwriting, and gesture.pdf:PDF},
+}
+
+@InProceedings{Hermans2018,
+  author       = {Hermans, Felienne and Swidan, Alaaeddin and Aivaloglou, Efthimia},
+  title        = {Code Phonology: an exploration into the vocalization of code},
+  booktitle    = {Proceedings of the 26th Conference on Program Comprehension},
+  year         = {2018},
+  pages        = {308--311},
+  organization = {ACM},
+  file         = {:G\:/UNI/sem3/MasterThesis/related work/Code Phonology an exploration into the vocalization of code.pdf:PDF},
+}
+
+@InProceedings{Begel2004,
+  author       = {Begel, Andrew},
+  title        = {Spoken language support for software development},
+  booktitle    = {Visual Languages and Human Centric Computing, 2004 IEEE Symposium on},
+  year         = {2004},
+  pages        = {271--272},
+  organization = {IEEE},
+}
+
+@Article{,
+  title = {How speech recognition works},
+  url   = {https://electronics.howstuffworks.com/gadgets/high-tech-gadgets/speech-recognition1.htm},
+}
+
+@InProceedings{Bettini1990,
+  author       = {Bettini, Claudio and Chin, S},
+  title        = {Towards a speech oriented programming environment},
+  booktitle    = {Computer and Communication Systems, 1990. IEEE TENCON'90., 1990 IEEE Region 10 Conference on},
+  year         = {1990},
+  pages        = {592--595},
+  organization = {IEEE},
+}

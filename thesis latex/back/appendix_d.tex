@@ -1,0 +1,130 @@
+\chapter{Source Code}
+\label{app:SourceCode}
+
+
+\begin{program}[hbt!]
+    \caption{ Soundable interface. }
+    \label{appendix:soundable}
+    \begin{JavaCode}
+package animals.interfaces;
+
+public interface Soundable {
+	
+	public String speak();
+	public String sound();
+}  \end{JavaCode}
+\end{program}
+
+
+\begin{program}[hbt!]
+    \caption{ Animal abstract class implementing Soundable interface. }
+    \label{appendix:animal}
+    \begin{JavaCode}
+package animals.models;
+
+import animals.interfaces.Soundable;
+
+public abstract class Animal implements Soundable {
+
+	String name;
+	
+	public Animal(String name) {
+		this.name = name;
+	}
+	
+	public String speak() {
+		return name + " says " + sound();
+	}
+	
+}  \end{JavaCode}
+\end{program}
+
+\begin{program}[hbt!]
+    \caption{ Cow class extending Animal. }
+    \label{appendix:cow}
+    \begin{JavaCode}
+package animals.models;
+
+public class Cow extends Animal {
+
+	public Cow(String name) {
+		super(name);
+	}
+	
+	@Override
+	public String sound() {
+		return "mooo";
+	}
+
+}  \end{JavaCode}
+\end{program}
+
+
+\begin{program}[hbt!]
+    \caption{ Horse class extending Animal. }
+    \label{appendix:horse}
+    \begin{JavaCode}
+package animals.models;
+
+public class Horse extends Animal {
+
+	public Horse(String name) {
+		super(name);
+	}
+	
+	@Override
+	public String sound() {
+		return "niaagh";
+	}
+
+}  \end{JavaCode}
+\end{program}
+
+
+\begin{program}[hbt!]
+    \caption{ Sheep class extending Animal. }
+    \label{appendix:sheep}
+    \begin{JavaCode}
+package animals.models;
+
+public class Sheep extends Animal {
+
+	public Sheep(String name) {
+		super(name);
+	}
+	
+	public String sound() {
+		return "beee";
+	}
+}  \end{JavaCode}
+\end{program}
+
+\begin{program}[hbt!]
+    \caption{ Animals class with main method printing to the console. }
+    \label{appendix:animals}
+    \begin{JavaCode}
+package animals;
+
+import animals.models.Animal;
+import animals.models.Cow;
+import animals.models.Horse;
+import animals.models.Sheep;
+
+public class Animals {
+
+	public static void main(String[] args) {
+		String horseName = "Unicorn";
+		String cowName = "Bully";
+		String sheepName = "Little Lamb";
+		
+		Animal horse = new Horse(horseName);
+		Animal cow = new Cow(cowName);
+		Animal sheep = new Sheep(sheepName);
+		
+		System.out.println(horse.speak());
+		System.out.println(cow.speak());
+		System.out.println(sheep.speak());
+	}
+
+} \end{JavaCode}
+\end{program}
